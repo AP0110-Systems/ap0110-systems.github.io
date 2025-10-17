@@ -1,0 +1,38 @@
+{
+  "name": "ap0110-systems-website",
+  "version": "1.0.0",
+  "description": "Official website for AP0110 Systems - Providing independent internet access to disenfranchised children worldwide",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "globe.gl": "^2.25.0",
+    "html2canvas": "^1.4.1",
+    "leaflet": "^1.9.4",
+    "next": "^15.5.5",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-leaflet": "^5.0.0",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@types/leaflet": "^1.9.21",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/three": "^0.150.0",
+    "autoprefixer": "^10.4.0",
+    "clsx": "^2.1.1",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "postcss": "^8.4.0",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5.0.0"
+  }
+}
