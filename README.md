@@ -1,27 +1,3 @@
-# AP0110 Systems Website
-
-The official website for AP0110 Systems, focused on providing independent internet access to disenfranchised children around the world.
-
-## About
-
-AP0110 Systems is a technology company with a mission to provide independent internet access to disenfranchised children globally. The website showcases our technology solutions, community initiatives, and educational resources.
-
-## Website Sections
-
-- **Home**: Main landing page with community information and calls to action
-- **Children**: Interactive globe visualization showing global reach and impact
-- **Web 4.0**: Comprehensive whitepaper on decentralized internet access
-- **Education**: Technology solutions and educational resources
-
-## Technologies
-
-- **Next.js 15**: React framework with App Router
-- **React 19**: Latest React with modern features
-- **TypeScript**: Type-safe development
-- **TailwindCSS**: Utility-first styling
-- **Three.js**: 3D globe visualization
-- **Leaflet**: Interactive maps
-
 ## Getting Started
 
 ### Prerequisites
@@ -71,26 +47,3 @@ src/
 ├── types/           # TypeScript definitions
 └── utils/           # Utility functions
 ```
-
-## Features
-
-- **Interactive 3D Globe**: Visual representation of global connectivity
-- **Responsive Design**: Optimized for all devices
-- **Modern UI**: Glassmorphism design with smooth animations
-- **Educational Content**: Web 4.0 whitepaper and technology documentation
-- **Community Focus**: Information about contributing and volunteering
-
-## Deployment
-
-The website is configured for GitHub Pages deployment and can also be deployed to Vercel or other platforms.
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## Mission
-
-**AP0110 Systems Mission**: Provide Independent Internet to disenfranchised children around the world
