@@ -1,0 +1,145 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Los Angeles",
+          "rank": 1,
+          "population_est_2025": "~3,878,704",
+          "building": "Los Angeles City Hall",
+          "address": "200 North Spring Street, Los Angeles, CA 90012"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.2430, 34.0536]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Diego",
+          "rank": 2,
+          "population_est_2025": "~1,404,452",
+          "building": "San Diego City Hall",
+          "address": "202 C Street, San Diego, CA 92101"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.1611, 32.7161]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Jose",
+          "rank": 3,
+          "population_est_2025": "~997,368",
+          "building": "San Jose City Hall",
+          "address": "200 East Santa Clara Street, San Jose, CA 95113"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.8848, 37.3385]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Francisco",
+          "rank": 4,
+          "population_est_2025": "~827,526",
+          "building": "San Francisco City Hall",
+          "address": "1 Dr Carlton B Goodlett Pl, San Francisco, CA 94102"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.4192, 37.7791]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Fresno",
+          "rank": 5,
+          "population_est_2025": "~550,105",
+          "building": "Fresno City Hall",
+          "address": "2600 Fresno Street, Fresno, CA 93721"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-119.7840, 36.7388]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Sacramento",
+          "rank": 6,
+          "population_est_2025": "~535,798",
+          "building": "Sacramento City Hall",
+          "address": "915 I Street, Sacramento, CA 95814"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.4944, 38.5816]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Long Beach",
+          "rank": 7,
+          "population_est_2025": "~450,901",
+          "building": "Long Beach City Hall",
+          "address": "411 W Ocean Blvd, Long Beach, CA 90802"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.1960, 33.7663]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Oakland",
+          "rank": 8,
+          "population_est_2025": "~443,554",
+          "building": "Oakland City Hall",
+          "address": "1 Frank H Ogawa Plaza, Oakland, CA 94612"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.2711, 37.8044]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Bakersfield",
+          "rank": 9,
+          "population_est_2025": "~417,468",
+          "building": "Bakersfield City Hall",
+          "address": "1501 Truxtun Avenue, Bakersfield, CA 93301"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-119.0194, 35.3728]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Anaheim",
+          "rank": 10,
+          "population_est_2025": "~344,561",
+          "building": "Anaheim City Hall",
+          "address": "200 S Anaheim Blvd, Anaheim, CA 92805"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.9150, 33.8345]
+        }
+      }
+    ]
+  }

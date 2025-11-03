@@ -134,7 +134,7 @@ const HomePage: React.FC = () => {
           <div className="w-full mb-8">
             <h1 className="text-4xl font-bold mb-2.5 font-mono">AP0110</h1>
             <p className="text-xl mb-4 font-light">
-              <b>Mission:</b> Provide Independent Internet to disenfranchised children around the world.
+              <b>Mission:</b> Provide Independent Internet (Web 4.0) and resilient connectivity to disenfranchised children around the world.
             </p>
           </div>
           

@@ -1,0 +1,834 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Los Angeles",
+          "building": "Los Angeles City Hall",
+          "address": "200 North Spring Street, Los Angeles, CA 90012"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.2430, 34.0536]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Diego",
+          "building": "San Diego City Hall",
+          "address": "202 C Street, San Diego, CA 92101"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.1611, 32.7161]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Jose",
+          "building": "San Jose City Hall",
+          "address": "200 East Santa Clara Street, San Jose, CA 95113"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.8848, 37.3385]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Francisco",
+          "building": "San Francisco City Hall",
+          "address": "1 Dr Carlton B Goodlett Pl, San Francisco, CA 94102"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.4192, 37.7791]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Sacramento",
+          "building": "Sacramento City Hall",
+          "address": "915 I Street, Sacramento, CA 95814"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.4944, 38.5816]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Anaheim",
+          "building": "Anaheim City Hall",
+          "address": "200 S Anaheim Blvd, Anaheim, CA 92805"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.9150, 33.8345]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Oakland",
+          "building": "Oakland City Hall",
+          "address": "1 Frank H Ogawa Plaza, Oakland, CA 94612"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.2711, 37.8044]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Santa Ana",
+          "building": "Santa Ana City Hall",
+          "address": "20 Civic Center Plaza, Santa Ana, CA 92701"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.8678, 33.7456]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Riverside",
+          "building": "Riverside City Hall",
+          "address": "3900 Main St, Riverside, CA 92501 (General area address)"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.3960, 33.9534]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Bakersfield",
+          "building": "Bakersfield City Hall",
+          "address": "1501 Truxtun Avenue, Bakersfield, CA 93301"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-119.0194, 35.3728]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Stockton",
+          "building": "Stockton City Hall",
+          "address": "425 N El Dorado St, Stockton, CA 95202"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.2917, 37.9571]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Chula Vista",
+          "building": "Chula Vista City Hall",
+          "address": "276 Fourth Avenue, Chula Vista, CA 91910"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.0858, 32.6335]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Irvine",
+          "building": "Irvine City Hall",
+          "address": "1 Civic Center Plaza, Irvine, CA 92606"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.8231, 33.6846]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Fremont",
+          "building": "Fremont City Hall",
+          "address": "3300 Capitol Ave, Fremont, CA 94538"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.0003, 37.5483]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Fontana",
+          "building": "Fontana City Hall",
+          "address": "8353 Sierra Ave, Fontana, CA 92335"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.435051, 34.092232]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Moreno Valley",
+          "building": "Moreno Valley City Hall",
+          "address": "14177 Frederick St, Moreno Valley, CA 92553"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.26162, 33.91482]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Glendale",
+          "building": "Glendale City Hall",
+          "address": "613 East Broadway, Glendale, CA 91206"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.2486, 34.1467]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Huntington Beach",
+          "building": "Huntington Beach City Hall",
+          "address": "2000 Main St, Huntington Beach, CA 92648"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.0001, 33.6928]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Santa Clarita",
+          "building": "Santa Clarita City Hall",
+          "address": "23920 Valencia Blvd, Santa Clarita, CA 91355"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.52, 34.42]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Oxnard",
+          "building": "Oxnard City Hall",
+          "address": "300 West Third Street, Oxnard, CA 93030"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-119.170898, 34.196411]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Oceanside",
+          "building": "Oceanside City Hall",
+          "address": "300 North Coast Highway, Oceanside, CA 92054"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.3794, 33.1956]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Garden Grove",
+          "building": "Garden Grove City Hall",
+          "address": "11222 Acacia Parkway, Garden Grove, CA 92840"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.94, 33.78]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Rancho Cucamonga",
+          "building": "Rancho Cucamonga City Hall",
+          "address": "10500 Civic Center Drive, Rancho Cucamonga, CA 91730"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.58, 34.1]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Santa Rosa",
+          "building": "Santa Rosa City Hall",
+          "address": "100 Santa Rosa Avenue, Santa Rosa, CA 95404"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.7141049, 38.4404925]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Hayward",
+          "building": "Hayward City Hall",
+          "address": "777 B Street, Hayward, CA 94541"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.0808, 37.6688]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Lancaster",
+          "building": "Lancaster City Hall",
+          "address": "44933 Fern Avenue, Lancaster, CA 93534"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.1565, 34.6974]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Elk Grove",
+          "building": "Elk Grove City Hall",
+          "address": "8400 Laguna Palms Way, Elk Grove, CA 95758"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.381943, 38.438332]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Palmdale",
+          "building": "Palmdale City Hall",
+          "address": "38300 North Sierra Highway, Palmdale, CA 93550"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.1006, 34.5811]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Modesto",
+          "building": "Modesto City Hall",
+          "address": "1010 10th Street, Modesto, CA 95354"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-120.9944, 37.6336]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Ontario",
+          "building": "Ontario City Hall",
+          "address": "303 East B Street, Ontario, CA 91764"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.65, 34.07]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Corona",
+          "building": "Corona City Hall",
+          "address": "400 South Vicentia Avenue, Corona, CA 92882"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.58, 33.88]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Salinas",
+          "building": "Salinas City Hall",
+          "address": "200 Lincoln Avenue, Salinas, CA 93901"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.6553, 36.6744]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Pomona",
+          "building": "Pomona City Hall",
+          "address": "505 South Garey Avenue, Pomona, CA 91766"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.75, 34.05]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Fairfield",
+          "building": "Fairfield City Hall",
+          "address": "1000 Webster Street, Fairfield, CA 94533"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.05, 38.25]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Thousand Oaks",
+          "building": "Thousand Oaks City Hall",
+          "address": "2100 Thousand Oaks Blvd, Thousand Oaks, CA 91362"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.8486, 34.1745]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Roseville",
+          "building": "Roseville City Hall",
+          "address": "311 Vernon Street, Roseville, CA 95678"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.2858, 38.7497]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Escondido",
+          "building": "Escondido City Hall",
+          "address": "201 North Broadway, Escondido, CA 92025"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.0850, 33.1190]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Torrance",
+          "building": "Torrance City Hall",
+          "address": "3031 Torrance Blvd, Torrance, CA 90503"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.3392, 33.8359]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Sunnyvale",
+          "building": "Sunnyvale City Hall",
+          "address": "456 West Olive Avenue, Sunnyvale, CA 94086"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.0305, 37.3719]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Eastvale",
+          "building": "Eastvale City Hall",
+          "address": "12363 Limonite Ave, Suite 910, Eastvale, CA 91752"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.5670, 33.9570]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Pasadena",
+          "building": "Pasadena City Hall",
+          "address": "100 North Garfield Avenue, Pasadena, CA 91101"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.1444, 34.1476]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Orange",
+          "building": "Orange City Hall",
+          "address": "300 East Chapman Avenue, Orange, CA 92866"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.8530, 33.7876]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Fullerton",
+          "building": "Fullerton City Hall",
+          "address": "303 West Commonwealth Avenue, Fullerton, CA 92832"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.9250, 33.8710]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Whittier",
+          "building": "Whittier City Hall",
+          "address": "13230 Penn Street, Whittier, CA 90602"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.0260, 33.9580]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Vacaville",
+          "building": "Vacaville City Hall",
+          "address": "650 Merchant Street, Vacaville, CA 95688"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.9860, 38.3560]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Mateo",
+          "building": "San Mateo City Hall",
+          "address": "330 West 20th Avenue, San Mateo, CA 94403"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.3160, 37.5550]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Visalia",
+          "building": "Visalia City Hall",
+          "address": "220 North Santa Fe Street, Visalia, CA 93292"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-119.2920, 36.3310]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Hesperia",
+          "building": "Hesperia City Hall",
+          "address": "9700 Seventh Avenue, Hesperia, CA 92345"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.3000, 34.4250]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Vallejo",
+          "building": "Vallejo City Hall",
+          "address": "555 Santa Clara Street, Vallejo, CA 94590"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.2570, 38.1040]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Berkeley",
+          "building": "Berkeley City Hall",
+          "address": "2180 Milvia Street, Berkeley, CA 94704"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.2710, 37.8690]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Carlsbad",
+          "building": "Carlsbad City Hall",
+          "address": "1200 Carlsbad Village Drive, Carlsbad, CA 92008"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.3480, 33.1580]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Richmond",
+          "building": "Richmond City Hall",
+          "address": "450 Civic Center Plaza, Richmond, CA 94804"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.3480, 37.9360]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Daly City",
+          "building": "Daly City City Hall",
+          "address": "333 90th Street, Daly City, CA 94015"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.4670, 37.6870]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Murrieta",
+          "building": "Murrieta City Hall",
+          "address": "1 Town Square, Murrieta, CA 92562"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.2150, 33.5650]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Temecula",
+          "building": "Temecula City Hall",
+          "address": "41000 Main Street, Temecula, CA 92590"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.1450, 33.4750]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Jurupa Valley",
+          "building": "Jurupa Valley City Hall",
+          "address": "8930 Limonite Ave, Jurupa Valley, CA 92509"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.4880, 34.0040]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Downey",
+          "building": "Downey City Hall",
+          "address": "11111 Brookshire Avenue, Downey, CA 90241"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.1340, 33.9440]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Arden-Arcade (Unincorporated CDP, but major location)",
+          "building": "Sacramento County Office (Closest major office)",
+          "address": "3701 Power Inn Rd, Sacramento, CA 95826"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-121.3780, 38.5440]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Norwalk",
+          "building": "Norwalk City Hall",
+          "address": "12700 Norwalk Blvd, Norwalk, CA 90650"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.0840, 33.9050]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Rialto",
+          "building": "Rialto City Hall",
+          "address": "150 South Palm Avenue, Rialto, CA 92376"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.38, 34.106]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "San Bernardino",
+          "building": "San Bernardino City Hall",
+          "address": "215 North D Street, San Bernardino, CA 92401"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.2910, 34.1080]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Clovis",
+          "building": "Clovis City Hall",
+          "address": "1033 Fifth Street, Clovis, CA 93612"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-119.7040, 36.8270]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Menifee",
+          "building": "Menifee City Hall",
+          "address": "29844 Haun Road, Menifee, CA 92586"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.1560, 33.7220]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Victorville",
+          "building": "Victorville City Hall",
+          "address": "14343 Civic Drive, Victorville, CA 92392"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.3000, 34.5240]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Concord",
+          "building": "Concord City Hall",
+          "address": "1950 Parkside Drive, Concord, CA 94519"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-122.0300, 37.9770]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Inglewood",
+          "building": "Inglewood City Hall",
+          "address": "One Manchester Boulevard, Inglewood, CA 90301"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-118.3550, 33.96]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Costa Mesa",
+          "building": "Costa Mesa City Hall",
+          "address": "77 Fair Drive, Costa Mesa, CA 92626"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.9100, 33.6640]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "West Covina",
+          "building": "West Covina City Hall",
+          "address": "1444 West Garvey Avenue South, West Covina, CA 91790"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-117.94, 34.053]
+        }
+      },
+      {
+        "type": "Feature",
+        "properties": {
+          "city": "Calexico",
+          "building": "Calexico City Hall",
+          "address": "608 Heber Ave, Calexico, CA 92231"
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [-115.4950, 32.673]
+        }
+      }
+    ]
+  }
+  

@@ -1,0 +1,678 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Los Angeles",
+        "building": "Hall of Administration",
+        "address": "500 West Temple Street, Los Angeles, CA 90012"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2430, 34.0560]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Diego",
+        "building": "County Administration Center",
+        "address": "1600 Pacific Highway, San Diego, CA 92101"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.1720, 32.7219]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Orange",
+        "building": "Orange County Civic Center",
+        "address": "333 W Santa Ana Blvd, Santa Ana, CA 92701"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.8712, 33.7476]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Riverside",
+        "building": "Riverside County Administrative Center",
+        "address": "4080 Lemon Street, Riverside, CA 92501"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.3735, 33.9805]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Bernardino",
+        "building": "San Bernardino County Government Center",
+        "address": "385 N Arrowhead Ave, San Bernardino, CA 92415"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.2941, 34.1121]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Santa Clara",
+        "building": "Santa Clara County Government Center",
+        "address": "70 West Hedding Street, San Jose, CA 95110"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.8970, 37.3526]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Sacramento",
+        "building": "Sacramento County Administration Building",
+        "address": "827 7th Street, Sacramento, CA 95814"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.4960, 38.5775]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Alameda",
+        "building": "Alameda County Administration Building",
+        "address": "1221 Oak Street, Oakland, CA 94612"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2718, 37.8027]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Fresno",
+        "building": "Fresno County Plaza Building",
+        "address": "2220 Tulare Street, Fresno, CA 93721"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.7850, 36.7370]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Kern",
+        "building": "Kern County Administrative Center",
+        "address": "1115 Truxtun Ave, Bakersfield, CA 93301"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.0190, 35.3720]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Contra Costa",
+        "building": "Contra Costa County Administration Building",
+        "address": "651 Pine Street, Martinez, CA 94553"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.1340, 38.0180]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Francisco",
+        "building": "San Francisco City Hall (Consolidated City-County)",
+        "address": "1 Dr Carlton B Goodlett Pl, San Francisco, CA 94102"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.4192, 37.7791]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Ventura",
+        "building": "Ventura County Government Center",
+        "address": "800 S Victoria Ave, Ventura, CA 93009"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.2270, 34.29]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Mateo",
+        "building": "San Mateo County Government Center",
+        "address": "400 County Center, Redwood City, CA 94063"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2350, 37.4870]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Joaquin",
+        "building": "San Joaquin County Administration Building",
+        "address": "44 N San Joaquin St, Stockton, CA 95202"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.2930, 37.9540]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Stanislaus",
+        "building": "Stanislaus County Center",
+        "address": "1010 10th St, Modesto, CA 95354"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.9940, 37.6340]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Sonoma",
+        "building": "Sonoma County Administration Building",
+        "address": "575 Administration Drive, Santa Rosa, CA 95403"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.7150, 38.4550]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Tulare",
+        "building": "Tulare County Administration Building",
+        "address": "221 S Mooney Blvd, Visalia, CA 93291"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.3060, 36.3260]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Monterey",
+        "building": "Monterey County Government Center",
+        "address": "168 W Alisal St, Salinas, CA 93901"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.6560, 36.6740]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Santa Barbara",
+        "building": "Santa Barbara County Administration Building",
+        "address": "105 E Anapamu St, Santa Barbara, CA 93101"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.7000, 34.4200]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Solano",
+        "building": "Solano County Government Center",
+        "address": "675 Texas St, Fairfield, CA 94533"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.0550, 38.2520]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Placer",
+        "building": "Placer County Administrative Center",
+        "address": "175 Fulweiler Ave, Auburn, CA 95603"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.0740, 38.9240]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Merced",
+        "building": "Merced County Administration Building",
+        "address": "2222 M St, Merced, CA 95340"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.4820, 37.3010]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Marin",
+        "building": "Marin County Civic Center",
+        "address": "3501 Civic Center Dr, San Rafael, CA 94903"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.5250, 38.0050]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Luis Obispo",
+        "building": "San Luis Obispo County Government Center",
+        "address": "1055 Monterey St, San Luis Obispo, CA 93408"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.6630, 35.2820]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Santa Cruz",
+        "building": "Santa Cruz County Government Center",
+        "address": "701 Ocean St, Santa Cruz, CA 95060"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.0160, 36.9740]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Butte",
+        "building": "Butte County Administration Building",
+        "address": "25 County Center Dr, Oroville, CA 95965"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.5580, 39.5160]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Imperial",
+        "building": "Imperial County Administration Center",
+        "address": "940 West Main Street, El Centro, CA 92243"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-115.5720, 32.7930]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Shasta",
+        "building": "Shasta County Administration Building",
+        "address": "1450 Court Street, Redding, CA 96001"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.3920, 40.5840]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Sutter",
+        "building": "Sutter County Administration Building",
+        "address": "1160 Civic Center Blvd, Yuba City, CA 95993"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.6420, 39.1410]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Yolo",
+        "building": "Yolo County Administration Building",
+        "address": "625 Court Street, Woodland, CA 95695"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.7720, 38.6780]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Kings",
+        "building": "Kings County Government Center",
+        "address": "1400 W Lacey Blvd, Hanford, CA 93230"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.6540, 36.3260]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Madera",
+        "building": "Madera County Government Center",
+        "address": "200 W 4th St, Madera, CA 93637"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.0630, 36.9610]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "El Dorado",
+        "building": "El Dorado County Civic Center",
+        "address": "330 Fair Lane, Placerville, CA 95667"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.7890, 38.7290]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Napa",
+        "building": "Napa County Administration Building",
+        "address": "1195 3rd Street, Napa, CA 94559"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2850, 38.2970]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Siskiyou",
+        "building": "Siskiyou County Courthouse (Main Admin function)",
+        "address": "311 4th Street, Yreka, CA 96097"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.6340, 41.7340]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Tuolumne",
+        "building": "Tuolumne County Administration Building",
+        "address": "2 S Green St, Sonora, CA 95370"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.3830, 37.9860]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Yuba",
+        "building": "Yuba County Government Center",
+        "address": "915 8th Street, Marysville, CA 95901"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.5870, 39.1460]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Mendocino",
+        "building": "Mendocino County Administration Center",
+        "address": "501 Low Gap Rd, Ukiah, CA 95482"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-123.2080, 39.1500]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "San Benito",
+        "building": "San Benito County Administration Building",
+        "address": "481 4th Street, Hollister, CA 95023"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.4020, 36.8520]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Lake",
+        "building": "Lake County Courthouse/Admin",
+        "address": "255 N Forbes St, Lakeport, CA 95453"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.9150, 39.0430]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Lassen",
+        "building": "Lassen County Administrative Building",
+        "address": "221 South Lassen Street, Susanville, CA 96130"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.6550, 40.4160]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Nevada",
+        "building": "Nevada County Administration Center",
+        "address": "950 Maidu Ave, Nevada City, CA 95959"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-121.0180, 39.2630]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Humboldt",
+        "building": "Humboldt County Courthouse/Admin",
+        "address": "825 5th Street, Eureka, CA 95501"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-124.1640, 40.8030]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Tehama",
+        "building": "Tehama County Administration Building",
+        "address": "629 Washington St, Red Bluff, CA 96080"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.2350, 40.1770]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Calaveras",
+        "building": "Calaveras County Government Center",
+        "address": "891 Mountain Ranch Rd, San Andreas, CA 95249"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.6790, 38.1960]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Amador",
+        "building": "Amador County Administration Center",
+        "address": "810 Court St, Jackson, CA 95642"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.7720, 38.35]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Glenn",
+        "building": "Glenn County Courthouse/Admin",
+        "address": "526 W Sycamore St, Willows, CA 95988"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.1930, 39.5190]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Colusa",
+        "building": "Colusa County Courthouse/Admin",
+        "address": "547 Market St, Colusa, CA 95932"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.0070, 39.2150]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Inyo",
+        "building": "Inyo County Administration Center",
+        "address": "224 N Edwards St, Independence, CA 93526"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-118.2000, 36.8150]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Modoc",
+        "building": "Modoc County Courthouse/Admin",
+        "address": "204 S Court St, Alturas, CA 96101"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.5420, 41.4880]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Mono",
+        "building": "Mono County Administration Office",
+        "address": "74 School St, Bridgeport, CA 93517"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.3870, 38.2630]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Plumas",
+        "building": "Plumas County Courthouse/Admin",
+        "address": "520 Main St, Quincy, CA 95971"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.9460, 39.9400]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Sierra",
+        "building": "Sierra County Courthouse/Admin",
+        "address": "100 Courthouse Square, Downieville, CA 95936"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-120.8350, 39.5700]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Trinity",
+        "building": "Trinity County Courthouse/Admin",
+        "address": "11 Court St, Weaverville, CA 96093"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-122.9380, 40.7220]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "county": "Alpine",
+        "building": "Alpine County Administration Building",
+        "address": "99 Water St, Markleeville, CA 96120"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-119.9760, 38.6940]
+      }
+    }
+  ]
+}
+

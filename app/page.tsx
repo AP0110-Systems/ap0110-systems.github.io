@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Moon from '../src/components/Moon'
 import Button from '../src/components/ui/Button'
 import Card from '../src/components/ui/Card'
@@ -47,7 +48,7 @@ export default function HomePage() {
               Of People, By People, For People
             </h1>
             <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-              AP0110 is organizing an effort to ensure all the tools and information Humans value most are freely available, without ads, on independent internet. Everything built and curated here is freely hosted by AP0110 and other volunteers.
+              AP0110 is developing Independent Internet (Web 4.0) technology—a decentralized, user-owned internet infrastructure free from corporate control. We're building the Network Operating System, protocols, and tools that enable true digital independence. Everything built and curated here is freely hosted by AP0110 and other volunteers.
             </p>
           </Card>
         </div>
@@ -158,6 +159,79 @@ export default function HomePage() {
 
       </section>
 
+      {/* Partners Section */}
+      <section className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-sky-500 py-12">
+        <div className="overflow-hidden" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)', maskImage: 'linear-gradient(to right, transparent 0, black 24px, black calc(100% - 24px), transparent 100%)' }}>
+          <div className="relative">
+            <div className="flex flex-nowrap whitespace-nowrap items-center gap-24 animate-partners-marquee pointer-events-none" style={{width: 'max-content', willChange: 'transform'}}>
+              {[
+                { src: '/images/Partners/UC_Riverside.png', alt: 'UC Riverside Office of Technology Partnerships' },
+                { src: '/images/Partners/SoCal OASIS.avif', alt: 'SoCal OASIS' },
+                { src: '/images/Partners/LAUNCH.png', alt: 'UC LAUNCH Accelerator' },
+                { src: '/images/Partners/UC-Berkeley.png', alt: 'UC Berkeley' },
+                { src: '/images/Partners/SkyDeck.png', alt: 'Berkeley SkyDeck' },
+                { src: '/images/Partners/PAD-13.png', alt: 'Berkeley SkyDeck Pad-13 Incubator' },
+              ].map((img, idx) => (
+                <Image 
+                  key={`partners-a-${idx}`} 
+                  src={img.src} 
+                  alt={img.alt} 
+                  width={240} 
+                  height={64} 
+                  className="h-16 w-[240px] min-w-[240px] shrink-0 object-contain opacity-90 hover:opacity-100 transition-opacity" 
+                  unoptimized
+                  priority={idx === 0}
+                />
+              ))}
+              {[
+                { src: '/images/Partners/UC_Riverside.png', alt: 'UC Riverside Office of Technology Partnerships' },
+                { src: '/images/Partners/SoCal OASIS.avif', alt: 'SoCal OASIS' },
+                { src: '/images/Partners/LAUNCH.png', alt: 'UC LAUNCH Accelerator' },
+                { src: '/images/Partners/UC-Berkeley.png', alt: 'UC Berkeley' },
+                { src: '/images/Partners/SkyDeck.png', alt: 'Berkeley SkyDeck' },
+                { src: '/images/Partners/PAD-13.png', alt: 'Berkeley SkyDeck Pad-13 Incubator' },
+              ].map((img, idx) => (
+                <Image 
+                  aria-hidden 
+                  key={`partners-b-${idx}`} 
+                  src={img.src} 
+                  alt={img.alt} 
+                  width={240} 
+                  height={64} 
+                  className="h-16 w-[240px] min-w-[240px] shrink-0 object-contain opacity-90" 
+                  unoptimized
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CalCompute Section */}
+      <section 
+        className="flex flex-col gap-10 items-center justify-center py-20 px-4 relative"
+        style={{
+          backgroundImage: "url(/images/california-postcard.jpg)",
+          backgroundSize: '100% auto',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <Link href="/calcompute" className="block cursor-pointer">
+            <Card variant="solid" size="lg" hover={true}>
+              <h1 className="text-2xl md:text-4xl font-bold mb-6 text-white">
+                CalCompute
+              </h1>
+              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+                Learn about California's public cloud computing cluster for <strong className="text-white">safe, ethical, equitable, and sustainable</strong> AI, and how AP0110 plans to contribute.
+              </p>
+            </Card>
+          </Link>
+        </div>
+      </section>
+
       {/* Donation Section */}
       <section 
         id="donate"
@@ -204,7 +278,7 @@ export default function HomePage() {
                 Help End Child Trafficking
               </h1>
               <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
-                <span className='font-mono'>AP0110</span> is partnered with an international charity that rescues children from trafficking and slavery around the world. Help us securely connect their US Headquarters to bases in Thailand, Burma, and Brazil, to fortify and reduce the cost of their operation.
+                <span className='font-mono'>AP0110</span> is applying our Independent Internet technologies to support an international charity that rescues children from trafficking and slavery around the world. Using our Web 4.0 infrastructure, we're helping securely connect their US Headquarters to bases in Thailand, Burma, and Brazil, demonstrating how Independent Internet technology can make critical operations more resilient and cost-effective.
               </p>
               <div className="flex gap-4 mt-8" style={{ marginTop: '2rem', gap: '1rem' }}>
                 <Button size="lg" variant="primary" onClick={handleDonateClick}>
