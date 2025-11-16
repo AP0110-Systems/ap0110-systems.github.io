@@ -25,25 +25,41 @@ AP0110 technologies are currently being applied to:
 
 ### Installation
 ```bash
-# Clone the repository
-git clone https://github.com/AP0110-Systems/ap0110-systems.github.io.git
+# Clone the repository (with submodules)
+git clone --recursive https://github.com/AP0110-Systems/ap0110-systems.github.io.git
 cd ap0110-systems.github.io
+
+# Or if already cloned, initialize submodules
+git submodule update --init --recursive
 
 # Install dependencies
 npm install
 
-# Start development server
+# Start development server (assets are automatically copied from Web-Assets submodule)
 npm run dev
 ```
 
 ### Available Scripts
 ```bash
-npm run dev          # Start development server
-npm run build        # Build for production
+npm run dev          # Start development server (copies Web-Assets automatically)
+npm run build        # Build for production (copies Web-Assets automatically)
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run type-check   # TypeScript type checking
 ```
+
+### Web-Assets Integration
+
+This repository uses the [Web-Assets](https://github.com/AP0110-Systems/Web-Assets) repository as a git submodule to share assets (images, components) across AP0110 websites.
+
+- **Submodule location**: `web-assets/`
+- **Assets are copied** from `web-assets/public/images/` to `public/images/` during build/dev
+- **To update assets**: Pull the latest Web-Assets submodule:
+  ```bash
+  git submodule update --remote web-assets
+  ```
+
+The build process automatically copies assets from the submodule, so you don't need to manually manage files in `public/images/Partners/`.
 
 ## Project Structure
 

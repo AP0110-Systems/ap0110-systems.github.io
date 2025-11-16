@@ -34,3 +34,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Web-Assets (generated from submodule during build)
+/public/images/Partners/
