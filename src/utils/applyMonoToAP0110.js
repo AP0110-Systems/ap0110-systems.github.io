@@ -4,6 +4,11 @@
  */
 
 export const applyMonoToAP0110 = () => {
+  // Only run in browser environment
+  if (typeof window === 'undefined' || typeof document === 'undefined') {
+    return
+  }
+  
   // Function to check if a text node contains AP0110 and doesn't already have font-mono applied
   const shouldProcessNode = (node) => {
     if (node.nodeType !== Node.TEXT_NODE) return false
