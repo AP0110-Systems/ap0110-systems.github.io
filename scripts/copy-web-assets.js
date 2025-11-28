@@ -85,61 +85,8 @@ if (missingFiles.length > 0) {
   console.log('✨ Web-Assets images copy complete - all files verified');
 }
 
-// Copy components, hooks, and utils from Web-Assets
-const foldersToCopy = ['components', 'hooks', 'utils'];
+// Note: Components, hooks, and utils are now imported directly from web-assets
+// using the @web-assets/* path alias. Only images need to be copied to public/.
 
-foldersToCopy.forEach(folderName => {
-  const sourcePath = path.join(webAssetsRoot, folderName);
-  const destPath = path.join(srcPath, folderName);
-
-  if (!fs.existsSync(sourcePath)) {
-    console.warn(`⚠️  Web-Assets ${folderName} directory not found`);
-    return;
-  }
-
-  // For components, remove specific files that should be overwritten from web-assets
-  if (folderName === 'components') {
-    const filesToOverwrite = ['Header.jsx', 'Footer.jsx'];
-    filesToOverwrite.forEach(fileName => {
-      const filePath = path.join(destPath, fileName);
-      if (fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        console.log(`🗑️  Removed existing ${fileName} to ensure web-assets version is used`);
-      }
-    });
-  }
-
-  // Ensure destination directory exists
-  if (!fs.existsSync(destPath)) {
-    fs.mkdirSync(destPath, { recursive: true });
-  }
-
-  // Copy files and subdirectories recursively
-  const copyRecursive = (src, dest) => {
-    const entries = fs.readdirSync(src, { withFileTypes: true });
-
-    entries.forEach(entry => {
-      const srcPath = path.join(src, entry.name);
-      const destPath = path.join(dest, entry.name);
-
-      if (entry.isDirectory()) {
-        if (!fs.existsSync(destPath)) {
-          fs.mkdirSync(destPath, { recursive: true });
-        }
-        copyRecursive(srcPath, destPath);
-      } else {
-        // Copy file, overwriting if it exists
-        fs.copyFileSync(srcPath, destPath);
-        if (folderName === 'components' && (entry.name === 'Header.jsx' || entry.name === 'Footer.jsx')) {
-          console.log(`✅ Copied ${entry.name} from Web-Assets`);
-        }
-      }
-    });
-  };
-
-  copyRecursive(sourcePath, destPath);
-  console.log(`✅ Copied ${folderName} from Web-Assets`);
-});
-
-console.log('✨ Web-Assets copy complete - all assets and components copied');
+console.log('✨ Web-Assets copy complete - images copied (components imported directly)');
 

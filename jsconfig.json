@@ -14,7 +14,8 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@web-assets/*": ["./web-assets/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.js", "**/*.jsx"],
