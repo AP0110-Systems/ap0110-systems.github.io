@@ -27,10 +27,17 @@ const nextConfig = {
     }
     
     // Configure path aliases for webpack (matching jsconfig.json)
+    const path = require('path')
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@web-assets': require('path').resolve(__dirname, 'web-assets'),
+      '@web-assets': path.resolve(__dirname, 'web-assets'),
     }
+    
+    // Ensure proper module resolution for @web-assets
+    config.resolve.modules = [
+      ...(config.resolve.modules || []),
+      path.resolve(__dirname, 'web-assets'),
+    ]
     
     return config
   }
