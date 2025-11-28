@@ -4,6 +4,9 @@ on:
   push:
     branches: [ main ]
   workflow_dispatch:
+  # Triggered automatically when Web-Assets repository is updated
+  repository_dispatch:
+    types: [web-assets-updated]
 
 permissions:
   contents: read
