@@ -36,46 +36,38 @@ if (!fs.existsSync(webAssetsPath)) {
   process.exit(0);
 }
 
-// Copy Partners folder
-const partnersSource = path.join(webAssetsPath, 'Partners');
-const partnersDest = path.join(publicImagesPath, 'Partners');
-
-if (fs.existsSync(partnersSource)) {
-  // Remove old Partners folder if it exists
-  if (fs.existsSync(partnersDest)) {
-    fs.rmSync(partnersDest, { recursive: true, force: true });
+// Copy all contents from Web-Assets/public/images to public/images
+// This merges directories and overwrites matching files, but preserves
+// project-specific files/folders that don't exist in Web-Assets
+function copyRecursive(src, dest) {
+  if (!fs.existsSync(src)) {
+    return;
   }
-  
-  // Copy Partners folder
-  fs.cpSync(partnersSource, partnersDest, { recursive: true });
-  
-  // Verify copy was successful
-  const copiedFiles = fs.readdirSync(partnersDest);
-  console.log(`✅ Copied ${copiedFiles.length} Partners assets from Web-Assets:`, copiedFiles.join(', '));
-} else {
-  console.warn('⚠️  Partners folder not found in Web-Assets');
-}
 
-// Copy any other image folders from Web-Assets
-if (fs.existsSync(webAssetsPath)) {
-  const items = fs.readdirSync(webAssetsPath, { withFileTypes: true });
+  const items = fs.readdirSync(src, { withFileTypes: true });
   
   items.forEach(item => {
-    if (item.isDirectory() && item.name !== 'Partners') {
-      const sourcePath = path.join(webAssetsPath, item.name);
-      const destPath = path.join(publicImagesPath, item.name);
-      
-      if (fs.existsSync(destPath)) {
-        fs.rmSync(destPath, { recursive: true, force: true });
+    const srcPath = path.join(src, item.name);
+    const destPath = path.join(dest, item.name);
+    
+    if (item.isDirectory()) {
+      // Create directory if it doesn't exist
+      if (!fs.existsSync(destPath)) {
+        fs.mkdirSync(destPath, { recursive: true });
       }
-      
-      fs.cpSync(sourcePath, destPath, { recursive: true });
-      console.log(`✅ Copied ${item.name} assets from Web-Assets`);
+      // Recursively copy directory contents
+      copyRecursive(srcPath, destPath);
+    } else {
+      // Copy file (will overwrite if exists)
+      fs.copyFileSync(srcPath, destPath);
     }
   });
 }
 
+copyRecursive(webAssetsPath, publicImagesPath);
+
 // Verify the copy was successful by checking if key files exist
+const partnersDest = path.join(publicImagesPath, 'Partners');
 const requiredFiles = ['LAUNCH.png', 'UC-Berkeley.png', 'UC_Riverside.png'];
 const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(partnersDest, file)));
 
