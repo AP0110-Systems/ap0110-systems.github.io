@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Copy assets from Web-Assets submodule to public folder
- * This script runs during build to ensure assets are available
+ * Copy assets and components from Web-Assets submodule
+ * This script runs during build to ensure assets and components are available
  */
 
 const fs = require('fs');
@@ -12,6 +12,7 @@ const { execSync } = require('child_process');
 const webAssetsPath = path.join(__dirname, '..', 'web-assets', 'public', 'images');
 const publicImagesPath = path.join(__dirname, '..', 'public', 'images');
 const webAssetsRoot = path.join(__dirname, '..', 'web-assets');
+const srcPath = path.join(__dirname, '..', 'src');
 
 // Ensure public/images directory exists
 if (!fs.existsSync(publicImagesPath)) {
@@ -81,6 +82,49 @@ const missingFiles = requiredFiles.filter(file => !fs.existsSync(path.join(partn
 if (missingFiles.length > 0) {
   console.warn(`⚠️  Some expected files are missing: ${missingFiles.join(', ')}`);
 } else {
-  console.log('✨ Web-Assets copy complete - all files verified');
+  console.log('✨ Web-Assets images copy complete - all files verified');
 }
+
+// Copy components, hooks, and utils from Web-Assets
+const foldersToCopy = ['components', 'hooks', 'utils'];
+
+foldersToCopy.forEach(folderName => {
+  const sourcePath = path.join(webAssetsRoot, folderName);
+  const destPath = path.join(srcPath, folderName);
+
+  if (!fs.existsSync(sourcePath)) {
+    console.warn(`⚠️  Web-Assets ${folderName} directory not found`);
+    return;
+  }
+
+  // Ensure destination directory exists
+  if (!fs.existsSync(destPath)) {
+    fs.mkdirSync(destPath, { recursive: true });
+  }
+
+  // Copy files and subdirectories recursively
+  const copyRecursive = (src, dest) => {
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+
+    entries.forEach(entry => {
+      const srcPath = path.join(src, entry.name);
+      const destPath = path.join(dest, entry.name);
+
+      if (entry.isDirectory()) {
+        if (!fs.existsSync(destPath)) {
+          fs.mkdirSync(destPath, { recursive: true });
+        }
+        copyRecursive(srcPath, destPath);
+      } else {
+        // Copy file, overwriting if it exists
+        fs.copyFileSync(srcPath, destPath);
+      }
+    });
+  };
+
+  copyRecursive(sourcePath, destPath);
+  console.log(`✅ Copied ${folderName} from Web-Assets`);
+});
+
+console.log('✨ Web-Assets copy complete - all assets and components copied');
 
