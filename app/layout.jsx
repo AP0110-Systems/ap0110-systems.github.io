@@ -3,6 +3,7 @@ import '../src/styles/globals.css'
 import { AppProvider } from '../src/context/AppContext'
 import Header from '@web-assets/components/Header'
 import Footer from '@web-assets/components/Footer'
+import Stars from '@web-assets/components/Stars'
 import AP0110MonoProvider from '../src/components/AP0110MonoProvider'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -60,6 +61,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <AP0110MonoProvider>
           <AppProvider>
+            <Stars />
             <Header />
             {children}
             <Footer />
