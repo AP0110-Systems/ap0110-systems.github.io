@@ -14,3 +14,4 @@ const AmericanFlagIcon = ({ className = '' }) => (
 )
 
 export default AmericanFlagIcon
+

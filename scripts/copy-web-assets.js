@@ -97,6 +97,18 @@ foldersToCopy.forEach(folderName => {
     return;
   }
 
+  // For components, remove specific files that should be overwritten from web-assets
+  if (folderName === 'components') {
+    const filesToOverwrite = ['Header.jsx', 'Footer.jsx'];
+    filesToOverwrite.forEach(fileName => {
+      const filePath = path.join(destPath, fileName);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+        console.log(`🗑️  Removed existing ${fileName} to ensure web-assets version is used`);
+      }
+    });
+  }
+
   // Ensure destination directory exists
   if (!fs.existsSync(destPath)) {
     fs.mkdirSync(destPath, { recursive: true });
@@ -118,6 +130,9 @@ foldersToCopy.forEach(folderName => {
       } else {
         // Copy file, overwriting if it exists
         fs.copyFileSync(srcPath, destPath);
+        if (folderName === 'components' && (entry.name === 'Header.jsx' || entry.name === 'Footer.jsx')) {
+          console.log(`✅ Copied ${entry.name} from Web-Assets`);
+        }
       }
     });
   };

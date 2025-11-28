@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useRef, useEffect, useState } from 'react'
-import { cn } from '@/utils/cn'
+import { cn } from '../../utils/cn'
 
 const Card = ({ 
   children, 
@@ -81,3 +81,4 @@ const Card = ({
 }
 
 export default Card
+

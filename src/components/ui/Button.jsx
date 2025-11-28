@@ -1,5 +1,5 @@
 import React from 'react'
-import { cn } from '@/utils/cn'
+import { cn } from '../../utils/cn'
 
 const Button = ({
   children,
@@ -59,3 +59,4 @@ const Button = ({
 }
 
 export default Button
+
