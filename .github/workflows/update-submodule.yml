@@ -1,0 +1,60 @@
+name: Update Web-Assets Submodule
+
+on:
+  # Run daily at 2 AM UTC to check for updates
+  schedule:
+    - cron: '0 2 * * *'
+  # Allow manual triggering
+  workflow_dispatch:
+  # Trigger when Web-Assets repository is updated (via repository_dispatch)
+  repository_dispatch:
+    types: [web-assets-updated]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-submodule:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      
+      - name: Update submodule to latest
+        id: update
+        run: |
+          # Get current commit hash
+          OLD_COMMIT=$(git ls-tree HEAD web-assets | awk '{print $3}')
+          
+          # Update submodule to latest
+          git submodule update --remote web-assets
+          
+          # Get new commit hash
+          NEW_COMMIT=$(git ls-tree HEAD web-assets | awk '{print $3}')
+          
+          # Check if there are changes
+          if [ "$OLD_COMMIT" = "$NEW_COMMIT" ]; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "No updates available (still at $OLD_COMMIT)"
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Submodule updated from $OLD_COMMIT to $NEW_COMMIT"
+            git diff web-assets
+          fi
+      
+      - name: Commit and push if changed
+        if: steps.update.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add web-assets
+          git commit -m "chore: update web-assets submodule to latest main"
+          git push
+          
+          echo "✅ Submodule updated and committed"
+
