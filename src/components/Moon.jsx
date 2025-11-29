@@ -20,7 +20,7 @@ const Globe = () => {
         const globe = Globe()(currentRef)
           // .width(300)
           // .height(300)
-          // .backgroundColor('rgba(0,0,0,0)')
+          .backgroundColor('rgba(0,0,0,0)')
           .globeImageUrl('/images/globe/lunar_surface.jpg')
           // .globeImageUrl('/images/globe/earth-blue-marble.jpg')
           // .backgroundImageUrl('/images/globe/night-sky.png')
