@@ -32,11 +32,11 @@ const Globe = () => {
 
         // Configure controls
         globe.controls().enableZoom = false
-        globe.controls().enableRotate = true
+        globe.controls().enableRotate = false
         globe.controls().minPolarAngle = Math.PI / 2
         globe.controls().maxPolarAngle = Math.PI / 2
         globe.controls().autoRotate = state.autoRotate
-        globe.controls().autoRotateSpeed = 0.25
+        globe.controls().autoRotateSpeed = 0.05
 
         // Set initial view
         globe.pointOfView({ lat: 0, lng: 20, altitude: 4 })
