@@ -7,7 +7,7 @@ import Button from '../src/components/ui/Button'
 import Card from '../src/components/ui/Card'
 import DonationModal from '../src/components/DonationModal'
 import VolunteerModal from '../src/components/VolunteerModal'
-import Partners from '../src/components/Partners'
+import Partners from '@web-assets/components/Partners'
 
 export default function HomePage() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false)
@@ -39,15 +39,15 @@ export default function HomePage() {
       <div className="min-w-screen min-h-screen overflow-hidden relative bg-transparent">
         <Moon />
 
-        <div className="flex items-center justify-center py-10 px-4 absolute bottom-0 w-full mx-auto">
+        <div className="flex items-center justify-center py-6 md:py-10 px-4 absolute bottom-0 w-full mx-auto">
           <Card variant="glass" size="lg" className="max-w-4xl mx-auto">
             <h1 className="text-2xl md:text-4xl font-bold text-white">
               Independent Internet <span className='font-normal text-gray-500'>[Web 4.0]</span>
             </h1>
-            <h1 className="text-xl md:text-3xl font-bold mb-6 text-white">
+            <h1 className="text-xl md:text-3xl font-bold mb-4 md:mb-6 text-white">
               Of People, By People, For People
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+            <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
               AP0110 is developing Independent Internet (Web 4.0) technology—a decentralized, user-owned internet infrastructure free from corporate control. We&apos;re building the Network Operating System, protocols, and tools that enable true digital independence. Everything built and curated here is freely hosted by AP0110 and other volunteers.
             </p>
           </Card>
@@ -56,7 +56,7 @@ export default function HomePage() {
       </div>
 
       {/* Community Section */}
-      <section className="flex flex-col gap-10 items-center justify-center bg-gradient-to-b from-black/0 to-sky-500 py-20 px-4 relative">
+      <section className="flex flex-col gap-8 md:gap-10 items-center justify-center bg-gradient-to-b from-black/0 to-sky-500 py-12 md:py-20 px-4 relative">
         {/* <div className="absolute inset-0 bg-black/70"></div> */}
 
         <div className="max-w-4xl mx-auto">
@@ -235,11 +235,11 @@ export default function HomePage() {
               <p className="text-lg md:text-xl text-gray-300 mb-8 leading-relaxed">
                 <span className='font-mono'>AP0110</span> is applying our Independent Internet technologies to support an international charity that rescues children from trafficking and slavery around the world. Using our Web 4.0 infrastructure, we&apos;re helping securely connect their US Headquarters to bases in Thailand, Burma, and Brazil, demonstrating how Independent Internet technology can make critical operations more resilient and cost-effective.
               </p>
-              <div className="flex gap-4 mt-8" style={{ marginTop: '2rem', gap: '1rem' }}>
-                <Button size="lg" variant="primary" onClick={handleDonateClick}>
+              <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                <Button size="lg" variant="primary" onClick={handleDonateClick} className="w-full sm:w-auto">
                   Donate
                 </Button>
-                <Button size="lg" variant="outline" onClick={handleVolunteerClick}>
+                <Button size="lg" variant="outline" onClick={handleVolunteerClick} className="w-full sm:w-auto">
                   Volunteer
                 </Button>
               </div>

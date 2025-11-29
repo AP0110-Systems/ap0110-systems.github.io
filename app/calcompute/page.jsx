@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import Image from 'next/image'
 import Card from '../../src/components/ui/Card'
-import Partners from '../../src/components/Partners'
+import Partners from '@web-assets/components/Partners'
 import { getPartnersImagePath } from '../../src/config/assets'
 
 // Dynamically import the map component with SSR disabled
