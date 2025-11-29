@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  overscroll-behavior-y: none;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -20,6 +24,7 @@ body {
   color: #fff;
   overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior-y: none;
   /* Hide scrollbars while keeping scroll functionality */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer 10+ */

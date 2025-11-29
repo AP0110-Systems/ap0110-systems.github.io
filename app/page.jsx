@@ -52,11 +52,11 @@ export default function HomePage() {
             </p>
           </Card>
         </div>
-        <div className="w-screen absolute bottom-0 left-0 right-0 bg-gradient-to-b from-black/0 to-black/100 h-12"></div>
+        {/* <div className="w-screen absolute bottom-0 left-0 right-0 bg-gradient-to-b from-black/0 to-black/100 h-12"></div> */}
       </div>
 
       {/* Community Section */}
-      <section className="flex flex-col gap-10 items-center justify-center bg-gradient-to-b from-black to-sky-500 py-20 px-4 relative">
+      <section className="flex flex-col gap-10 items-center justify-center bg-gradient-to-b from-black/0 to-sky-500 py-20 px-4 relative">
         {/* <div className="absolute inset-0 bg-black/70"></div> */}
 
         <div className="max-w-4xl mx-auto">
