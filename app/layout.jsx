@@ -47,7 +47,7 @@ export default function RootLayout({
   children,
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="overflow-x-hidden max-w-full">
       <head>
         <link rel="preload" as="image" href="/images/AP0110_moon_black.webp" />
         <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
@@ -58,12 +58,14 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#000000" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} overflow-x-hidden max-w-full`}>
         <AP0110MonoProvider>
           <AppProvider>
             <Stars />
             <Header />
-            {children}
+            <div className="w-full max-w-full overflow-x-hidden">
+              {children}
+            </div>
             <Footer />
           </AppProvider>
         </AP0110MonoProvider>

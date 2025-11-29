@@ -36,7 +36,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <div className="min-w-screen min-h-screen overflow-hidden relative bg-transparent">
+      <div className="w-full min-h-screen overflow-hidden relative bg-transparent">
         <Moon />
 
         <div className="flex items-center justify-center py-6 md:py-10 px-4 absolute bottom-0 w-full mx-auto">
@@ -56,7 +56,7 @@ export default function HomePage() {
       </div>
 
       {/* Community Section */}
-      <section className="flex flex-col gap-8 md:gap-10 items-center justify-center bg-gradient-to-b from-black/0 to-sky-500 py-12 md:py-20 px-4 relative">
+      <section className="flex flex-col gap-8 md:gap-10 items-center justify-center bg-gradient-to-b from-black/0 to-sky-500 py-12 md:py-20 px-4 relative w-full max-w-full overflow-x-hidden">
         {/* <div className="absolute inset-0 bg-black/70"></div> */}
 
         <div className="max-w-4xl mx-auto">
@@ -164,7 +164,7 @@ export default function HomePage() {
 
       {/* CalCompute Section */}
       <section 
-        className="flex items-center justify-center py-20 px-4 relative"
+        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
         style={{
           backgroundImage: "url(/images/california-postcard.jpg)",
           backgroundSize: 'cover',
@@ -190,7 +190,7 @@ export default function HomePage() {
       {/* Donation Section */}
       <section 
         id="donate"
-        className="flex items-center justify-center py-20 px-4 relative"
+        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
         style={{
           backgroundImage: "url(/images/LII/Girls_Promise_Land.png)",
           backgroundSize: 'cover',
@@ -217,7 +217,7 @@ export default function HomePage() {
       </section>
 
       <section 
-        className="flex items-center justify-center py-20 px-4 relative"
+        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
         style={{
           backgroundImage: 'url(/images/LII/Backdrop_3.png)',
           backgroundSize: 'cover',
