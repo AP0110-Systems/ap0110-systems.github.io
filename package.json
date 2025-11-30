@@ -5,12 +5,14 @@
   "private": true,
   "scripts": {
     "predev": "node scripts/copy-web-assets.js",
-    "dev": "next dev",
+    "dev": "concurrently \"node scripts/copy-web-assets.js --watch\" \"next dev\"",
+    "dev:next": "next dev",
     "prebuild": "node scripts/copy-web-assets.js",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "copy-assets": "node scripts/copy-web-assets.js",
+    "watch-assets": "node scripts/copy-web-assets.js --watch",
     "postinstall": "git submodule update --init --recursive || true"
   },
   "dependencies": {
@@ -26,6 +28,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.0",
     "clsx": "^2.1.1",
+    "concurrently": "^9.2.1",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
     "postcss": "^8.4.0",

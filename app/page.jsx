@@ -8,6 +8,7 @@ import Card from '../src/components/ui/Card'
 import DonationModal from '../src/components/DonationModal'
 import VolunteerModal from '../src/components/VolunteerModal'
 import Partners from '@web-assets/components/Partners'
+import { DigitalRain } from '@web-assets/components/DigitalRain'
 
 export default function HomePage() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false)
@@ -122,20 +123,26 @@ export default function HomePage() {
 
         <hr id="contribute" className="max-w-4xl mx-auto" style={{ width: '100%', border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.3)', margin: '2rem 0' }} /> */}
 
-        <Partners />
+        <div className="w-full relative" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', width: '100vw' }}>
+          <Partners />
+        </div>
       </section>
 
 
       {/* Develop Section */}
-      <section 
-        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
-        style={{
-          backgroundImage: "url(/images/school/yustinus-tjiuwanda-md.jpg)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
+      <section className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden">
+        <div className="absolute inset-0 [&>section]:!p-0 [&>section]:!h-full [&>section]:!w-full">
+          <DigitalRain 
+            dropColor="rgb(150, 150, 150)"
+            trailColor="rgb(200, 200, 200)"
+            backgroundColor="rgb(0, 0, 0)"
+            trailLength={7}
+            fontSize={16}
+            speedCoeff={75}
+            duration={0}
+            direction="up"
+          />
+        </div>
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="max-w-4xl mx-auto relative z-10">
           <Link href="/calcompute" className="block cursor-pointer">
@@ -144,7 +151,7 @@ export default function HomePage() {
                 Develop
               </h1>
               <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
-                AP0110 contributers are currating an unbiased, free K-12+ Home School Education, to make sure a high-quality general and advanced education is availably to children and adults everywhere.
+                Contribute to the development of open infrastructure and tools that empower digital independence everywhere.
               </p>
             </Card>
           </Link>
@@ -152,6 +159,8 @@ export default function HomePage() {
       </section>
 
 
+      {/* Efforts Section */}
+      <div id="efforts">
       {/* Education Section */}
       <section 
         className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
@@ -263,6 +272,7 @@ export default function HomePage() {
            </a>
         </div>
       </section>
+      </div>
 
       {/* Donation Modal */}
       <DonationModal 
