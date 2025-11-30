@@ -29,8 +29,8 @@ const CaliforniaUCMap = ({
   showCityMarkers = true, 
   showCountyMarkers = true,
   showLegend = true,
-  allowZoom = true,
-  allowScroll = true,
+  allowZoom = false,
+  allowScroll = false,
   minZoom
 }) => {
   const mapRef = useRef(null)

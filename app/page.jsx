@@ -39,18 +39,18 @@ export default function HomePage() {
       <div className="w-full min-h-screen overflow-hidden relative bg-transparent">
         <Moon />
 
-        <div className="flex items-center justify-center py-6 md:py-10 px-4 absolute bottom-0 w-full mx-auto">
-          <Card variant="glass" size="lg" className="max-w-4xl mx-auto">
+        <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto">
+          <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl md:text-4xl font-bold text-white">
-              Independent Internet <span className='font-normal text-gray-500'>[Web 4.0]</span>
+              <span className="bg-black/50">Independent Internet <span className='font-normal text-gray-500'>[Web 4.0]</span></span>
             </h1>
-            <h1 className="text-xl md:text-3xl font-bold mb-4 md:mb-6 text-white">
-              Of People, By People, For People
+            <h1 className="text-xl md:text-3xl mb-4 md:mb-6 text-white">
+              <span className="bg-black/50">Of People, By People, For People</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
-              AP0110 is developing Independent Internet (Web 4.0) technology—a decentralized, user-owned internet infrastructure free from corporate control. We&apos;re building the Network Operating System, protocols, and tools that enable true digital independence. Everything built and curated here is freely hosted by AP0110 and other volunteers.
+              <span className="bg-black/50">We&apos;re building an open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from corporate control.</span>
             </p>
-          </Card>
+          </div>
         </div>
         {/* <div className="w-screen absolute bottom-0 left-0 right-0 bg-gradient-to-b from-black/0 to-black/100 h-12"></div> */}
       </div>
@@ -81,7 +81,7 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Link href="/web4" className="block cursor-pointer">
+          <Link href="/docs" className="block cursor-pointer">
             <Card variant="glass" size="lg" hover={true}>
               <h1 className="text-2xl md:text-4xl font-bold mb-6 text-white">
                 Read the Docs
@@ -101,7 +101,7 @@ export default function HomePage() {
           </Link>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        {/* <div className="max-w-4xl mx-auto">
           <Link href="/web4" className="block cursor-pointer">
             <Card variant="glass" size="lg" hover={true}>
               <h2 className="text-xl md:text-3xl">
@@ -116,49 +116,65 @@ export default function HomePage() {
               <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
                 Now more than ever, centralized infrastructure is a vulnerability to us all. Ads, bias, mass-surveillance are all symptoms of an old technology that will soon be overcome by AI- and Qunatum-powered attacks. Declare your independence and join the fight for real decentralized internet.
               </p>
-              {/* <Button size="lg" variant="outline">
-                Declaration of Independence
-              </Button> */}
             </Card>
           </Link>
         </div>
 
-        <hr id="contribute" className="max-w-4xl mx-auto" style={{ width: '100%', border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.3)', margin: '2rem 0' }} />
-
-        <div className="max-w-4xl mx-auto">
-          <div className="cursor-pointer" onClick={handleVolunteerClick}>
-            <Card variant="light" size="lg" hover={true}>
-              <h2 className="text-xl md:text-3xl">
-                Become a 
-              </h2>
-              <h1 className="text-2xl md:text-4xl font-bold mb-6 text-white">
-                Community Developer
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                Build the tools that power our digital independence. Community Developers create open-source software, decentralized applications, and infrastructure that keeps the internet free from corporate control. Join us in coding the future where technology serves humanity, not profit.
-              </p>
-            </Card>
-          </div>
-        </div>
-
-        <div className="max-w-4xl mx-auto">
-          <div className="cursor-pointer" onClick={handleVolunteerClick}>
-            <Card variant="light" size="lg" hover={true}>
-              <h2 className="text-xl md:text-3xl">
-                Become a 
-              </h2>
-              <h1 className="text-2xl md:text-4xl font-bold mb-6 text-white">
-                Community Curator
-              </h1>
-              <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
-                Like the Moon, some resources belong to us all - The AP0110 community is making sure those resources can never be taken away, by actively curating a high-quality collection for everyone - starting with an approved <b>K-12 Home School Education</b>.
-              </p>
-            </Card>
-          </div>
-        </div>
-
+        <hr id="contribute" className="max-w-4xl mx-auto" style={{ width: '100%', border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.3)', margin: '2rem 0' }} /> */}
 
         <Partners />
+      </section>
+
+
+      {/* Develop Section */}
+      <section 
+        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
+        style={{
+          backgroundImage: "url(/images/school/yustinus-tjiuwanda-md.jpg)",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <Link href="/calcompute" className="block cursor-pointer">
+            <Card variant="light" size="lg" hover={true}>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+                Develop
+              </h1>
+              <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
+                AP0110 contributers are currating an unbiased, free K-12+ Home School Education, to make sure a high-quality general and advanced education is availably to children and adults everywhere.
+              </p>
+            </Card>
+          </Link>
+        </div>
+      </section>
+
+
+      {/* Education Section */}
+      <section 
+        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
+        style={{
+          backgroundImage: "url(/images/school/yustinus-tjiuwanda-md.jpg)",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="max-w-4xl mx-auto relative z-10">
+          <Link href="/calcompute" className="block cursor-pointer">
+            <Card variant="light" size="lg" hover={true}>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+                Open Education
+              </h1>
+              <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
+                AP0110 contributers are currating an unbiased, free K-12+ Home School Education, to make sure a high-quality general and advanced education is availably to children and adults everywhere.
+              </p>
+            </Card>
+          </Link>
+        </div>
       </section>
 
 
