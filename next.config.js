@@ -39,6 +39,13 @@ const nextConfig = {
       path.resolve(__dirname, 'web-assets'),
     ]
     
+    // Ensure .jsx extensions are resolved for @web-assets imports
+    config.resolve.extensions = [
+      ...(config.resolve.extensions || []),
+      '.jsx',
+      '.js',
+    ]
+    
     return config
   }
 }
