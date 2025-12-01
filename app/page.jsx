@@ -193,7 +193,7 @@ export default function HomePage() {
       <section 
         className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
         style={{
-          backgroundImage: "url(/images/partners/UC-bg.svg)",
+          backgroundImage: "url(/images/Partners/UC-bg.svg)",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
