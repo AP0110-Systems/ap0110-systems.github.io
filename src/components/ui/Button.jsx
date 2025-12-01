@@ -12,13 +12,13 @@ const Button = ({
   disabled,
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
+  const baseClasses = 'inline-flex items-center justify-center font-medium transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
   
   const variantClasses = {
-    primary: 'bg-ap-blue text-white focus:ring-ap-blue shadow-lg hover:shadow-xl',
-    secondary: 'bg-gray-600 text-white focus:ring-gray-500',
-    ghost: 'text-ap-blue hover:bg-ap-blue/10 focus:ring-ap-blue',
-    outline: 'border-2 border-ap-blue text-ap-blue hover:bg-ap-blue hover:text-white focus:ring-ap-blue'
+    primary: 'bg-ap-cyan text-white focus:ring-ap-cyan shadow-lg',
+    secondary: 'bg-gray-600 text-white focus:ring-gray-500 hover:bg-gray-500',
+    ghost: 'text-ap-cyan hover:bg-ap-cyan/10 focus:ring-ap-cyan',
+    outline: 'border-2 border-ap-cyan text-ap-cyan hover:bg-ap-cyan hover:text-white focus:ring-ap-cyan hover:border-ap-cyan/80'
   }
   
   const sizeClasses = {

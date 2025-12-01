@@ -12,7 +12,7 @@ const Earth = dynamic(() => import('@/components/Earth'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center w-full h-full aspect-square">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-blue"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-cyan"></div>
     </div>
   )
 })
@@ -22,7 +22,7 @@ const WorldMap = dynamic(() => import('@/components/WorldMap'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-full">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ap-blue"></div>
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ap-cyan"></div>
     </div>
   )
 })
@@ -34,11 +34,11 @@ const StatisticsPanel = () => {
       <h3 className="text-xl font-bold mb-4 text-white">Global Statistics</h3>
       <div className="grid grid-cols-2 gap-4">
         <div className="text-center">
-          <div className="text-2xl font-bold text-ap-blue">195</div>
+          <div className="text-2xl font-bold text-ap-cyan">195</div>
           <div className="text-sm text-gray-300">Countries</div>
         </div>
         <div className="text-center">
-          <div className="text-2xl font-bold text-ap-blue">3</div>
+          <div className="text-2xl font-bold text-ap-cyan">3</div>
           <div className="text-sm text-gray-300">Active Regions</div>
         </div>
         <div className="text-center col-span-2">
@@ -112,8 +112,8 @@ const ControlPanel = () => {
         </Button>
         
         {state.selectedCountry && (
-          <div className="p-3 bg-ap-blue/20 rounded-lg">
-            <div className="text-sm text-ap-blue font-semibold">Selected:</div>
+          <div className="p-3 bg-ap-cyan/20 rounded-lg">
+            <div className="text-sm text-ap-cyan font-semibold">Selected:</div>
             <div className="text-white">{state.selectedCountry.name}</div>
           </div>
         )}
@@ -145,7 +145,7 @@ const HomePage = () => {
             <div className="corner br"></div>
             <Suspense fallback={
               <div className="flex items-center justify-center w-full h-full aspect-square">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-blue"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-cyan"></div>
               </div>
             }>
               <Earth />
@@ -160,7 +160,7 @@ const HomePage = () => {
             <Card variant="glass">              
                <div>
                  <div className="w-full bg-gray-700 rounded-lg h-12">
-                   <div className="bg-ap-blue h-12 rounded-lg transition-all duration-1000 ease-out animate-progress" style={{width: '10%'}}></div>
+                   <div className="bg-ap-cyan h-12 rounded-lg transition-all duration-1000 ease-out animate-progress" style={{width: '10%'}}></div>
                  </div>
                </div>
             </Card>
@@ -195,7 +195,7 @@ const HomePage = () => {
       <div className="w-screen h-screen relative z-10">
         <Suspense fallback={
           <div className="flex items-center justify-center w-full h-full">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-blue"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-cyan"></div>
           </div>
         }>
           <WorldMap />

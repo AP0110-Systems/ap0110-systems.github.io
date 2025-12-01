@@ -642,7 +642,7 @@ export default function Web4Page() {
           <div className="flex justify-center">
             <div className="relative w-full max-w-xl">
               {/* Timeline Line */}
-              <div className="absolute left-2 md:left-0 top-0 bottom-0 border-l-2 border-dashed border-ap-blue"></div>
+              <div className="absolute left-2 md:left-0 top-0 bottom-0 border-l-2 border-dashed border-ap-cyan"></div>
               {/* Fade out top */}
               <div className="absolute left-[6px] md:left-[-2px] top-0 w-4 h-16 bg-gradient-to-b from-gray-50 via-gray-50/50 to-transparent pointer-events-none"></div>
               {/* Fade out bottom */}
@@ -652,18 +652,18 @@ export default function Web4Page() {
               <div className="space-y-12">
                 {/* 2019 */}
                 <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">2019</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">2019</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Surveillance Capitalism</h3>
                     <p className="text-gray-700 text-sm mb-4">
                       Shoshana Zuboff
                     </p>
                     <div className="space-y-2">
-                      <a href="https://www.hachettebookgroup.com/titles/shoshana-zuboff/the-age-of-surveillance-capitalism/9781541758001/" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://www.hachettebookgroup.com/titles/shoshana-zuboff/the-age-of-surveillance-capitalism/9781541758001/" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         The Age of Surveillance Capitalism
                       </a>
                     </div>
@@ -673,18 +673,18 @@ export default function Web4Page() {
 
               {/* 2010s */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">2010s</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">2010s</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Ethereum&apos;s Intro to Web3</h3>
                     <p className="text-gray-700 text-sm mb-4">
                       Ethereum Foundation
                     </p>
                     <div className="space-y-2">
-                      <a href="https://ethereum.org/en/web3/" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://ethereum.org/en/web3/" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Ethereum&apos;s Intro to Web3
                       </a>
                     </div>
@@ -694,11 +694,11 @@ export default function Web4Page() {
 
               {/* 2008 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">2008</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">2008</span>
                       <span className="text-sm text-gray-500">October 31</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Bitcoin: A Peer-to-Peer Electronic Cash System</h3>
@@ -706,7 +706,7 @@ export default function Web4Page() {
                       Satoshi Nakamoto
                     </p>
                     <div className="space-y-2">
-                      <a href="https://bitcoin.org/bitcoin.pdf" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://bitcoin.org/bitcoin.pdf" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Bitcoin: A Peer-to-Peer Electronic Cash System
                       </a>
                     </div>
@@ -716,11 +716,11 @@ export default function Web4Page() {
 
               {/* 2001 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">2001</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">2001</span>
                       <span className="text-sm text-gray-500">May</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">The Semantic Web</h3>
@@ -728,7 +728,7 @@ export default function Web4Page() {
                       Tim Berners-Lee
                     </p>
                     <div className="space-y-2">
-                      <a href="https://www.scientificamerican.com/article/the-semantic-web/" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://www.scientificamerican.com/article/the-semantic-web/" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         The Semantic Web
                       </a>
                     </div>
@@ -738,11 +738,11 @@ export default function Web4Page() {
 
               {/* 1989 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1989</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1989</span>
                       <span className="text-sm text-gray-500">March</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Information Management: A Proposal</h3>
@@ -750,7 +750,7 @@ export default function Web4Page() {
                       Tim Berners-Lee
                     </p>
                     <div className="space-y-2">
-                      <a href="https://www.w3.org/History/1989/proposal.html" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://www.w3.org/History/1989/proposal.html" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Information Management: A Proposal
                       </a>
                     </div>
@@ -760,18 +760,18 @@ export default function Web4Page() {
 
               {/* 1974 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1974</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1974</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Computer Lib - Dream Machines</h3>
                     <p className="text-gray-700 text-sm mb-4">
                       Ted Nelson
                     </p>
                     <div className="space-y-2">
-                      <a href="https://archive.org/details/ComputerLibDreamMachines" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://archive.org/details/ComputerLibDreamMachines" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Computer Lib - Dream Machines
                       </a>
                     </div>
@@ -781,11 +781,11 @@ export default function Web4Page() {
 
               {/* 1968 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1968</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1968</span>
                       <span className="text-sm text-gray-500">April</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">The Computer As A Communication Device</h3>
@@ -793,7 +793,7 @@ export default function Web4Page() {
                       J.C.R. Licklider, R. Taylor
                     </p>
                     <div className="space-y-2">
-                      <a href="https://www.ibiblio.org/pioneers/licklider.html" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://www.ibiblio.org/pioneers/licklider.html" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         The Computer As A Communication Device
                       </a>
                     </div>
@@ -803,11 +803,11 @@ export default function Web4Page() {
 
               {/* 1963 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1963</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1963</span>
                       <span className="text-sm text-gray-500">April 23</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Licklider Memo</h3>
@@ -815,7 +815,7 @@ export default function Web4Page() {
                       J.C.R. Licklider
                     </p>
                     <div className="space-y-2">
-                      <a href="https://historyofcomputercommunications.info/interviews/J.C.R.-Licklider/" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://historyofcomputercommunications.info/interviews/J.C.R.-Licklider/" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Licklider Memo
                       </a>
                     </div>
@@ -825,11 +825,11 @@ export default function Web4Page() {
 
               {/* 1962 - October */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1962</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1962</span>
                       <span className="text-sm text-gray-500">October</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Augmenting Human Intellect</h3>
@@ -837,7 +837,7 @@ export default function Web4Page() {
                       Douglas Engelbart
                     </p>
                     <div className="space-y-2">
-                      <a href="https://web.stanford.edu/class/history34q/readings/Engelbart/Engelbart_AugmentIntellect.html" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://web.stanford.edu/class/history34q/readings/Engelbart/Engelbart_AugmentIntellect.html" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Augmenting Human Intellect
                       </a>
                     </div>
@@ -847,11 +847,11 @@ export default function Web4Page() {
 
               {/* 1962 - April */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1962</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1962</span>
                       <span className="text-sm text-gray-500">April</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">ON-LINE MAN-COMPUTER COMMUNICATION</h3>
@@ -859,7 +859,7 @@ export default function Web4Page() {
                       J.C.R. Licklider, W. Clark
                     </p>
                     <div className="space-y-2">
-                      <a href="https://www.historyofinformation.com/detail.php?id=796" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://www.historyofinformation.com/detail.php?id=796" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         ON-LINE MAN-COMPUTER COMMUNICATION
                       </a>
                     </div>
@@ -869,11 +869,11 @@ export default function Web4Page() {
 
               {/* 1960 */}
               <div className="relative flex items-start">
-                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-blue rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+                  <div className="absolute left-[9px] md:left-[1px] top-1/2 w-3 h-3 bg-ap-cyan rounded-full shadow-md transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
                   <div className="ml-8 w-full md:ml-12 md:max-w-lg">
                   <Card variant="glass" size="lg">
                     <div className="flex items-center gap-3 mb-3">
-                      <span className="text-sm font-semibold text-ap-blue bg-ap-blue/10 px-3 py-1 rounded-full">1960</span>
+                      <span className="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-1 rounded-full">1960</span>
                       <span className="text-sm text-gray-500">March</span>
                     </div>
                     <h3 className="text-xl font-bold text-gray-900 mb-2">Man-Computer Symbiosis</h3>
@@ -881,7 +881,7 @@ export default function Web4Page() {
                       J.C.R. Licklider
                     </p>
                     <div className="space-y-2">
-                      <a href="https://www.columbia.edu/~jrh29/licklider/man-computer_symbiosis.html" className="block text-ap-blue hover:text-ap-blue/80 text-sm">
+                      <a href="https://www.columbia.edu/~jrh29/licklider/man-computer_symbiosis.html" className="block text-ap-cyan hover:text-ap-cyan/80 text-sm">
                         Man-Computer Symbiosis
                       </a>
                     </div>

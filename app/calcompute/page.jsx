@@ -275,7 +275,7 @@ export default function CalComputePage() {
           {/* Backed by Partners */}
           <div className="mt-8">
             <div className="w-fit mx-auto">
-              <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              <div className="flex items-center justify-center gap-8">
                 {[
                   { src: getPartnersImagePath('UCR/Institutional Logo/UC_Riverside_Logo_full-color_PNG/UC_Riverside_Horiz_WhtBluBG.png'), alt: 'UC Riverside Office of Technology Partnerships' },
                   { src: getPartnersImagePath('WHITE_UCBerkeley.png'), alt: 'UC Berkeley' },
@@ -284,9 +284,10 @@ export default function CalComputePage() {
                     key={idx}
                     src={partner.src}
                     alt={partner.alt}
-                    width={150}
+                    width={120}
                     height={48}
-                    className="h-8 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                    className="w-auto object-contain opacity-90 hover:opacity-100 transition-opacity"
+                    style={{ height: '3em' }}
                     unoptimized
                   />
                 ))}

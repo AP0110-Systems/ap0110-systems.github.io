@@ -220,7 +220,7 @@ export default function HomePage() {
                 AP0110 is working with the State of California and UC Campuses to bring their dream of a <strong className="text-black">safe, ethical, equitable, and sustainable</strong> public AI cloud cluster to reality.
                 <br /><br />
                 <span className="flex items-center justify-between md:inline">
-                  <span className="text-ap-blue font-bold transition-all duration-200 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]" style={{ textShadow: '2px 2px 6px rgba(0,0,0,0.7), 0 0 10px rgba(255,255,255,0.5)' }}>Learn more &gt;</span>
+                  <span className="text-ap-cyan font-bold transition-all duration-200 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]" style={{ textShadow: '2px 2px 6px rgba(0,0,0,0.7), 0 0 10px rgba(255,255,255,0.5)' }}>Learn more &gt;</span>
                   <Image 
                     src="/images/bear.png" 
                     alt="Bear" 

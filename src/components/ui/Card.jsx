@@ -61,7 +61,7 @@ const Card = ({
   
   // Apply hover effect if explicitly set to true, or if card has links/inputs and hover is not explicitly false
   const shouldHover = hover === true || (hover !== false && (hasLink || hasInput))
-  const hoverClasses = shouldHover ? 'hover:bg-white/15 hover:scale-102 hover:shadow-lg cursor-pointer' : ''
+  const hoverClasses = shouldHover ? 'hover:bg-white/15 hover:shadow-lg cursor-pointer' : ''
 
   return (
     <div 

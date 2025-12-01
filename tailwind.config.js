@@ -13,7 +13,13 @@ module.exports = {
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
       },
       colors: {
-        'ap-blue': '#00b0ff',
+        'ap-cyan': '#00b0ff',
+        'ap-red': '#E4002B',
+        'ap-orange': '#FF4F00',
+        'ap-yellow': '#E2B46C',
+        'ap-green': '#47B332',
+        'ap-blue': '#0032A0',
+        'ap-violet': '#8E24AA',
       },
       backgroundImage: {
         'hero-pattern': "url('/images/rosa-rafael-rQSKTNvaVdE-unsplash-2.jpg')",

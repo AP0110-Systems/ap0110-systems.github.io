@@ -12,7 +12,7 @@ const Indicator = ({ carbon, feasibility }) => {
         <span className="text-[#47B332]">{carbon}</span>
       )}
       {feasibility && (
-        <span className="text-ap-blue">{feasibility}</span>
+        <span className="text-ap-cyan">{feasibility}</span>
       )}
     </span>
   )
@@ -67,14 +67,14 @@ export default function GuidePage() {
               <div>
                 <h3 className="text-xl font-bold mb-4 text-white">Contents</h3>
                 <ul className="space-y-2">
-                  <li><a href="#independent-internet" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Independent Internet (AP0110)</a></li>
-                  <li><a href="#electricity" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Electricity</a></li>
-                  <li><a href="#water" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Water</a></li>
-                  <li><a href="#natural-gas" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Natural Gas</a></li>
-                  <li><a href="#food" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Food</a></li>
-                  <li><a href="#waste-management" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Waste Management</a></li>
-                  <li><a href="#climate-control" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Climate Control</a></li>
-                  <li><a href="#security" className="text-ap-blue hover:text-blue-400 font-mono font-bold">Security</a></li>
+                  <li><a href="#independent-internet" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Independent Internet (AP0110)</a></li>
+                  <li><a href="#electricity" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Electricity</a></li>
+                  <li><a href="#water" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Water</a></li>
+                  <li><a href="#natural-gas" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Natural Gas</a></li>
+                  <li><a href="#food" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Food</a></li>
+                  <li><a href="#waste-management" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Waste Management</a></li>
+                  <li><a href="#climate-control" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Climate Control</a></li>
+                  <li><a href="#security" className="text-ap-cyan hover:text-blue-400 font-mono font-bold">Security</a></li>
                 </ul>
               </div>
               <div>

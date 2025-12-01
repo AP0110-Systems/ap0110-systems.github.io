@@ -115,5 +115,5 @@ import Header from '../../../Web-Assets/components/Header'
 - These components are designed for Next.js projects but can be adapted for other React frameworks
 - All components use TailwindCSS utility classes
 - Some components rely on Next.js-specific features (Link, usePathname) and may need adaptation for non-Next.js projects
-- The `ap-blue` color class should be defined in your TailwindCSS configuration
+- The `ap-cyan` color class should be defined in your TailwindCSS configuration
 

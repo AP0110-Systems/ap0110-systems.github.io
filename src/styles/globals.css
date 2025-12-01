@@ -1,6 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* AP0110 Custom Styles - Matching Original Design */
+@theme {
+  --color-ap-cyan: #00b0ff;
+  --color-ap-red: #E4002B;
+  --color-ap-orange: #FF4F00;
+  --color-ap-yellow: #E2B46C;
+  --color-ap-green: #47B332;
+  --color-ap-blue: #0032A0;
+  --color-ap-violet: #8E24AA;
+}
 
 html {
   overscroll-behavior-y: none;

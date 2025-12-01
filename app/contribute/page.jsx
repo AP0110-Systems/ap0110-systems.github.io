@@ -14,7 +14,7 @@ export default function TechnologyPage() {
                 <h2 className="text-2xl font-bold mb-4 text-white">Connectivity Solutions</h2>
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-3">Satellite Internet</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-3">Satellite Internet</h3>
                     <p className="text-gray-300 text-sm mb-4">
                       Leveraging low-earth orbit satellites to provide high-speed internet access to remote areas 
                       where traditional infrastructure is not feasible.
@@ -26,7 +26,7 @@ export default function TechnologyPage() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-3">Mesh Networking</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-3">Mesh Networking</h3>
                     <p className="text-gray-300 text-sm mb-4">
                       Creating self-healing networks that can extend connectivity across communities without 
                       relying on centralized infrastructure.
@@ -44,7 +44,7 @@ export default function TechnologyPage() {
                 <h2 className="text-2xl font-bold mb-4 text-white">Platform Technologies</h2>
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-2">Frontend</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-2">Frontend</h3>
                     <ul className="text-gray-300 text-sm space-y-1">
                       <li>• React 18</li>
                       <li>• Next.js 14</li>
@@ -53,7 +53,7 @@ export default function TechnologyPage() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-2">Visualization</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-2">Visualization</h3>
                     <ul className="text-gray-300 text-sm space-y-1">
                       <li>• Three.js</li>
                       <li>• Globe.gl</li>
@@ -62,7 +62,7 @@ export default function TechnologyPage() {
                     </ul>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-2">Deployment</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-2">Deployment</h3>
                     <ul className="text-gray-300 text-sm space-y-1">
                       <li>• Static Site Generation</li>
                       <li>• GitHub Pages</li>
@@ -77,21 +77,21 @@ export default function TechnologyPage() {
                 <h2 className="text-2xl font-bold mb-4 text-white">Innovation Areas</h2>
                 <div className="space-y-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-2">Adaptive Networks</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-2">Adaptive Networks</h3>
                     <p className="text-gray-300 text-sm">
                       Developing intelligent routing algorithms that can adapt to changing conditions and optimize 
                       connectivity based on usage patterns and environmental factors.
                     </p>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-2">Energy Efficiency</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-2">Energy Efficiency</h3>
                     <p className="text-gray-300 text-sm">
                       Creating low-power solutions that can operate on renewable energy sources, making our 
                       technology accessible in areas with limited electrical infrastructure.
                     </p>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-ap-blue mb-2">Local Content</h3>
+                    <h3 className="text-lg font-semibold text-ap-cyan mb-2">Local Content</h3>
                     <p className="text-gray-300 text-sm">
                       Building systems that can cache and serve educational content locally, reducing bandwidth 
                       requirements and improving access speeds for learning materials.
