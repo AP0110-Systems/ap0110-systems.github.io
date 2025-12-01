@@ -147,7 +147,7 @@ export default function HomePage() {
         <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black to-transparent z-20"></div>
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/calcompute" className="block cursor-pointer">
+          <div className="block cursor-pointer" onClick={handleVolunteerClick}>
             <Card variant="light" size="lg" hover={true}>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
                 Develop
@@ -156,7 +156,7 @@ export default function HomePage() {
                 Contribute to the development of open infrastructure and tools that empower digital independence everywhere.
               </p>
             </Card>
-          </Link>
+          </div>
         </div>
       </section>
 
@@ -175,16 +175,16 @@ export default function HomePage() {
       >
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/calcompute" className="block cursor-pointer">
+          <div className="block cursor-pointer" onClick={handleVolunteerClick}>
             <Card variant="light" size="lg" hover={true}>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
                 Curate
               </h1>
               <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
-                AP0110 contributors are curating an unbiased, free K-12+ Home School Education, to make sure a high-quality general and advanced education is available to children and adults everywhere.
+                AP0110 contributors are curating an unbiased, free K-12+ Home School Education to make sure a high-quality general and advanced education is available to children and adults everywhere.
               </p>
             </Card>
-          </Link>
+          </div>
         </div>
       </section>
 
@@ -201,7 +201,7 @@ export default function HomePage() {
       >
         {/* <div className="absolute inset-0 bg-black/60"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/calcompute" className="block cursor-pointer">
+          <Link href="/calcompute" className="block cursor-pointer group">
             <div className="p-6">
               <div className="flex items-center justify-between mb-6">
                 <h1 className="text-4xl md:text-6xl font-bold text-black" style={{ fontFamily: 'Arial' }}>
@@ -217,10 +217,10 @@ export default function HomePage() {
                 />
               </div>
               <p className="text-lg md:text-xl text-black mb-8 leading-relaxed" style={{ fontFamily: 'Georgia' }}>
-                AP0110 is working with the State of California and UC Campuses to bring their dream of a <strong className="text-black">safe, ethical, equitable, and sustainable</strong> public AI cloud cluster, to reality.
+                AP0110 is working with the State of California and UC Campuses to bring their dream of a <strong className="text-black">safe, ethical, equitable, and sustainable</strong> public AI cloud cluster to reality.
                 <br /><br />
                 <span className="flex items-center justify-between md:inline">
-                  <span className="text-ap-blue font-bold">Learn more &gt;</span>
+                  <span className="text-ap-blue font-bold transition-all duration-200 group-hover:text-white group-hover:drop-shadow-[0_0_8px_rgba(0,0,0,0.8)]" style={{ textShadow: '2px 2px 6px rgba(0,0,0,0.7), 0 0 10px rgba(255,255,255,0.5)' }}>Learn more &gt;</span>
                   <Image 
                     src="/images/bear.png" 
                     alt="Bear" 

@@ -29,9 +29,19 @@ export default function CalComputePage() {
       {/* Hero Section */}
       <section className="pt-20 pb-0 px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-            <span className="bg-black/50">CalCompute</span>
-          </h1>
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="text-4xl md:text-6xl font-bold text-white">
+              <span className="bg-black/50">CalCompute</span>
+            </h1>
+            <Image 
+              src="/images/bear.png" 
+              alt="Bear" 
+              width={80} 
+              height={80}
+              className="object-contain ml-auto hidden md:block"
+              style={{ maxHeight: '80px', filter: 'invert(1)' }}
+            />
+          </div>
           <p className="text-xl md:text-2xl text-gray-300 leading-relaxed mb-6">
             <span className="bg-black/50">California's public cloud computing cluster for <strong className="text-white">safe, ethical, equitable, and sustainable</strong> AI - fully owned and hosted within the University of California.</span>
           </p>
@@ -267,8 +277,8 @@ export default function CalComputePage() {
             <div className="w-fit mx-auto">
               <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
                 {[
-                  { src: getPartnersImagePath('UC_Riverside.png'), alt: 'UC Riverside Office of Technology Partnerships' },
-                  { src: getPartnersImagePath('UC-Berkeley.png'), alt: 'UC Berkeley' },
+                  { src: getPartnersImagePath('UCR/Institutional Logo/UC_Riverside_Logo_full-color_PNG/UC_Riverside_Horiz_WhtBluBG.png'), alt: 'UC Riverside Office of Technology Partnerships' },
+                  { src: getPartnersImagePath('WHITE_UCBerkeley.png'), alt: 'UC Berkeley' },
                 ].map((partner, idx) => (
                   <Image
                     key={idx}
