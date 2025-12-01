@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import Moon from '../src/components/Moon'
 import Button from '../src/components/ui/Button'
 import Card from '../src/components/ui/Card'
@@ -37,10 +38,10 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <div className="w-full min-h-screen overflow-hidden relative bg-transparent">
+      <div className="w-full h-screen min-h-screen max-h-screen overflow-hidden relative bg-transparent" style={{ paddingTop: `calc(72px + env(safe-area-inset-top))` }}>
         <Moon />
 
-        <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto">
+        <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
           <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl md:text-4xl font-bold text-white">
               <span className="bg-black/50">Independent Internet <span className='font-normal text-gray-500'>[Web 4.0]</span></span>
@@ -49,7 +50,7 @@ export default function HomePage() {
               <span className="bg-black/50">Of People, By People, For People</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
-              <span className="bg-black/50">We&apos;re building an open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from corporate control.</span>
+              <span className="bg-black/50">We&apos;re building open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from corporate control.</span>
             </p>
           </div>
         </div>
@@ -57,7 +58,7 @@ export default function HomePage() {
       </div>
 
       {/* Community Section */}
-      <section className="flex flex-col gap-8 md:gap-10 items-center justify-center bg-gradient-to-b from-black/0 to-sky-500 py-12 md:py-20 px-4 relative w-full max-w-full overflow-x-hidden">
+      <section className="flex flex-col gap-8 md:gap-10 items-center justify-center pt-0 pb-8 md:pb-10 px-4 relative w-full max-w-full overflow-x-hidden">
         {/* <div className="absolute inset-0 bg-black/70"></div> */}
 
         <div className="max-w-4xl mx-auto">
@@ -82,7 +83,7 @@ export default function HomePage() {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Link href="/docs" className="block cursor-pointer">
+          <Link href="/web4" className="block cursor-pointer">
             <Card variant="glass" size="lg" hover={true}>
               <h1 className="text-2xl md:text-4xl font-bold mb-6 text-white">
                 Read the Docs
@@ -124,7 +125,7 @@ export default function HomePage() {
         <hr id="contribute" className="max-w-4xl mx-auto" style={{ width: '100%', border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.3)', margin: '2rem 0' }} /> */}
 
         <div className="w-full relative" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', width: '100vw' }}>
-          <Partners />
+          <Partners variant="white" />
         </div>
       </section>
 
@@ -143,6 +144,7 @@ export default function HomePage() {
             direction="up"
           />
         </div>
+        <div className="absolute top-0 left-0 right-0 h-12 bg-gradient-to-b from-black to-transparent z-20"></div>
         <div className="absolute inset-0 bg-black/60"></div>
         <div className="max-w-4xl mx-auto relative z-10">
           <Link href="/calcompute" className="block cursor-pointer">
@@ -176,10 +178,10 @@ export default function HomePage() {
           <Link href="/calcompute" className="block cursor-pointer">
             <Card variant="light" size="lg" hover={true}>
               <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-                Open Education
+                Curate
               </h1>
               <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
-                AP0110 contributers are currating an unbiased, free K-12+ Home School Education, to make sure a high-quality general and advanced education is availably to children and adults everywhere.
+                AP0110 contributors are curating an unbiased, free K-12+ Home School Education, to make sure a high-quality general and advanced education is available to children and adults everywhere.
               </p>
             </Card>
           </Link>
@@ -191,23 +193,45 @@ export default function HomePage() {
       <section 
         className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
         style={{
-          backgroundImage: "url(/images/california-postcard.jpg)",
+          backgroundImage: "url(/images/partners/UC-bg.svg)",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}
       >
-        <div className="absolute inset-0 bg-black/60"></div>
+        {/* <div className="absolute inset-0 bg-black/60"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
           <Link href="/calcompute" className="block cursor-pointer">
-            <Card variant="light" size="lg" hover={true}>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
-                CalCompute
-              </h1>
-              <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
-                Learn about California&apos;s public cloud computing cluster for <strong className="text-white">safe, ethical, equitable, and sustainable</strong> AI, and how AP0110 plans to contribute.
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h1 className="text-4xl md:text-6xl font-bold text-black" style={{ fontFamily: 'Arial' }}>
+                  CalCompute
+                </h1>
+                <Image 
+                  src="/images/bear.png" 
+                  alt="Bear" 
+                  width={80} 
+                  height={80}
+                  className="object-contain ml-auto hidden md:block"
+                  style={{ maxHeight: '80px' }}
+                />
+              </div>
+              <p className="text-lg md:text-xl text-black mb-8 leading-relaxed" style={{ fontFamily: 'Georgia' }}>
+                AP0110 is working with the State of California and UC Campuses to bring their dream of a <strong className="text-black">safe, ethical, equitable, and sustainable</strong> public AI cloud cluster, to reality.
+                <br /><br />
+                <span className="flex items-center justify-between md:inline">
+                  <span className="text-ap-blue font-bold">Learn more &gt;</span>
+                  <Image 
+                    src="/images/bear.png" 
+                    alt="Bear" 
+                    width={60} 
+                    height={60}
+                    className="object-contain md:hidden ml-auto"
+                    style={{ maxHeight: '60px' }}
+                  />
+                </span>
               </p>
-            </Card>
+            </div>
           </Link>
         </div>
       </section>

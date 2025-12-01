@@ -24,7 +24,15 @@ const DonationModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 bg-black/85 flex items-center justify-center z-[9999] p-4">
+    <div 
+      className="fixed inset-0 bg-black/85 flex items-center justify-center z-[9999] p-4"
+      style={{
+        paddingTop: `calc(1rem + env(safe-area-inset-top))`,
+        paddingBottom: `calc(1rem + env(safe-area-inset-bottom))`,
+        paddingLeft: `calc(1rem + env(safe-area-inset-left))`,
+        paddingRight: `calc(1rem + env(safe-area-inset-right))`
+      }}
+    >
       <div className="relative max-w-md w-full">
         <Card variant="glass" size="lg" className="relative">
           {/* Close button */}
