@@ -44,7 +44,7 @@ export default function HomePage() {
         <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
           <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl md:text-4xl font-bold text-white">
-              <span className="bg-black/50">Independent Internet <span className='font-normal text-gray-500'>[Web 4.0]</span></span>
+              <span className="bg-black/50">Independent Internet <span className='font-mono font-normal text-gray-500'>[Web 4.0]</span></span>
             </h1>
             <h1 className="text-xl md:text-3xl mb-4 md:mb-6 text-white">
               <span className="bg-black/50">Of People, By People, For People</span>
