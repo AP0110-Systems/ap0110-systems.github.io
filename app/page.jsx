@@ -3,13 +3,32 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import Moon from '../src/components/Moon'
+import dynamic from 'next/dynamic'
 import Button from '../src/components/ui/Button'
 import Card from '../src/components/ui/Card'
-import DonationModal from '../src/components/DonationModal'
-import VolunteerModal from '../src/components/VolunteerModal'
-import Partners from '@web-assets/components/Partners'
-import { DigitalRain } from '@web-assets/components/DigitalRain'
+import LazyBackgroundImage from '../src/components/LazyBackgroundImage'
+import LazyPartners from '../src/components/LazyPartners'
+import LazyDigitalRain from '../src/components/LazyDigitalRain'
+
+// Lazy load heavy components with dynamic imports
+// Moon is above the fold, but still lazy load to avoid blocking initial render
+const Moon = dynamic(() => import('../src/components/Moon'), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="w-32 h-32 border-4 border-white/20 border-t-white/60 rounded-full animate-spin" />
+    </div>
+  ),
+})
+
+// Modals - only load when opened
+const DonationModal = dynamic(() => import('../src/components/DonationModal'), {
+  ssr: false,
+})
+
+const VolunteerModal = dynamic(() => import('../src/components/VolunteerModal'), {
+  ssr: false,
+})
 
 export default function HomePage() {
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false)
@@ -50,7 +69,7 @@ export default function HomePage() {
               <span className="bg-black/50">Of People, By People, For People</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
-              <span className="bg-black/50">We&apos;re building open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from corporate control.</span>
+              <span className="bg-black/50">We&apos;re building open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from third-party control.</span>
             </p>
           </div>
         </div>
@@ -125,15 +144,15 @@ export default function HomePage() {
         <hr id="contribute" className="max-w-4xl mx-auto" style={{ width: '100%', border: 'none', borderTop: '1px solid rgba(255, 255, 255, 0.3)', margin: '2rem 0' }} /> */}
 
         <div className="w-full relative" style={{ marginLeft: 'calc(-50vw + 50%)', marginRight: 'calc(-50vw + 50%)', width: '100vw' }}>
-          <Partners variant="white" />
+          <LazyPartners variant="white" />
         </div>
       </section>
 
 
       {/* Develop Section */}
       <section className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden">
-        <div className="absolute inset-0 [&>section]:!p-0 [&>section]:!h-full [&>section]:!w-full">
-          <DigitalRain 
+        <div className="absolute inset-0 w-full h-full">
+          <LazyDigitalRain 
             dropColor="rgb(150, 150, 150)"
             trailColor="rgb(200, 200, 200)"
             backgroundColor="rgb(0, 0, 0)"
@@ -164,16 +183,12 @@ export default function HomePage() {
       {/* Efforts Section */}
       <div id="efforts">
       {/* Education Section */}
-      <section 
-        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
-        style={{
-          backgroundImage: "url(/images/school/yustinus-tjiuwanda-md.jpg)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <LazyBackgroundImage
+        src="/images/school/yustinus-tjiuwanda-md.jpg"
+        alt="Education"
+        className="flex items-center justify-center py-20 px-4 w-full max-w-full overflow-x-hidden"
       >
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 bg-black/60 z-[5]"></div>
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="block cursor-pointer" onClick={handleVolunteerClick}>
             <Card variant="light" size="lg" hover={true}>
@@ -186,20 +201,16 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
-      </section>
+      </LazyBackgroundImage>
 
 
       {/* CalCompute Section */}
-      <section 
-        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
-        style={{
-          backgroundImage: "url(/images/Partners/UC-bg.svg)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <LazyBackgroundImage
+        src="/images/Partners/UC-bg.svg"
+        alt="CalCompute"
+        className="flex items-center justify-center py-20 px-4 w-full max-w-full overflow-x-hidden"
       >
-        {/* <div className="absolute inset-0 bg-black/60"></div> */}
+        {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
           <Link href="/calcompute" className="block cursor-pointer group">
             <div className="p-6">
@@ -234,20 +245,16 @@ export default function HomePage() {
             </div>
           </Link>
         </div>
-      </section>
+      </LazyBackgroundImage>
 
       {/* Donation Section */}
-      <section 
+      <LazyBackgroundImage
         id="donate"
-        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
-        style={{
-          backgroundImage: "url(/images/LII/Girls_Promise_Land.png)",
-          backgroundSize: 'cover',
-          backgroundPosition: 'top',
-          backgroundRepeat: 'no-repeat'
-        }}
+        src="/images/LII/Girls_Promise_Land.png"
+        alt="Connect a Community"
+        className="flex items-center justify-center py-20 px-4 w-full max-w-full overflow-x-hidden"
       >
-        {/* <div className="absolute inset-0 bg-black/60"></div> */}
+        {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="cursor-pointer" onClick={handleDonateClick}>
             <Card variant="light" size="lg" hover={true}>
@@ -263,18 +270,14 @@ export default function HomePage() {
             </Card>
           </div>
         </div>
-      </section>
+      </LazyBackgroundImage>
 
-      <section 
-        className="flex items-center justify-center py-20 px-4 relative w-full max-w-full overflow-x-hidden"
-        style={{
-          backgroundImage: 'url(/images/LII/Backdrop_3.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+      <LazyBackgroundImage
+        src="/images/LII/Backdrop_3.png"
+        alt="Help End Child Trafficking"
+        className="flex items-center justify-center py-20 px-4 w-full max-w-full overflow-x-hidden"
       >
-        {/* <div className="absolute inset-0 bg-black/70"></div> */}
+        {/* <div className="absolute inset-0 bg-black/70 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
           <a href="/children" className="block cursor-pointer">
             <Card variant="light" size="lg">
@@ -295,7 +298,7 @@ export default function HomePage() {
             </Card>
            </a>
         </div>
-      </section>
+      </LazyBackgroundImage>
       </div>
 
       {/* Donation Modal */}

@@ -64,7 +64,26 @@ const Globe = () => {
       globeInstance = globe
     })
 
+    // Handle page visibility changes to ensure globe continues rendering
+    const handleVisibilityChange = () => {
+      if (!document.hidden && globeInstance && currentRef) {
+        // Page is visible - ensure globe is still rendering
+        try {
+          // Force a render update when page becomes visible
+          if (globeInstance.renderer && globeInstance.renderer().render) {
+            globeInstance.renderer().render(globeInstance.scene(), globeInstance.camera())
+          }
+        } catch (err) {
+          console.warn('Error refreshing globe on visibility change:', err)
+        }
+      }
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
     return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      
       if (globeInstance) {
         // Properly dispose of the globe instance
         try {

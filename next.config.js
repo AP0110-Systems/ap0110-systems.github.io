@@ -10,6 +10,11 @@ const nextConfig = {
     unoptimized: true,
     domains: ['unpkg.com'],
   },
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
+  // Optimize production builds
+  swcMinify: true,
   webpack: (config, { isServer }) => {
     // Handle Three.js and globe.gl for client-side only
     if (!isServer) {

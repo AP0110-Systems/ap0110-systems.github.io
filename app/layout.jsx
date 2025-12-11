@@ -3,10 +3,14 @@ import '@web-assets/styles/globals.css'
 import { AppProvider } from '../src/context/AppContext'
 import Header from '@web-assets/components/Header'
 import Footer from '@web-assets/components/Footer'
-import Stars from '@web-assets/components/Stars'
 import AP0110MonoProvider from '../src/components/AP0110MonoProvider'
+import LazyStars from '../src/components/LazyStars'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Optimize font loading
+  preload: true,
+})
 
 export const metadata = {
   title: 'AP0110.ORG - Independent Internet (Web 4.0)',
@@ -62,7 +66,7 @@ export default function RootLayout({
       <body className={`${inter.className} overflow-x-hidden max-w-full`}>
         <AP0110MonoProvider>
           <AppProvider>
-            <Stars />
+            <LazyStars />
             <Header />
             <div className="w-full max-w-full overflow-x-hidden">
               {children}
