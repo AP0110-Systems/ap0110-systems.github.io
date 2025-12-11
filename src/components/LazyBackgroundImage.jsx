@@ -20,6 +20,7 @@ export default function LazyBackgroundImage({
   const [isLoaded, setIsLoaded] = useState(false)
   const [isInView, setIsInView] = useState(priority)
   const containerRef = useRef(null)
+  const observerRef = useRef(null)
 
   useEffect(() => {
     if (priority) {
@@ -33,6 +34,7 @@ export default function LazyBackgroundImage({
           if (entry.isIntersecting) {
             setIsInView(true)
             observer.disconnect()
+            observerRef.current = null
           }
         })
       },
@@ -42,13 +44,17 @@ export default function LazyBackgroundImage({
       }
     )
 
+    observerRef.current = observer
+
     if (containerRef.current) {
       observer.observe(containerRef.current)
     }
 
     return () => {
-      if (containerRef.current) {
-        observer.unobserve(containerRef.current)
+      if (observerRef.current && containerRef.current) {
+        observerRef.current.unobserve(containerRef.current)
+        observerRef.current.disconnect()
+        observerRef.current = null
       }
     }
   }, [priority])
@@ -77,9 +83,8 @@ export default function LazyBackgroundImage({
           />
         </div>
       )}
-      <div className="relative z-10">
-        {children}
-      </div>
+      {/* Render children directly - absolute positioned elements will position relative to section */}
+      {children}
     </section>
   )
 }

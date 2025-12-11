@@ -60,7 +60,7 @@ export default function HomePage() {
       <div className="w-full h-screen min-h-screen max-h-screen overflow-hidden relative bg-transparent" style={{ paddingTop: `calc(72px + env(safe-area-inset-top))` }}>
         <Moon />
 
-        <div className="flex items-center justify-center px-4 md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
+        <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
           <div className="max-w-4xl mx-auto w-full px-4 md:px-0">
             <h1 className="text-2xl md:text-4xl font-bold text-white">
               <span className="bg-black/50">Independent Internet <span className='font-mono font-normal text-gray-500'>[Web 4.0]</span></span>

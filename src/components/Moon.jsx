@@ -70,8 +70,9 @@ const Globe = () => {
         // Page is visible - ensure globe is still rendering
         try {
           // Force a render update when page becomes visible
-          if (globeInstance.renderer && globeInstance.renderer().render) {
-            globeInstance.renderer().render(globeInstance.scene(), globeInstance.camera())
+          const renderer = globeInstance.renderer?.()
+          if (renderer && renderer.render) {
+            renderer.render(globeInstance.scene(), globeInstance.camera())
           }
         } catch (err) {
           console.warn('Error refreshing globe on visibility change:', err)
