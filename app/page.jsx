@@ -60,8 +60,8 @@ export default function HomePage() {
       <div className="w-full h-screen min-h-screen max-h-screen overflow-hidden relative bg-transparent" style={{ paddingTop: `calc(72px + env(safe-area-inset-top))` }}>
         <Moon />
 
-        <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
-          <div className="max-w-4xl mx-auto">
+        <div className="flex items-center justify-center px-4 md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
+          <div className="max-w-4xl mx-auto w-full px-4 md:px-0">
             <h1 className="text-2xl md:text-4xl font-bold text-white">
               <span className="bg-black/50">Independent Internet <span className='font-mono font-normal text-gray-500'>[Web 4.0]</span></span>
             </h1>
@@ -69,7 +69,7 @@ export default function HomePage() {
               <span className="bg-black/50">Of People, By People, For People</span>
             </h1>
             <p className="text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed">
-              <span className="bg-black/50">We&apos;re building open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from third-party control.</span>
+              <span className="bg-black/50">Open, decentralized, user-owned infrastructure that empowers true digital sovereignty, free from third-party control.</span>
             </p>
           </div>
         </div>
