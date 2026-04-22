@@ -8,6 +8,8 @@ import { notFound } from 'next/navigation'
 
 const articlesDir = path.join(process.cwd(), 'content/articles')
 
+export const dynamicParams = false
+
 export async function generateStaticParams() {
   if (!fs.existsSync(articlesDir)) return []
   return fs.readdirSync(articlesDir)
