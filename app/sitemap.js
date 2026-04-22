@@ -8,10 +8,6 @@ export default function sitemap() {
     { url: `${base}/children`,        lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/unausa`,          lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${base}/web4`,            lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/whitepaper`,      lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/radios`,          lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${base}/guide`,           lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${base}/contribute`,      lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${base}/docs`,            lastModified: now, changeFrequency: 'weekly',  priority: 0.5 },
     { url: `${base}/articles`,        lastModified: now, changeFrequency: 'weekly',  priority: 0.5 },
   ]
