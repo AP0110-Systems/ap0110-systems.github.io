@@ -9,17 +9,33 @@ export const metadata = {
   description: 'Research, perspectives, and updates from AP0110.ORG on Independent Internet, Web 4.0, and decentralized networking.',
 }
 
+function toSafeSlug(filename) {
+  const base = filename.replace(/\.md$/, '')
+  const normalized = base
+    .toLowerCase()
+    .replace(/[^a-z0-9-]/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  if (!normalized) return null
+  if (!/^[a-z0-9-]+$/.test(normalized)) return null
+
+  return normalized
+}
+
 function getAllArticles() {
   const dir = path.join(process.cwd(), 'content/articles')
   if (!fs.existsSync(dir)) return []
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md') && !f.startsWith('_'))
     .map(filename => {
-      const slug = filename.replace(/\.md$/, '')
+      const slug = toSafeSlug(filename)
+      if (!slug) return null
       const raw = fs.readFileSync(path.join(dir, filename), 'utf8')
       const { data } = matter(raw)
       return { slug, ...data }
     })
+    .filter(Boolean)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
