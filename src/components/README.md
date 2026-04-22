@@ -1,119 +1,71 @@
-# Web Assets Components
+# Shared Components
 
-This directory contains reusable React components that can be shared across multiple AP0110 sites.
+Reusable React components for ap0110.org. All components use Tailwind CSS utilities and the `cn()` helper from `@/utils/cn`.
 
-## Components
+## Layout
 
 ### Header.jsx
-Navigation header component with logo and menu items.
-
-**Dependencies:**
-- Next.js: `next/link`, `next/navigation` (usePathname)
-- TailwindCSS for styling
-
-**Usage:**
-```jsx
-import Header from '@/web-assets/components/Header'
-
-<Header 
-  className="custom-class" 
-  showLogo={true}
->
-  {/* Optional children */}
-</Header>
-```
+Top navigation bar with logo and route links.
 
 ### Footer.jsx
-Footer component with extended content that switches between fixed and absolute positioning.
+Site footer. Uses `/images/moon.webp` and the `useScrollIndicator` hook for scroll-aware positioning.
 
-**Dependencies:**
-- Next.js: `next/navigation` (usePathname)
-- Custom hook: `useScrollIndicator`
-- Components: `Button`, `AmericanFlagIcon`, `VolunteerModal`
-- TailwindCSS for styling
+## Visualizations
 
-**Usage:**
-```jsx
-import Footer from '@/web-assets/components/Footer'
+### Earth.jsx
+Three.js 3D Earth globe. Requires `/images/globe/earth-day.jpg`.
 
-<Footer />
-```
+### Moon.jsx
+Moon globe visualization. Requires `/images/globe/lunar_surface.jpg`.
 
-## Supporting Components
+### MoonDataOverlay.jsx
+Data overlay panel rendered on top of the Moon component.
 
-### icons/AmericanFlagIcon.jsx
-SVG icon component for the American flag.
+### WorldMap.jsx
+Leaflet interactive world map.
+
+### CaliforniaUCMap.jsx
+UC campus map using Leaflet and `/public/california-*.json` geo data.
+
+### flyover.jsx
+Flyover animation component.
+
+## UI Primitives
 
 ### ui/Button.jsx
-Reusable button component with multiple variants and sizes.
-
-**Dependencies:**
-- `utils/cn` for class merging
-- TailwindCSS
+Button with multiple variants and sizes.
 
 ### ui/Card.jsx
-Card component with glass morphism effects.
+Card with glass morphism styling.
 
-**Dependencies:**
-- `utils/cn` for class merging
-- TailwindCSS
+### icons/AmericanFlagIcon.jsx
+SVG American flag icon.
+
+## Modals
 
 ### VolunteerModal.jsx
-Modal component for volunteer signup and newsletter subscription.
+Volunteer signup / newsletter modal.
 
-**Dependencies:**
-- `ui/Button`
-- `ui/Card`
+### DonationModal.jsx
+Donation flow modal.
 
-## Hooks
+## Utilities
 
-### hooks/useScrollIndicator.js
-Custom hook that tracks scroll position and page height in viewport units.
+### TypingText.jsx
+Animated typing text component.
 
-**Returns:**
-- `scrollPositionInVh`: Current scroll position in viewport height units
-- `pageHeightInViewports`: Total page height in viewport units
+### LazyBackgroundImage.jsx
+Intersection-observer-based lazy background image loader.
 
-## Utils
+### LazyDigitalRain.jsx / LazyStars.jsx / LazyPartners.jsx
+Lazy-loaded wrappers for heavy visual components.
 
-### utils/cn.js
-Utility function for merging TailwindCSS classes using `clsx` and `tailwind-merge`.
+### AP0110MonoProvider.jsx
+Context provider for the AP0110 monospace font.
 
-## Installation Requirements
+## Import path
 
-When using these components in a project, ensure you have:
-
-1. **Next.js** (for routing and navigation hooks)
-2. **React** (for component framework)
-3. **TailwindCSS** (for styling)
-4. **clsx** and **tailwind-merge** (for class utilities):
-   ```bash
-   npm install clsx tailwind-merge
-   ```
-
-## Import Path Configuration
-
-To use these components, configure your project's path aliases (e.g., in `jsconfig.json` or `tsconfig.json`):
-
-```json
-{
-  "compilerOptions": {
-    "paths": {
-      "@/web-assets/*": ["../Web-Assets/*"]
-    }
-  }
-}
-```
-
-Or use relative imports:
 ```jsx
-import Header from '../../../Web-Assets/components/Header'
+import Header from '@/components/Header'
+import Button from '@/components/ui/Button'
 ```
-
-## Notes
-
-- These components are designed for Next.js projects but can be adapted for other React frameworks
-- All components use TailwindCSS utility classes
-- Some components rely on Next.js-specific features (Link, usePathname) and may need adaptation for non-Next.js projects
-- The `ap-cyan` color class should be defined in your TailwindCSS configuration
-

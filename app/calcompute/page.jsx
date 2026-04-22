@@ -277,7 +277,7 @@ export default function CalComputePage() {
             <div className="w-fit mx-auto">
               <div className="flex items-center justify-center gap-8">
                 {[
-                  { src: getPartnersImagePath('UCR/Institutional Logo/UC_Riverside_Logo_full-color_PNG/UC_Riverside_Horiz_WhtBluBG.png'), alt: 'UC Riverside Office of Technology Partnerships' },
+                  { src: getPartnersImagePath('UC_Riverside_Horiz_WhtBluBG.png'), alt: 'UC Riverside Office of Technology Partnerships' },
                   { src: getPartnersImagePath('WHITE_UCBerkeley.png'), alt: 'UC Berkeley' },
                 ].map((partner, idx) => (
                   <Image

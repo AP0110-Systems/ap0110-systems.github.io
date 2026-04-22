@@ -126,6 +126,27 @@ const HomePage = () => {
   return (
     <AppProvider>
       {/* First Section - Main Content */}
+      <button
+        type="button"
+        id="sticky-button-FUNABHBTASP"
+        className="cursor-pointer fixed left-0 top-[50%] -rotate-90 origin-top-left z-50 flex h-12 items-center gap-2 rounded-md rounded-t-none border-0 bg-[#48A68D] px-4 text-base font-medium text-white shadow-[0px_1px_4px_rgba(0,0,0,0.4)]"
+        data-qa="fun-element"
+        data-testid="sticky-button"
+      >
+        <span
+          className="inline-flex text-white [--ripple-color:rgba(255,255,255,0.2)] [--ripple-size:212px]"
+          data-qa="pulse-heart-icon"
+          data-testid="pulse-heart-icon"
+          aria-hidden="true"
+        >
+          <span data-testid="pulse-heart-ripple" data-qa="pulse-heart-ripple" className="button-ripple" />
+          <svg fill="none" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
+            <path d="m11.5629 20.2764c.2603.1588.6136.1588.874 0 18.1291-11.05776 4.2437-21.68512-.437-13.20902-4.68039-8.47609-18.56579 2.15126-.437 13.20902z" fill="currentColor" />
+          </svg>
+        </span>
+        <span data-qa="sticky-button-label" data-testid="sticky-button-label" className="font-medium">GIVE</span>
+      </button>
+
       <div className="w-screen h-screen flex bg-gradient-to-br from-black/30 to-black/30 bg-cover bg-center font-sans text-black relative z-20"
            style={{backgroundImage: "url('/images/Brazil/rosa-rafael-rQSKTNvaVdE-unsplash-2.jpg')"}}>
         

@@ -1,0 +1,166 @@
+/* ============================================================
+   University of California — Brand Guidelines
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Web Fonts
+   ------------------------------------------------------------ */
+
+/* Primary: Kievit (sans-serif) */
+@font-face {
+  font-family: 'Kievit';
+  src: url('/fonts/KievitWebPro-Book.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Kievit';
+  src: url('/fonts/KievitWebPro-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* Secondary: Lyon (serif) */
+@font-face {
+  font-family: 'Lyon';
+  src: url('/fonts/lyontext-regular-web.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Lyon';
+  src: url('/fonts/lyontext-bold-web.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ------------------------------------------------------------
+   CSS Custom Properties (Design Tokens)
+   ------------------------------------------------------------ */
+
+:root {
+
+  /* --- Typography --- */
+  --font-sans:   'Kievit', Arial, sans-serif;
+  --font-serif:  'Lyon', Georgia, serif;
+
+  /* --- Primary Colors --- */
+  --uc-blue:        #1295D8;
+  --uc-gold:        #FFB511;
+
+  /* --- Secondary Colors --- */
+  --blue:           #005581;
+  --light-blue:     #72CDF4;
+  --gold:           #FFD200;
+  --light-gold:     #FFE552;
+
+  /* --- Tertiary Colors --- */
+  --teal:           #00778B;
+  --light-teal:     #00A3AD;
+  --pink:           #E44C9A;
+  --light-pink:     #FEB2E0;
+  --orange:         #FF6E1B;
+  --light-orange:   #FF8F28;
+  --dark-blue:      #002033;
+  --extra-light-blue: #BDE3F6;
+  --dark-gray:      #171717;
+  --gray:           #4C4C4C;
+  --uc-gray:        #7C7E7F;
+  --warm-gray-8:    #8F8884;
+  --warm-gray-3:    #BEB6AF;
+  --warm-gray-1:    #DBD5CD;
+}
+
+/* ------------------------------------------------------------
+   Base Styles
+   ------------------------------------------------------------ */
+
+body {
+  font-family: var(--font-sans);
+  color: var(--dark-gray);
+}
+
+/* ------------------------------------------------------------
+   Typography Utilities
+   ------------------------------------------------------------ */
+
+.uc-sans  { font-family: var(--font-sans); }
+.uc-serif { font-family: var(--font-serif); }
+
+/* ------------------------------------------------------------
+   Color Utilities — Text
+   ------------------------------------------------------------ */
+
+/* Primary */
+.text-uc-blue        { color: var(--uc-blue); }
+.text-uc-gold        { color: var(--uc-gold); }
+
+/* Secondary */
+.text-blue           { color: var(--blue); }
+.text-light-blue     { color: var(--light-blue); }
+.text-gold           { color: var(--gold); }
+.text-light-gold     { color: var(--light-gold); }
+
+/* Tertiary */
+.text-teal           { color: var(--teal); }
+.text-light-teal     { color: var(--light-teal); }
+.text-pink           { color: var(--pink); }
+.text-light-pink     { color: var(--light-pink); }
+.text-orange         { color: var(--orange); }
+.text-light-orange   { color: var(--light-orange); }
+.text-dark-blue      { color: var(--dark-blue); }
+.text-extra-light-blue { color: var(--extra-light-blue); }
+.text-dark-gray      { color: var(--dark-gray); }
+.text-gray           { color: var(--gray); }
+.text-uc-gray        { color: var(--uc-gray); }
+.text-warm-gray-8    { color: var(--warm-gray-8); }
+.text-warm-gray-3    { color: var(--warm-gray-3); }
+.text-warm-gray-1    { color: var(--warm-gray-1); }
+
+/* ------------------------------------------------------------
+   Color Utilities — Background
+   ------------------------------------------------------------ */
+
+/* Primary */
+.bg-uc-blue          { background-color: var(--uc-blue); }
+.bg-uc-gold          { background-color: var(--uc-gold); }
+
+/* Secondary */
+.bg-blue             { background-color: var(--blue); }
+.bg-light-blue       { background-color: var(--light-blue); }
+.bg-gold             { background-color: var(--gold); }
+.bg-light-gold       { background-color: var(--light-gold); }
+
+/* Tertiary */
+.bg-teal             { background-color: var(--teal); }
+.bg-light-teal       { background-color: var(--light-teal); }
+.bg-pink             { background-color: var(--pink); }
+.bg-light-pink       { background-color: var(--light-pink); }
+.bg-orange           { background-color: var(--orange); }
+.bg-light-orange     { background-color: var(--light-orange); }
+.bg-dark-blue        { background-color: var(--dark-blue); }
+.bg-extra-light-blue { background-color: var(--extra-light-blue); }
+.bg-dark-gray        { background-color: var(--dark-gray); }
+.bg-gray             { background-color: var(--gray); }
+.bg-uc-gray          { background-color: var(--uc-gray); }
+.bg-warm-gray-8      { background-color: var(--warm-gray-8); }
+.bg-warm-gray-3      { background-color: var(--warm-gray-3); }
+.bg-warm-gray-1      { background-color: var(--warm-gray-1); }
+
+/* ------------------------------------------------------------
+   UC Wordmark
+   ------------------------------------------------------------ */
+
+.uc-wordmark {
+  display: inline-block;
+}
+
+.uc-wordmark--primary {
+  content: url('../images/uc-wordmark-blue-official.png');
+}
+
+.uc-wordmark--secondary {
+  content: url('../images/uc-wordmark-official.png');
+}

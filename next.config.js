@@ -31,26 +31,6 @@ const nextConfig = {
       config.externals = [...config.externals, 'three', 'globe.gl']
     }
     
-    // Configure path aliases for webpack (matching jsconfig.json)
-    const path = require('path')
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@web-assets': path.resolve(__dirname, 'web-assets'),
-    }
-    
-    // Ensure proper module resolution for @web-assets
-    config.resolve.modules = [
-      ...(config.resolve.modules || []),
-      path.resolve(__dirname, 'web-assets'),
-    ]
-    
-    // Ensure .jsx extensions are resolved for @web-assets imports
-    config.resolve.extensions = [
-      ...(config.resolve.extensions || []),
-      '.jsx',
-      '.js',
-    ]
-    
     return config
   }
 }

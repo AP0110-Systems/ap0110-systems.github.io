@@ -1,10 +1,9 @@
 import { Inter } from 'next/font/google'
-import '@web-assets/styles/globals.css'
-import { AppProvider } from '../src/context/AppContext'
-import Header from '@web-assets/components/Header'
-import Footer from '@web-assets/components/Footer'
-import AP0110MonoProvider from '../src/components/AP0110MonoProvider'
-import LazyStars from '../src/components/LazyStars'
+import '@/styles/globals.css'
+import { AppProvider } from '@/context/AppContext'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import AP0110MonoProvider from '@/components/AP0110MonoProvider'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -66,7 +65,6 @@ export default function RootLayout({
       <body className={`${inter.className} overflow-x-hidden max-w-full`}>
         <AP0110MonoProvider>
           <AppProvider>
-            <LazyStars />
             <Header />
             <div className="w-full max-w-full overflow-x-hidden">
               {children}
