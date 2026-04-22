@@ -15,11 +15,13 @@ function getAllDocs() {
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md') && !f.startsWith('_'))
     .map(filename => {
-      const slug = filename.replace(/\.md$/, '')
+      const slug = filename.replace(/\.md$/, '').toLowerCase()
+      if (!/^[a-z0-9-]+$/.test(slug)) return null
       const raw = fs.readFileSync(path.join(dir, filename), 'utf8')
       const { data } = matter(raw)
       return { slug, ...data }
     })
+    .filter(Boolean)
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
