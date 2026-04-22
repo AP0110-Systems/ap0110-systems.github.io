@@ -82,7 +82,7 @@ const Footer = () => {
 
   return (
     <footer className="relative z-[60] w-full max-w-full overflow-x-hidden">
-      <div 
+      {/* <div 
         id="footer" 
         className={`${isExtendedFooterInView ? 'absolute' : 'fixed bottom-0'} left-0 right-0 flex items-center justify-between py-4 px-[40px] w-full max-w-full ${styling.background} ${styling.textColor}`}
         style={isExtendedFooterInView ? { top: `-${footerHeight}px` } : {}}
@@ -98,7 +98,7 @@ const Footer = () => {
             {(scrollPositionInVh + 1).toFixed(1)} / {pageHeightInViewports}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Extended footer content */}
         <div id="extendedFooter" className="text-black relative w-full max-w-full overflow-x-hidden border-t border-black/25">
@@ -128,12 +128,18 @@ const Footer = () => {
                 <div id="footer-navigation-section" className="order-2 md:order-none">
                   {/* <h3 className="text-lg font-semibold mb-4 text-black">Navigation</h3> */}
                   <ul className="space-y-2">
-                    <li><button onClick={() => setIsVolunteerModalOpen(true)} className="text-gray-800 hover:text-black transition-colors text-left">Contribute</button></li>
-                    <li><a href="/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
-                    <li><a href="/#efforts" className="text-gray-800 hover:text-black transition-colors">Efforts</a></li>
-                    <li><a href="/docs" className="text-gray-800 hover:text-black transition-colors">Docs</a></li>
                     <li><a href="/calcompute" className="text-gray-800 hover:text-black transition-colors">CalCompute</a></li>
+                    <li><a href="/unausa" className="text-gray-800 hover:text-black transition-colors">UNA-USA DPI</a></li>
                     <li><a href="/children" className="text-gray-800 hover:text-black transition-colors">Children</a></li>
+                  </ul>
+                </div>
+
+                <div id="footer-navigation-section" className="order-2 md:order-none">
+                  {/* <h3 className="text-lg font-semibold mb-4 text-black">Navigation</h3> */}
+                  <ul className="space-y-2">
+                    <li><a href="/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
+                    <li><a href="/articles" className="text-gray-800 hover:text-black transition-colors">Articles</a></li>
+                    <li><a href="/docs" className="text-gray-800 hover:text-black transition-colors">Docs</a></li>
                   </ul>
                 </div>
                 
@@ -157,15 +163,13 @@ const Footer = () => {
                   </ul>
                 </div> */}
                 
-                <div id="footer-legal-section" className="order-3 md:order-none">
-                  {/* <h3 className="text-lg font-semibold mb-4 text-black">Legal</h3> */}
+                {/* <div id="footer-legal-section" className="order-3 md:order-none">
                   <ul className="space-y-2">
                     <li><a href="/web4#privacy-policy" className="text-gray-800 hover:text-black transition-colors">Privacy</a></li>
                     <li><a href="/web4#terms-of-service" className="text-gray-800 hover:text-black transition-colors">Terms</a></li>
                     <li><a href="/web4#cookie-policy" className="text-gray-800 hover:text-black transition-colors"> Cookies</a></li>
-                    {/* <li><a href="#" className="text-gray-800 hover:text-black transition-colors">License</a></li> */}
                   </ul>
-                </div>
+                </div> */}
 
                 <div id="footer-moon-section" className="w-full order-4 md:order-none">
                   {showMoonImage && (

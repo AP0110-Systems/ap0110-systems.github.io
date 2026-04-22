@@ -1,0 +1,29 @@
+# AP0110.ORG
+
+> AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet infrastructure. We develop charitable technology initiatives including CalCompute, the Life Impact International (LII), and UN Digital Public Infrastructure partnerships with UNA-USA.
+
+## About
+
+AP0110.ORG is a technology organization advancing Web 4.0 — the next generation of internet infrastructure that is user-owned, decentralized, and resilient. Our work spans public AI computing policy (CalCompute / SB-53), global digital inclusion (LII), and UN multilateral digital development (UNA-USA).
+
+## Key Pages
+
+- [Homepage](https://ap0110.org/): AP0110 mission overview, programs, and Web 4.0 technology
+- [CalCompute](https://ap0110.org/calcompute): California's public AI cloud computing cluster established by Senate Bill 53 (SB-53) — safe, ethical, equitable, and sustainable AI for public institutions
+- [Documentation](https://ap0110.org/docs): Technical documentation for AP0110 technologies
+- [Articles](https://ap0110.org/articles): Research and editorial articles on Web 4.0, digital public infrastructure, and technology policy
+
+## Key Concepts
+
+**Web 4.0 / Independent Internet**: A user-owned internet layer built on mesh networking, decentralized protocols, and post-quantum cryptography — enabling connectivity that is resilient to centralized control or failure.
+
+**CalCompute**: California's public cloud computing cluster established by SB-53. Provides safe, ethical, equitable, and sustainable AI computing resources to California researchers and public institutions via the University of California system.
+
+**Digital Public Infrastructure (DPI)**: Open, interoperable digital systems that governments build to serve all citizens.
+
+**Life Impact International**: 
+
+## Contact
+
+- Website: https://ap0110.org
+- GitHub: https://github.com/AP0110-Systems

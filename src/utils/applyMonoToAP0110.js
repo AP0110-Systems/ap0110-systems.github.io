@@ -78,12 +78,10 @@ export const applyMonoToAP0110 = () => {
     // Recursively process child nodes
     const children = Array.from(node.childNodes)
     children.forEach(child => {
-      // Skip script and style elements
       if (child.nodeType === Node.ELEMENT_NODE) {
         const element = child
-        if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE') {
-          return
-        }
+        if (element.tagName === 'SCRIPT' || element.tagName === 'STYLE') return
+        if (element.hasAttribute('data-ap0110-exclude')) return
       }
       traverseAndProcess(child)
     })

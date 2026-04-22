@@ -6,7 +6,7 @@ import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import Button from '@/components/ui/Button'
 import './calcompute/uc-brand/styles/uc_style.css'
-import './una-usa/una-usa-brand/styles/una-usa_style.css'
+import './unausa/una-usa-brand/styles/una-usa_style.css'
 import './children/lii-brand/style/LII_style.css'
 
 // Modals - only load when opened
@@ -45,7 +45,7 @@ export default function HomePage() {
   return (
     <>
       {/* Hero Section */}
-      <div className="w-full h-screen min-h-screen max-h-screen overflow-hidden relative bg-transparent" style={{ paddingTop: `calc(72px + env(safe-area-inset-top))` }}>
+      {/* <div className="w-full h-screen min-h-screen max-h-screen overflow-hidden relative bg-transparent" style={{ paddingTop: `calc(72px + env(safe-area-inset-top))` }}>
         <div className="flex items-center justify-center md:px-4 absolute bottom-24 w-full mx-auto" style={{ paddingBottom: `env(safe-area-inset-bottom)` }}>
           <div className="max-w-4xl mx-auto w-full px-4 md:px-0">
             <h1 className="text-2xl md:text-4xl font-bold text-black">
@@ -59,7 +59,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
 
       {/* Efforts Section */}
@@ -67,11 +67,11 @@ export default function HomePage() {
 
       {/* CalCompute Section */}
       <div
-        className="flex items-center justify-center py-20 px-4 w-full max-w-full overflow-x-hidden bg-white/75 backdrop-blur-xs text-black"
+        className="flex items-center justify-center py-20 pt-40 px-4 w-full max-w-full overflow-x-hidden bg-white/75 backdrop-blur-xs text-black"
       >
         {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/calcompute" className="block cursor-pointer group">
+          <Link href="/web4" className="block cursor-pointer group">
             <div className="p-6 pb-0">
               <div className="flex mb-6 gap-4">
                 <Image
@@ -87,7 +87,7 @@ export default function HomePage() {
                 </h1>
               </div>
               <p className="text-lg md:text-xl mb-8 leading-relaxed">
-                AP0110 documenting and developing the open standards for an internet that works for all of us.
+                AP0110 is documenting and developing the open standards for an internet that works for all of us.
               </p>
             </div>
           </Link>
@@ -97,6 +97,7 @@ export default function HomePage() {
 
       {/* CalCompute Section */}
       <div
+        id="projects"
         className="flex items-center justify-center py-20 px-4 w-full max-w-full overflow-x-hidden bg-light-blue"
       >
         {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
@@ -132,7 +133,7 @@ export default function HomePage() {
       >
         {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/calcompute" className="block cursor-pointer group">
+          <Link href="/unsausa" className="block cursor-pointer group">
             <div className="p-6 pb-0">
               <div className="flex mb-6 gap-4">
                 <Image
@@ -193,28 +194,26 @@ export default function HomePage() {
       >
         {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/children" className="block cursor-pointer group">
-            <div className="p-6">
-              <div className="flex mb-6 gap-4">
-                <Image
-                  src="/images/meshtastic.png"
-                  alt="meshtastic logo"
-                  width={80}
-                  height={80}
-                  className="object-contain hidden md:block rounded-xl"
-                />
-                <h1 className="text-4xl md:text-6xl font-bold text-black my-auto">
-                  Donate a Node
-                </h1>
-              </div>
-              <p className="text-lg md:text-xl text-black mb-8 leading-relaxed">
-                Connect an underserved community with an autonomous mesh node that enables local emergency communication, <strong>independent of the local grid</strong>.
-              </p>
-              <Button size="lg" variant="primary" onClick={handleDonateClick}>
+          <div className="p-6">
+            <div className="flex mb-6 gap-4">
+              <Image
+                src="/images/meshtastic.png"
+                alt="meshtastic logo"
+                width={80}
+                height={80}
+                className="object-contain hidden md:block rounded-xl"
+              />
+              <h1 className="text-4xl md:text-6xl font-bold text-black my-auto">
                 Donate a Node
-              </Button>
+              </h1>
             </div>
-          </Link>
+            <p className="text-lg md:text-xl text-black mb-8 leading-relaxed">
+              Connect an underserved community with an autonomous mesh node that enables local emergency communication, <strong>independent of the local grid</strong>.
+            </p>
+            <Button className="cursor-pointer" size="lg" variant="primary" onClick={handleDonateClick}>
+              Donate a Node
+            </Button>
+          </div>
         </div>
       </div>
       </div>

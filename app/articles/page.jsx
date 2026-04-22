@@ -5,12 +5,12 @@ import Link from 'next/link'
 import Card from '@/components/ui/Card'
 
 export const metadata = {
-  title: 'Docs — AP0110.ORG',
+  title: 'Articles — AP0110.ORG',
   description: 'Research, perspectives, and updates from AP0110.ORG on Independent Internet, Web 4.0, and decentralized networking.',
 }
 
-function getAllDocs() {
-  const dir = path.join(process.cwd(), 'content/docs')
+function getAllArticles() {
+  const dir = path.join(process.cwd(), 'content/articles')
   if (!fs.existsSync(dir)) return []
   return fs.readdirSync(dir)
     .filter(f => f.endsWith('.md') && !f.startsWith('_'))
@@ -23,24 +23,24 @@ function getAllDocs() {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
 }
 
-export default function DocsPage() {
-  const docs = getAllDocs()
+export default function ArticlesPage() {
+  const articles = getAllArticles()
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-100">
       <section className="pt-32 pb-16 px-4">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Docs</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3">Articles</h1>
           <p className="text-lg text-gray-600 mb-12">
             Research, perspectives, and updates from AP0110.ORG.
           </p>
 
-          {docs.length === 0 ? (
-            <p className="text-gray-500">No docs published yet.</p>
+          {articles.length === 0 ? (
+            <p className="text-gray-500">No articles published yet.</p>
           ) : (
             <div className="space-y-6">
-              {docs.map(article => (
-                <Link key={article.slug} href={`/docs/${article.slug}`} className="block group">
+              {articles.map(article => (
+                <Link key={article.slug} href={`/articles/${article.slug}`} className="block group">
                   <Card variant="light" size="lg" className="transition-shadow group-hover:shadow-md">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
