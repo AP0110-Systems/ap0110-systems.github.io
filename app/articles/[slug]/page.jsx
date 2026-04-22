@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { marked } from 'marked'
+import sanitizeHtml from 'sanitize-html'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
@@ -32,7 +33,15 @@ export default async function ArticlePage({ params }) {
 
   const raw = fs.readFileSync(filepath, 'utf8')
   const { data: frontmatter, content } = matter(raw)
-  const html = marked(content)
+  const html = sanitizeHtml(marked(content), {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2']),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      img: ['src', 'alt', 'title', 'width', 'height'],
+      a: ['href', 'name', 'target', 'rel'],
+    },
+    allowedSchemes: ['http', 'https', 'mailto'],
+  })
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-100">
