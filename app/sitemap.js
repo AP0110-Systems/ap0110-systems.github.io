@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 export default function sitemap() {
   const base = 'https://ap0110.org'
   const now = new Date().toISOString()
