@@ -1,6 +1,6 @@
 ## AP0110.org - Independent Internet (Web 4.0) Development
 
-**AP0110.org** is the official website for AP0110 Systems' Independent Internet (Web 4.0) technology development. Our core mission is to build decentralized, user-owned internet infrastructure through open-source development, mesh networking, post-quantum security, and edge computing technologies.
+**AP0110.org**
 
 ### Core Mission
 

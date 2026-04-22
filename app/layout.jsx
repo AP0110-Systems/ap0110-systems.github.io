@@ -12,19 +12,24 @@ const inter = Inter({
 })
 
 export const metadata = {
-  title: 'AP0110.ORG - Independent Internet (Web 4.0)',
-  description: 'Developing Independent Internet (Web 4.0) and decentralized networking technologies. Building the future of user-owned, independent internet infrastructure through open-source development, mesh networking, and post-quantum security.',
-  keywords: 'Web 4.0, Independent Internet, decentralized internet, mesh networking, AP0110, decentralized networking, post-quantum security, edge computing, independent infrastructure, user-owned internet, decentralized technology',
-  authors: [{ name: 'AP0110 Systems' }],
+  title: 'AP0110 — Independent Internet (Web 4.0)',
+  description: 'AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet infrastructure.',
+  keywords: 'Web 4.0, Independent Internet, decentralized internet, mesh networking, AP0110, post-quantum security, edge computing, user-owned internet, decentralized protocols',
+  authors: [{ name: 'AP0110 Inc.' }],
+  creator: 'AP0110 Inc.',
+  publisher: 'AP0110 Inc.',
   robots: 'index, follow',
+  alternates: {
+    canonical: 'https://ap0110.org',
+  },
   openGraph: {
     type: 'website',
     url: 'https://ap0110.org',
-    title: 'AP0110.ORG - Independent Internet (Web 4.0)',
-    description: 'Developing Independent Internet (Web 4.0) and decentralized networking technologies. Building the future of user-owned, independent internet infrastructure through open-source development, mesh networking, and post-quantum security.',
+    title: 'AP0110 — Independent Internet (Web 4.0)',
+    description: 'AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet.',
     images: [
       {
-        url: '/images/AP0110_moon_black.webp',
+        url: 'https://ap0110.org/images/AP0110_moon_black.webp',
         width: 1200,
         height: 630,
         alt: 'AP0110 Independent Internet Web 4.0',
@@ -35,9 +40,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'AP0110.ORG - Independent Internet (Web 4.0)',
-    description: 'Developing Independent Internet (Web 4.0) and decentralized networking technologies. Building the future of user-owned, independent internet infrastructure.',
-    images: ['/images/AP0110_moon_black.webp'],
+    title: 'AP0110 — Independent Internet (Web 4.0)',
+    description: 'AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet.',
+    images: ['https://ap0110.org/images/AP0110_moon_black.webp'],
   },
 }
 
@@ -47,12 +52,45 @@ export const viewport = {
   viewportFit: 'cover',
 }
 
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': 'https://ap0110.org/#organization',
+      name: 'AP0110.ORG',
+      url: 'https://ap0110.org',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://ap0110.org/images/AP0110_moon_black.webp',
+      },
+      description: 'AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet infrastructure.',
+      email: 'Daniel@ap0110.com',
+      sameAs: [
+        'https://github.com/AP0110-Systems',
+      ],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': 'https://ap0110.org/#website',
+      url: 'https://ap0110.org',
+      name: 'AP0110.org',
+      description: 'Independent Internet (Web 4.0) technology, decentralized networking, and charitable technology initiatives.',
+      publisher: { '@id': 'https://ap0110.org/#organization' },
+    },
+  ],
+}
+
 export default function RootLayout({
   children,
 }) {
   return (
     <html lang="en" className="overflow-x-hidden max-w-full">
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
         <link rel="preload" as="image" href="/images/AP0110_moon_black.webp" />
         <link rel="icon" href="/favicons/favicon.ico" sizes="any" />
         <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml" />

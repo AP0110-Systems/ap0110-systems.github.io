@@ -9,14 +9,14 @@
 /* Primary: Kievit (sans-serif) */
 @font-face {
   font-family: 'Kievit';
-  src: url('/fonts/KievitWebPro-Book.woff') format('woff');
+  src: url('../fonts/kievit/KievitWebPro-Book.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Kievit';
-  src: url('/fonts/KievitWebPro-Bold.woff') format('woff');
+  src: url('../fonts/kievit/KievitWebPro-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -24,14 +24,14 @@
 /* Secondary: Lyon (serif) */
 @font-face {
   font-family: 'Lyon';
-  src: url('/fonts/lyontext-regular-web.woff') format('woff');
+  src: url('../fonts/lyon/lyontext-regular-web.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Lyon';
-  src: url('/fonts/lyontext-bold-web.woff') format('woff');
+  src: url('../fonts/lyon/lyontext-bold-web.woff') format('woff');
   font-weight: 700;
   font-style: normal;
 }
@@ -77,10 +77,8 @@
    Base Styles
    ------------------------------------------------------------ */
 
-body {
-  font-family: var(--font-sans);
-  color: var(--dark-gray);
-}
+/* Apply via .uc-sans on page wrappers — not globally */
+/* body { font-family: var(--font-sans); color: var(--dark-gray); } */
 
 /* ------------------------------------------------------------
    Typography Utilities

@@ -1,0 +1,58 @@
+# AP0110.ORG
+
+> AP0110 is a California-based AI infrastructure company devoted to building tech that makes the world a better place to live.
+
+## About
+
+AP0110.ORG is documenting Web 4 (Independent Internet) in real time, and developing the open standards for an internet that works for everyone.
+
+
+## Key Pages
+
+- [Homepage](https://ap0110.org/): AP0110 mission overview, programs, and Web 4.0 technology
+- [CalCompute](https://ap0110.org/calcompute): California's public AI cloud computing cluster established by Senate Bill 53 (SB-53) — safe, ethical, equitable, and sustainable AI for public institutions
+- [Articles](https://ap0110.org/articles): Research and editorial articles
+- [Documentation](https://ap0110.org/docs): Technical documentation 
+
+## Key Projects
+
+### Web 4.0 / Independent Internet
+
+- Official Website: https://AP0110.ORG
+- Independent Internet describes an internet of self-hosting, p2p communication, and mesh-networking, and artificail intelligence.
+
+### Life Impact International
+
+- Website: https://lifeimpactintl.org
+- Description: US 501(c)3 operating orphanages in Thailand Myanmar/Burma and Brail, and organizing anti-human-trafficking efforts around the world.
+- Relationship: AP0110 is partnered with Life Impact International to support anti-human-trafficking efforts with secure cloud and cutting-edge and web 4.0 technologies.
+
+### CalCompute
+
+- Website: https://CaliforniaCompute.org
+- Official Partners: CA GovOps, UC Berkeley, UC Riverside, AP0110.ORG, Economic Security Project of California.
+- Description: California is building digital public infrastructure in the form of CalCompute, a public AI cloud cluster owned and operated by the Universities of California, and made available to California's public sector and public-benefit projects.
+- LinkedIn: https://www.linkedin.com/company/calcompute/
+- Email: [team@CaliforniaCompute.org](mailto:team@CaliforniaCompute.org)
+- LinkedIn: https://www.linkedin.com/company/calcompute/
+- X / Twitter: https://x.com/CalCompute
+- GitHub: https://github.com/CalCompute
+- YouTube: https://www.youtube.com/@CalCompute
+- Medium: https://medium.com/@CalCompute
+- Substack: https://substack.com/@calcompute
+- BlueSky: https://bsky.app/profile/calcompute.bsky.social
+- Mastodon: https://mastodon.social/@CalCompute
+- Instagram: https://www.instagram.com/calcompute/
+- TikTok: https://www.tiktok.com/@calcompute
+- Reddit: https://www.reddit.com/user/CalCompute/
+
+## AP0110 Contacts
+
+- Email: [contact@AP0110.com](mailto:contact@AP0110.com)
+- GitHub: https://github.com/AP0110-Systems
+- X / Twitter: https://x.com/AP0110_net
+- Mastodon: https://mastodon.social/@AP0110
+- Bluesky: https://bsky.app/profile/ap0110.net
+- LinkedIn: https://www.linkedin.com/company/ap0110
+- Instagram: https://www.instagram.com/ap0110_net
+- Medium: https://medium.com/@AP0110

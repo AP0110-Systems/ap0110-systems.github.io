@@ -42,7 +42,7 @@ export default function Web4Page() {
                 A Comprehensive Whitepaper on Decentralized Internet Access
               </div>
               <div className="paper-meta">
-                <p><strong>Authors:</strong> AP0110 Systems Research Team</p>
+                <p><strong>Authors:</strong> AP0110.ORG Research Team</p>
                 <p><strong>Date:</strong> {new Date().toLocaleDateString()}</p>
                 <p><strong>Version:</strong> 1.0</p>
               </div>

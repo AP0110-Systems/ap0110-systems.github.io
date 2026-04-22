@@ -16,7 +16,7 @@ const Earth = () => {
         // Dynamic import to avoid SSR issues
         const Globe = (await import('globe.gl')).default
         
-        // AP0110 Systems operational regions
+        // AP0110.ORG operational regions
         const countries = [
           {
             id: 'usa',
@@ -48,7 +48,7 @@ const Earth = () => {
           }
         ]
 
-        // AP0110 Systems global connectivity network
+        // AP0110.ORG global connectivity network
         const connections = [
             {
               startLat: 13.7563,  // Bangkok, Thailand - AP0110 Operations Center

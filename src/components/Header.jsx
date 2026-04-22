@@ -8,46 +8,22 @@ import TypingText from '@/components/TypingText';
 
 // Match navigation passed to Footer in layout.jsx
 const MODAL_NAV_ITEMS = [
-  { type: 'button', label: 'Products', href: '#products' },
+  // { type: 'button', label: 'Products', href: '#products' },
   // { type: 'link', label: 'Services', href: '/shop' },
-  { type: 'link', label: 'Web 4.0', href: 'https://ap0110.org/web4' },
-  { type: 'link', label: 'FAQ', href: '#FAQ' },
+  { type: 'link', label: 'Web 4.0', href: '/web4' },
+  { type: 'link', label: 'Projects', href: '/#projects' },
+  { type: 'link', label: 'Articles', href: '/articles' },
+  { type: 'link', label: 'Docs', href: '/docs' },
+  // { type: 'link', label: 'FAQ', href: '#FAQ' },
   // { type: 'link', label: 'Join Us', href: '/joinus' },
 ];
 
+const NAV_TYPING_SPEED = 30;
+
 export default function Header() {
-  const [scrollPadding, setScrollPadding] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-
-  useEffect(() => {
-    if (!isHomePage) {
-      setScrollPadding(0);
-      return;
-    }
-
-    const updatePadding = () => {
-      const isMobile = window.innerWidth < 768; // md breakpoint
-      if (isMobile) {
-        setScrollPadding(0);
-        return;
-      }
-      const scrollY = window.scrollY;
-      // Padding reduces from 80px at 0y to 0px at 80y
-      const padding = Math.max(0, 80 - scrollY);
-      setScrollPadding(padding);
-    };
-    
-    window.addEventListener('scroll', updatePadding);
-    window.addEventListener('resize', updatePadding);
-    updatePadding();
-    
-    return () => {
-      window.removeEventListener('scroll', updatePadding);
-      window.removeEventListener('resize', updatePadding);
-    };
-  }, [isHomePage]);
 
   useEffect(() => {
     if (modalOpen) {
@@ -65,11 +41,9 @@ export default function Header() {
     }
   }, [modalOpen]);
 
-  const paddingStyle = isHomePage ? { paddingTop: `${scrollPadding}px`, paddingBottom: `${scrollPadding}px`, paddingLeft: `${scrollPadding}px`, paddingRight: `${scrollPadding}px` } : { top: '0px', left: '0px', right: '0px' };
-
   return (
     <>
-    <header className={`fixed w-screen z-999 pointer-events-none h-[40px] text-black`} style={paddingStyle}>
+    <header className={`fixed w-screen z-999 pointer-events-none h-[50px] text-black bg-white/90 backdrop-blur`}>
       {/* <div className={`relative w-full px-${scrollPadding}`}> */}
         <div className={`relative w-full h-full`}>
           <a href="/" className={`absolute top-0 left-0 font-mono font-bold w-fit flex items-center px-4 md:px-6 py-2 md:py-3 gap-2 pointer-events-auto cursor-pointer`}>
@@ -89,7 +63,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setModalOpen((open) => !open)}
-            className="text-sm md:text-base font-mono font-bold w-fit flex items-center px-4 md:px-6 py-2 md:py-3 gap-2 absolute top-0 right-0 pointer-events-auto cursor-pointer"
+            className="md:hidden text-sm font-mono font-bold w-fit flex items-center px-4 py-2 gap-2 absolute top-0 right-0 pointer-events-auto cursor-pointer"
             aria-label={modalOpen ? 'Close overlay' : 'Open overlay'}
           >
             {modalOpen ? (
@@ -98,16 +72,32 @@ export default function Header() {
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             ) : isHomePage ? (
-              <TypingText 
-                text="///"
-                className="text-sm md:text-base"
-                typingSpeed={20}
-                initialDelay={0}
-              />
+              <TypingText text="///" className="text-sm" typingSpeed={20} initialDelay={0} />
             ) : (
               <span>///</span>
             )}
           </button>
+
+          <nav className="hidden md:flex absolute top-0 right-0 items-center font-mono font-bold pointer-events-auto">
+            {MODAL_NAV_ITEMS.map((item, index) => (
+              <Link
+                key={index}
+                href={item.href}
+                className="text-sm md:text-base px-4 md:px-5 py-2 md:py-3 hover:opacity-60 transition-opacity"
+              >
+                {isHomePage ? (
+                  <TypingText
+                    text={item.label}
+                    typingSpeed={NAV_TYPING_SPEED}
+                    initialDelay={0}
+                    className="text-sm md:text-base"
+                  />
+                ) : (
+                  <span>{item.label}</span>
+                )}
+              </Link>
+            ))}
+          </nav>
             
         </div>
       {/* </div> */}
@@ -117,7 +107,6 @@ export default function Header() {
       createPortal(
         <div
           className={`fixed flex inset-0 z-100 bg-black/75 h-screen w-screen backdrop-blur-lg`}
-          style={paddingStyle}
           aria-hidden="false"
           onClick={() => setModalOpen(false)}
         >
