@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Web-Assets (generated from submodule during build)
-/public/images/Partners/
+# web-assets submodule components are imported via @web-assets/* path alias
+# All images used by this site are committed directly to public/images/

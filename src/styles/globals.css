@@ -1,0 +1,892 @@
+@import "tailwindcss";
+
+/* AP0110 Custom Styles - Matching Original Design */
+@theme {
+  --color-ap-cyan: #00b0ff;
+  --color-ap-red: #E4002B;
+  --color-ap-orange: #FF4F00;
+  --color-ap-yellow: #E2B46C;
+  --color-ap-green: #47B332;
+  --color-ap-blue: #0032A0;
+  --color-ap-violet: #8E24AA;
+}
+
+:root {
+  overflow-x: hidden;
+  /* Hide scrollbars */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer */
+
+  --space: 1em;
+
+  /* --customAccentColr:*/
+  --accentColr: var(--customAccentColr, #00b0ff); /* rgb(0, 77, 101); */
+  /* --customHighlightColr:*/
+  --highlightColr: var(--customHighlightColr, #00b0ff);
+
+  --baseColr: white;
+  --bkgndColr: #f2f2f2;
+  --surfColr: whitesmoke;
+  --dFrgndColr: #909090;
+  /* --uFrgndColr: var(--colr5); */
+  --frgndColr: #101010;
+  /* --hFrgndColr: var(--colr7); */
+  --opBaseColr: black;
+
+  --color-red: #E4002B;       /* NASA Red */  
+  --color-orange: #FF4F00;    /* International Orange (Aerospace) */
+  --color-yellow: #E2B46C;    /* Apollo Gold */
+  --color-green: #47B332;     /* Apollo Green */
+  --color-cyan: #00b0ff;      /* #00ACC1 */
+  --color-blue: #0032A0;      /* NASA Blue */
+  --color-violet: #8E24AA;    /*  */
+
+  font-size: 12pt;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+
+  /* Safe area insets for dynamic island and notch support */
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+}
+
+:root::-webkit-scrollbar {
+  display: none; 
+}
+
+* {
+  box-sizing: border-box;
+  /* Hide scrollbars on all elements while keeping scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbars for WebKit browsers (Chrome, Safari, Edge) on all elements */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  overscroll-behavior-y: none;
+  overflow-x: hidden;
+  max-width: 100vw;
+  scroll-padding-top: 6em;
+}
+
+html, body {
+  width: 100%;
+  margin: 0; 
+  padding: 0;
+  height: fit-content;
+  background-color: #fff;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #fff;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: none;
+  max-width: 100vw;
+  /* Hide scrollbars while keeping scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  position: relative;
+}
+
+/* Hide scrollbars for WebKit browsers (Chrome, Safari, Edge) */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+b {
+  font-weight: bold;
+}
+
+#__next {
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Hide scrollbars while keeping scroll functionality */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+/* Hide scrollbars for WebKit browsers (Chrome, Safari, Edge) */
+#__next::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prevent horizontal overflow for common elements that might cause issues */
+img, video, iframe, embed, object {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Utility Classes */
+.mono {
+  font-family: monospace;
+}
+
+/* Remove clear and search icons in Chrome, Safari, Edge */
+input[type="search"]::-webkit-search-decoration {
+  display: none;
+}
+
+.content {
+  max-width: 980px;
+  margin: auto;
+  margin-top: 2em;
+  padding: 0 1em;
+}
+
+/* Animations */
+@keyframes blink-fade {
+  0% { background-color: RGBA(0, 176, 255, 1);}
+  10% { background-color: RGBA(0, 176, 255, 1);}
+  100% { background-color: RGBA(0, 176, 255, 0); }
+}
+
+@keyframes progressLoad {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 10%;
+  }
+}
+
+@keyframes partners-marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+.animate-progress {
+  animation: progressLoad 1.5s ease-out forwards;
+}
+
+.animate-partners-marquee { 
+  animation: partners-marquee 40s linear infinite;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Partner image container - ensure consistent height */
+.partner-image-container {
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Partner images - ensure consistent height */
+.partner-image {
+  height: 48px !important;
+  max-height: 48px !important;
+  width: auto !important;
+  max-width: 160px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+/* Override Next.js Image wrapper if needed */
+.partner-image-container > span {
+  height: 48px !important;
+  max-height: 48px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.partner-image-container img {
+  height: 48px !important;
+  max-height: 48px !important;
+  width: auto !important;
+  max-width: 160px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+/* Button Component Styles - Scoped to .ap-button class */
+.ap-button {
+  margin: 0;
+  padding: 0 1ch;
+  height: 40px;
+  background-color: transparent;
+  color: #00b0ff;
+  border: 2px solid #00b0ff;
+  border-radius: 4px;
+  font-size: 12pt;
+  font-family: monospace;
+  font-weight: bold;
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(1em);
+  backdrop-filter: blur(1em);
+  transition: all 0.2s ease;
+}
+
+.ap-button:hover:not(:disabled) {
+  background-color: #00b0ff;
+  color: white;
+}
+
+.ap-button.full,
+.ap-button.primary {
+  background-color: #00b0ff;
+  color: white;
+}
+
+.ap-button.full:hover:not(:disabled),
+.ap-button.primary:hover:not(:disabled) {
+  background-color: #00b0ff;
+  color: white;
+}
+
+.ap-button.empty:hover:not(:disabled) {
+  background-color: transparent;
+  color: white;
+}
+
+.ap-button.gray {
+  color: white;
+  border-color: currentColor;
+  opacity: 0.5;
+}
+
+.ap-button.gray:hover:not(:disabled) {
+  opacity: 1;
+  background-color: transparent;
+}
+
+/* .ap-button.secondary and .ap-button.outline use base button styles */
+
+.ap-button.ghost {
+  border: none;
+  background-color: transparent;
+}
+
+.ap-button.ghost:hover:not(:disabled) {
+  background-color: rgba(0, 176, 255, 0.1);
+}
+
+/* Button Size Variants */
+.ap-button.size-sm {
+  height: 32px;
+  padding: 0 0.75ch;
+  font-size: 11pt;
+}
+
+.ap-button.size-md {
+  height: 40px;
+  padding: 0 1ch;
+  font-size: 12pt;
+}
+
+.ap-button.size-lg {
+  height: 48px;
+  padding: 0 1.5ch;
+  font-size: 14pt;
+}
+
+.ap-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ap-button.blink {
+  animation: blink-fade 2s infinite ease-in;
+}
+
+/* EM Color Classes */
+.EM { 
+  font-weight: bold; 
+}
+.EM:nth-child(1) { color: var(--color-violet); }
+.EM:nth-child(2) { color: var(--color-blue);   }
+.EM:nth-child(3) { color: var(--color-cyan);   }
+.EM:nth-child(4) { color: var(--color-green);  }
+.EM:nth-child(5) { color: var(--color-yellow); }
+.EM:nth-child(6) { color: var(--color-orange); }
+.EM:nth-child(7) { color: var(--color-red);    }
+
+/* Thought Grid Styles */
+.thought-grid {
+  contain: layout style;
+  box-sizing: border-box;
+}
+
+.thought-grid-square {
+  box-sizing: border-box;
+  contain: layout style;
+}
+
+/* Corner Styles */
+.corner {
+  position: absolute;
+  pointer-events: none;
+  aspect-ratio: 1/1;
+  height: 40px;
+  width: 40px;
+}
+.corner.tl {
+  top: 0;
+  left: 0;
+  border-top: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+.corner.tr {
+  top: 0;
+  right: 0;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+.corner.bl {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid #fff;
+  border-left: 2px solid #fff;
+}
+.corner.br {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid #fff;
+  border-right: 2px solid #fff;
+}
+
+/* Corner box styling (from old static site) */
+.box,
+.corner-box {
+  position: relative;
+  padding: 1em;
+  width: 100%;
+}
+
+.box > div {
+  border-radius: 0.5em;
+  -webkit-backdrop-filter: blur(1em); 
+  backdrop-filter: blur(1em);
+  overflow: hidden;
+}
+
+.box > div > div {
+  margin: var(--space);
+  border-radius: 0.5em;
+  height: min-content;
+  display: flex;
+  flex-direction: row;
+  gap: var(--space);
+  overflow: hidden;
+  color: black;
+}
+
+.box > div > div.head {
+  color: white;
+  margin: 0;
+  padding: var(--space);
+}
+
+.box > div > div div {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  height: min-content;
+  overflow: hidden;
+  flex: 1;
+}
+
+.box h1,
+.box h3 {
+  white-space: nowrap;     
+  overflow: hidden;        
+  text-overflow: clip;     
+}
+
+.box h1, .box h2, .box h3, .box p {
+  margin: 0;
+}
+
+.box svg {
+  height: 3em;
+  width: 3em;
+  margin: 0 0 auto 0;
+}
+
+.corner-box.rounded {
+  border-radius: 1.5em;
+}
+
+.corner-box > .corner {
+  position: absolute;
+  width: 3em;
+  height: 3em;
+  border: 0.5ch solid currentColor;
+}
+
+.corner-box > .corner.top-left {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-box.rounded > .corner.top-left {
+  border-radius: 1.5em 0 0 0;
+}
+
+.corner-box > .corner.top-right {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+.corner-box.rounded > .corner.top-right {
+  border-radius: 0 1.5em 0 0;
+}
+
+.corner-box > .corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+.corner-box.rounded > .corner.bottom-left {
+  border-radius: 0 0 0 1.5em;
+}
+
+.corner-box > .corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+
+.corner-box.rounded > .corner.bottom-right {
+  border-radius: 0 0 1.5em 0;
+}
+
+/* Alert box state styling and transitions (parity with old static site) */
+.alert {
+  transition: color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+}
+.alert.failure,
+.alert.danger {
+  color: var(--color-orange);
+}
+.alert.success,
+.alert.safe {
+  color: var(--color-green);
+}
+.alert.success .danger,
+.alert.failure .safe {
+  display: none;
+}
+.alert.success {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 24px rgba(71, 179, 50, 0.35);
+}
+.alert.failure {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 79, 0, 0.35);
+}
+
+/* Cross-browser backdrop blur support */
+.backdrop-blur-sm {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  -moz-backdrop-filter: blur(2px);
+  -ms-backdrop-filter: blur(2px);
+}
+.backdrop-blur-md {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  -moz-backdrop-filter: blur(5px);
+  -ms-backdrop-filter: blur(5px);
+}
+
+.backdrop-blur-lg {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  -moz-backdrop-filter: blur(10px);
+  -ms-backdrop-filter: blur(10px);
+}
+
+/* Safe area utility classes */
+.safe-area-padding {
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+}
+
+.safe-area-top {
+  padding-top: var(--safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: var(--safe-area-inset-bottom);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .App {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .left-column {
+    flex: none;
+    height: 50vh;
+    min-height: 400px;
+    padding: 10px;
+  }
+  
+  .right-column {
+    flex: none;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .globe-container {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .content h1 {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+  
+  .section h2 {
+    font-size: 1.5rem;
+  }
+  
+  .section h3 {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .section h2 {
+    font-size: 1.3rem;
+  }
+  
+  .section h3 {
+    font-size: 1.1rem;
+  }
+  
+  .section p, .section li {
+    font-size: 0.9rem;
+  }
+}
+
+/* Paper-style typography and layout */
+.paper-container {
+  font-family: 'Times New Roman', Times, serif;
+  line-height: 1.6;
+  color: #333;
+  max-width: 8.5in; /* Standard letter paper width */
+  margin: 0 auto;
+}
+
+.paper-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+}
+
+.paper-subtitle {
+  font-size: 1.25rem;
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.paper-meta {
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 1rem 0;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin: 2rem 0;
+}
+
+.paper-section {
+  margin-bottom: 2rem;
+}
+
+.paper-section h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+  border-bottom: 2px solid #007acc;
+  padding-bottom: 0.5rem;
+}
+
+.paper-section h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #333;
+}
+
+.paper-section h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+
+.paper-section p {
+  margin-bottom: 1rem;
+  text-align: justify;
+  text-indent: 1.5rem;
+}
+
+.paper-section p:first-child {
+  text-indent: 0;
+}
+
+.paper-section ul, .paper-section ol {
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+.paper-section li {
+  margin-bottom: 0.5rem;
+}
+
+.paper-highlight {
+  background-color: #fff3cd;
+  border-left: 4px solid #ffc107;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.paper-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.paper-metric-card {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.paper-metric-card h4 {
+  color: #495057;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.paper-metric-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.paper-metric-card li {
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.paper-toc {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.paper-toc h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: #495057;
+  border: none;
+  padding: 0;
+}
+
+.paper-toc nav {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.paper-toc button {
+  text-align: left;
+  padding: 0.5rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.paper-toc button:hover {
+  background-color: #e9ecef;
+}
+
+.paper-toc button.active {
+  background-color: #007acc;
+  color: white;
+}
+
+.paper-references {
+  font-size: 0.9rem;
+}
+
+.paper-references ol {
+  counter-reset: item;
+  padding-left: 0;
+}
+
+.paper-references li {
+  display: block;
+  margin-bottom: 0.75rem;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.paper-references li:before {
+  content: counter(item) ".";
+  counter-increment: item;
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+}
+
+.paper-footer {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid #dee2e6;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* Paper dimensions and layout */
+.paper-content {
+  max-width: 8.5in; /* Standard text width on letter paper */
+  margin: 0 auto;
+  padding: 1in; /* Standard 1-inch margins */
+}
+
+/* Leaflet z-index fixes to prevent map elements from appearing over footer */
+.leaflet-container {
+  z-index: 5 !important;
+}
+
+.leaflet-map-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-tile-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-overlay-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-marker-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-tooltip-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 5 !important;
+}
+
+.leaflet-control-container {
+  z-index: 5 !important;
+}
+
+/* Ensure country labels and distance labels stay within map bounds */
+.country-label,
+.distance-label {
+  z-index: 5 !important;
+}
+
+/* Print styles */
+@media print {
+  .paper-container {
+    font-size: 12pt;
+    line-height: 1.4;
+    max-width: 8.5in;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .paper-content {
+    max-width: 6.5in;
+    margin: 0 auto;
+    padding: 1in;
+  }
+  
+  .paper-title {
+    font-size: 18pt;
+  }
+  
+  .paper-section h2 {
+    font-size: 14pt;
+    page-break-after: avoid;
+  }
+  
+  .paper-section h3 {
+    font-size: 12pt;
+    page-break-after: avoid;
+  }
+  
+  .paper-toc {
+    page-break-after: always;
+  }
+  
+  .paper-section {
+    page-break-inside: avoid;
+  }
+}
+
+.floating {
+  text-shadow: 0px 0px 1em #000000;
+  text-shadow: 0px 0px 0.5em #000000;
+  text-shadow: 0px 0px 0.25em #000000;
+  text-shadow: 0px 0px 2px #000000;
+}
