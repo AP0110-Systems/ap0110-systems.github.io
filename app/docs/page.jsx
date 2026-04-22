@@ -39,31 +39,31 @@ export default function DocsPage() {
             <p className="text-gray-500">No docs published yet.</p>
           ) : (
             <div className="space-y-6">
-              {docs.map(article => (
-                <Link key={article.slug} href={`/docs/${article.slug}`} className="block group">
+              {docs.map(doc => (
+                <Link key={doc.slug} href={`/docs/${doc.slug}`} className="block group">
                   <Card variant="light" size="lg" className="transition-shadow group-hover:shadow-md">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1 min-w-0">
                         <h2 className="text-xl font-bold text-gray-900 group-hover:text-ap-cyan transition-colors mb-2">
-                          {article.title}
+                          {doc.title}
                         </h2>
-                        {article.description && (
+                        {doc.description && (
                           <p className="text-gray-600 text-sm leading-relaxed mb-3">
-                            {article.description}
+                            {doc.description}
                           </p>
                         )}
                         <div className="flex flex-wrap items-center gap-3 text-xs text-gray-500">
-                          {article.date && (
+                          {doc.date && (
                             <time>
-                              {new Date(article.date).toLocaleDateString('en-US', {
+                              {new Date(doc.date).toLocaleDateString('en-US', {
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric',
                               })}
                             </time>
                           )}
-                          {article.author && <span>by {article.author}</span>}
-                          {article.tags?.map(tag => (
+                          {doc.author && <span>by {doc.author}</span>}
+                          {doc.tags?.map(tag => (
                             <span
                               key={tag}
                               className="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full font-medium"

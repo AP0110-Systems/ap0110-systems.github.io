@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { slug } = await params
   const filepath = path.join(docsDir, `${slug}.md`)
-  if (!fs.existsSync(filepath)) return { title: 'Article — AP0110.ORG' }
+  if (!fs.existsSync(filepath)) return { title: 'doc — AP0110.ORG' }
   const { data } = matter(fs.readFileSync(filepath, 'utf8'))
   return {
     title: `${data.title} — AP0110.ORG`,
@@ -25,7 +25,7 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default async function ArticlePage({ params }) {
+export default async function docPage({ params }) {
   const { slug } = await params
   const filepath = path.join(docsDir, `${slug}.md`)
   if (!fs.existsSync(filepath)) notFound()
@@ -36,7 +36,7 @@ export default async function ArticlePage({ params }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-100">
-      <article className="pt-32 pb-16 px-4">
+      <doc className="pt-32 pb-16 px-4">
         <div className="max-w-3xl mx-auto">
           <Link
             href="/docs"
@@ -83,11 +83,11 @@ export default async function ArticlePage({ params }) {
           </header>
 
           <div
-            className="article-prose"
+            className="doc-prose"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         </div>
-      </article>
+      </doc>
     </div>
   )
 }
