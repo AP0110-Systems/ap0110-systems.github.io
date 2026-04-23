@@ -133,7 +133,7 @@ export default function HomePage() {
       >
         {/* <div className="absolute inset-0 bg-black/60 z-[5]"></div> */}
         <div className="max-w-4xl mx-auto relative z-10">
-          <Link href="/unsausa" className="block cursor-pointer group">
+          <Link href="/unausa" className="block cursor-pointer group">
             <div className="p-6 pb-0">
               <div className="flex mb-6 gap-4">
                 <Image

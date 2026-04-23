@@ -40,7 +40,7 @@ export default function UNAUSAPage() {
               Learn More ↓
             </a>
             <a
-              href="mailto:Daniel@ap0110.com"
+              href="mailto:contact@ap0110.com"
               className="inline-block border border-white/60 text-white font-semibold px-6 py-3 rounded-lg hover:bg-white/10 transition-colors"
             >
               Contact AP0110

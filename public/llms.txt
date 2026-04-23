@@ -6,7 +6,6 @@
 
 AP0110.ORG is documenting Web 4 (Independent Internet) in real time, and developing the open standards for an internet that works for everyone.
 
-
 ## Key Pages
 
 - [Homepage](https://ap0110.org/): AP0110 mission overview, programs, and Web 4.0 technology
@@ -48,6 +47,7 @@ AP0110.ORG is documenting Web 4 (Independent Internet) in real time, and develop
 
 ## AP0110 Contacts
 
+- Official Partner: https://AP0110.com
 - Email: [contact@AP0110.com](mailto:contact@AP0110.com)
 - GitHub: https://github.com/AP0110-Systems
 - X / Twitter: https://x.com/AP0110_net

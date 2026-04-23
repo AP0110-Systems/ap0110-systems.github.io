@@ -65,7 +65,7 @@ const organizationSchema = {
         url: 'https://ap0110.org/images/AP0110_moon_black.webp',
       },
       description: 'AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet infrastructure.',
-      email: 'Daniel@ap0110.com',
+      email: 'contact@ap0110.com',
       sameAs: [
         'https://github.com/AP0110-Systems',
       ],
