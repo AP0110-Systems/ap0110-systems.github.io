@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat)",
+      "Read(//tmp/**)",
+      "Bash(git mv *)",
+      "Bash(npm uninstall *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "WebSearch",
+      "WebFetch(domain:libraryresources.unog.ch)",
+      "WebFetch(domain:unausa.org)",
+      "WebFetch(domain:www.ohchr.org)",
+      "WebFetch(domain:californiacompute.org)",
+      "WebFetch(domain:www.linkedin.com)"
+    ]
+  }
+}

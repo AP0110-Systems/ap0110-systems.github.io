@@ -145,14 +145,15 @@ export default function HomePage() {
                   style={{ color: 'red' }}
                 />
                 <h1 className="text-4xl md:text-5xl font-bold text-white aller-bold my-auto">
-                  Digital Public Infrastructure
+                  Human Rights &amp; Technology
                 </h1>
               </div>
               <p className="text-lg md:text-xl text-white mb-8 leading-relaxed uc-sans">
-                AP0110 is partnered with <strong>UNA-USA</strong> to support and inform the creation of digital public infrastructure around the world.
+                AP0110 advises the <strong>UNA-USA</strong> Human Rights Affinity Group on AI strategy and technology policy — translating UN human rights instruments into practical guidance for the digital age.
               </p>
             </div>
           </Link>
+          <a href="https://unausa.org/una-human-rights" className="px-6 text-white font-bold text-lg">UNAUSA.org &gt;</a>
         </div>
       </div>
 
@@ -179,7 +180,7 @@ export default function HomePage() {
                 </h1>
               </div>
               <p className="text-lg md:text-xl text-white mb-8 leading-relaxed">
-                <span className='font-mono'>AP0110</span> is partnered with <strong>Life Impact International</strong> to engage and support anti-human-trafficking organizations around the world with our cutting-edge technologies.
+                <span className='font-mono'>AP0110</span> is partnered with <strong>Life Impact International</strong> to engage and support anti-human-trafficking organizations around the world with technologies.
               </p>
             </div>
           </Link>
