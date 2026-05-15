@@ -2,372 +2,394 @@
 
 import React, { Suspense } from 'react'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 import { AppProvider } from '@/context/AppContext'
 import { useAppContext } from '@/context/AppContext'
-import Card from '@/components/ui/Card'
-import Button from '@/components/ui/Button'
 
-// Dynamically import the Global Reach Visualization component to avoid SSR issues
 const Earth = dynamic(() => import('@/components/Earth'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center w-full h-full aspect-square">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-cyan"></div>
+      <div className="animate-spin rounded-full h-12 w-12 border-2 border-[#C0392B] border-t-transparent" />
     </div>
-  )
+  ),
 })
 
-// Dynamically import the WorldMap component to avoid SSR issues
 const WorldMap = dynamic(() => import('@/components/WorldMap'), {
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center h-full">
-      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ap-cyan"></div>
+      <div className="animate-spin rounded-full h-8 w-8 border-2 border-[#C0392B] border-t-transparent" />
     </div>
-  )
+  ),
 })
 
-
-const StatisticsPanel = () => {
-  return (
-    <Card variant="glass" className="mb-6">
-      <h3 className="text-xl font-bold mb-4 text-white">Global Statistics</h3>
-      <div className="grid grid-cols-2 gap-4">
-        <div className="text-center">
-          <div className="text-2xl font-bold text-ap-cyan">195</div>
-          <div className="text-sm text-gray-300">Countries</div>
-        </div>
-        <div className="text-center">
-          <div className="text-2xl font-bold text-ap-cyan">3</div>
-          <div className="text-sm text-gray-300">Active Regions</div>
-        </div>
-        <div className="text-center col-span-2">
-          <div className="text-lg font-semibold text-white">
-            Global Mission
-          </div>
-          <div className="text-sm text-gray-300">Independent Internet Access</div>
-        </div>
-      </div>
-    </Card>
-  )
+// ─── LII Design Tokens ───────────────────────────────────────────────────────
+const lii = {
+  primary:   '#111111',
+  secondary: '#6B6B6B',
+  tertiary:  '#C0392B',
+  neutral:   '#F7F5F2',
+  gold:      '#D9A441',
+  success:   '#3E7C59',
 }
 
-const CountryList = () => {
-  const { selectCountry } = useAppContext()
+// ─── Reusable primitives ─────────────────────────────────────────────────────
+const DonateButton = ({ children = 'Donate Now', className = '' }) => (
+  <a
+    href="#donate"
+    className={`inline-block px-8 py-4 rounded-full font-bold text-white text-base tracking-wide transition-colors duration-200 ${className}`}
+    style={{ backgroundColor: lii.tertiary, fontFamily: 'Montserrat, sans-serif', letterSpacing: '0.02em' }}
+    onMouseEnter={e => e.currentTarget.style.backgroundColor = '#A62C20'}
+    onMouseLeave={e => e.currentTarget.style.backgroundColor = lii.tertiary}
+  >
+    {children}
+  </a>
+)
 
-  const countries = [
-    { id: 'thailand', name: 'Thailand', lat: 13.7563, lng: 100.5018, color: '#00b0ff', status: 'active' },
-    { id: 'myanmar', name: 'Myanmar', lat: 16.8661, lng: 96.1951, color: '#00b0ff', status: 'active' },
-    { id: 'brazil', name: 'Brazil', lat: -23.5505, lng: -46.6333, color: '#00b0ff', status: 'active' }
-  ]
+const OutlineButton = ({ children, href = '#', className = '' }) => (
+  <a
+    href={href}
+    className={`inline-block px-8 py-4 rounded-full font-bold text-white text-base border-2 border-white/60 transition-colors duration-200 hover:bg-white/15 ${className}`}
+    style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '0.02em' }}
+  >
+    {children}
+  </a>
+)
 
-  return (
-    <Card variant="glass">
-      <h3 className="text-xl font-bold mb-4 text-white">Partner Countries</h3>
-      <div className="space-y-3">
-        {countries.map((country) => (
-          <div
-            key={country.id}
-            className="flex items-center justify-between p-3 rounded-lg bg-white/10 hover:bg-white/20 transition-colors cursor-pointer"
-            onClick={() => selectCountry(country)}
-          >
-            <div>
-              <div className="font-semibold text-white">{country.name}</div>
-              <div className="text-sm text-gray-300">
-                Active Region
-              </div>
-            </div>
-            <div
-              className="w-4 h-4 rounded-full"
-              style={{ backgroundColor: country.color }}
-            />
-          </div>
-        ))}
-      </div>
-    </Card>
-  )
-}
+// ─── Sticky Give Tab ─────────────────────────────────────────────────────────
+const StickyGiveTab = () => (
+  <a
+    href="#donate"
+    className="fixed left-0 top-1/2 -rotate-90 origin-top-left z-50 flex h-12 items-center gap-2 rounded-b-lg px-5 text-sm font-bold text-white shadow-lg transition-colors duration-200"
+    style={{ backgroundColor: '#48a68d', fontFamily: 'Montserrat, sans-serif', letterSpacing: '0.05em' }}
+  >
+    <svg fill="currentColor" height="14" viewBox="0 0 24 24" width="14">
+      <path d="m11.5629 20.2764c.2603.1588.6136.1588.874 0 18.1291-11.05776 4.2437-21.68512-.437-13.20902-4.68039-8.47609-18.56579 2.15126-.437 13.20902z" />
+    </svg>
+    GIVE
+  </a>
+)
 
-const ControlPanel = () => {
-  const { state, toggleAutoRotate, clearSelection } = useAppContext()
+// ─── Hero Section ─────────────────────────────────────────────────────────────
+const HeroSection = () => (
+  <section
+    className="relative w-full min-h-screen flex flex-col justify-end bg-cover bg-center"
+    style={{ backgroundImage: "url('/images/LII/PK1.jpg')" }}
+  >
+    {/* Dark overlay */}
+    <div className="absolute inset-0" style={{ backgroundColor: 'rgba(28,28,28,0.72)' }} />
 
-  return (
-    <Card variant="glass" className="mb-6">
-      <h3 className="text-xl font-bold mb-4 text-white">Controls</h3>
-      <div className="space-y-3">
-        <Button
-          variant={state.autoRotate ? 'primary' : 'outline'}
-          onClick={toggleAutoRotate}
-          className="w-full"
-        >
-          {state.autoRotate ? 'Disable' : 'Enable'} Auto Rotate
-        </Button>
-        
-        <Button
-          variant="secondary"
-          onClick={clearSelection}
-          className="w-full"
-        >
-          Reset View
-        </Button>
-        
-        {state.selectedCountry && (
-          <div className="p-3 bg-ap-cyan/20 rounded-lg">
-            <div className="text-sm text-ap-cyan font-semibold">Selected:</div>
-            <div className="text-white">{state.selectedCountry.name}</div>
-          </div>
-        )}
-      </div>
-    </Card>
-  )
-}
+    {/* LII Logo top-left */}
+    <div className="absolute top-8 left-10 z-10">
+      <Image src="/images/lii-logo.png" alt="Life Impact International" width={120} height={48} className="object-contain" />
+    </div>
 
-const HomePage = () => {
-  return (
-    <AppProvider>
-      {/* First Section - Main Content */}
-      <button
-        type="button"
-        id="sticky-button-FUNABHBTASP"
-        className="cursor-pointer fixed left-0 top-[50%] -rotate-90 origin-top-left z-50 flex h-12 items-center gap-2 rounded-md rounded-t-none border-0 bg-[#48A68D] px-4 text-base font-medium text-white shadow-[0px_1px_4px_rgba(0,0,0,0.4)]"
-        data-qa="fun-element"
-        data-testid="sticky-button"
+    {/* Hero content */}
+    <div className="relative z-10 px-10 pb-24 pt-40 max-w-4xl">
+      <p
+        className="text-sm font-bold uppercase tracking-widest mb-5"
+        style={{ color: lii.gold, fontFamily: 'Montserrat, sans-serif' }}
       >
-        <span
-          className="inline-flex text-white [--ripple-color:rgba(255,255,255,0.2)] [--ripple-size:212px]"
-          data-qa="pulse-heart-icon"
-          data-testid="pulse-heart-icon"
-          aria-hidden="true"
-        >
-          <span data-testid="pulse-heart-ripple" data-qa="pulse-heart-ripple" className="button-ripple" />
-          <svg fill="none" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg">
-            <path d="m11.5629 20.2764c.2603.1588.6136.1588.874 0 18.1291-11.05776 4.2437-21.68512-.437-13.20902-4.68039-8.47609-18.56579 2.15126-.437 13.20902z" fill="currentColor" />
-          </svg>
-        </span>
-        <span data-qa="sticky-button-label" data-testid="sticky-button-label" className="font-medium">GIVE</span>
-      </button>
-
-      <div className="w-screen h-screen flex bg-gradient-to-br from-black/30 to-black/30 bg-cover bg-center font-sans text-black relative z-20"
-           style={{backgroundImage: "url('/images/Brazil/rosa-rafael-rQSKTNvaVdE-unsplash-2.jpg')"}}>
-        
-        {/* Left Column - Company Mission & Global Reach Visualization */}
-        <div className="flex-1 flex flex-col items-center justify-center p-20 relative z-10">
-          <div className="w-full mb-8">
-            <h1 className="text-4xl font-bold mb-2.5 font-mono">AP0110</h1>
-            <p className="text-xl mb-4 font-light">
-              <b>Mission:</b> Provide Independent Internet (Web 4.0) and resilient connectivity to disenfranchised children around the world.
-            </p>
-          </div>
-          
-          <div className="w-full aspect-square max-w-[600px] mx-auto relative backdrop-blur-md">
-            <div className="corner tl"></div>
-            <div className="corner tr"></div>
-            <div className="corner bl"></div>
-            <div className="corner br"></div>
-            <Suspense fallback={
-              <div className="flex items-center justify-center w-full h-full aspect-square">
-                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-cyan"></div>
-              </div>
-            }>
-              <Earth />
-            </Suspense>
-          </div>
-        </div>
-
-        {/* Right Column - Company Information */}
-        <div className="flex-[2] flex flex-col justify-end p-20 pr-20 pb-10 relative z-5 h-full">
-          <div className="space-y-6 flex-1 flex flex-col justify-end">
-
-            <Card variant="glass">              
-               <div>
-                 <div className="w-full bg-gray-700 rounded-lg h-12">
-                   <div className="bg-ap-cyan h-12 rounded-lg transition-all duration-1000 ease-out animate-progress" style={{width: '10%'}}></div>
-                 </div>
-               </div>
-            </Card>
-
-            <Card variant="glass">
-              <h3 className="text-xl font-bold mb-4 text-white">Goals</h3>
-              <div className="space-y-3 text-gray-300">
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Make the Mission to "Reach, rescue, and raise up vulnerable and exploited children" easier and cheaper to accomplish.</li>
-                  <li>Support the Vision to "Protect the vulnerable, fight for the exploited, and change the world one life at a time" with cutting-edge technology.</li>
-                  <li>Eliminate the reliance on expensive cloud services, and faulty local grid infrastructure.</li>
-                </ul>
-              </div>
-            </Card>
-
-            <Card variant="glass">
-              <h3 className="text-xl font-bold mb-4 text-white">Challenges</h3>
-              <div className="space-y-3 text-gray-300">
-                <ul className="list-disc list-inside space-y-2">
-                  <li>Local and international laws and regulations prevent the import and use of certain radios and technologies like VPN.</li>
-                  <li></li>
-                  <li></li>
-                </ul>
-              </div>
-            </Card>
-
-          </div>
-        </div>
+        Life Impact International
+      </p>
+      <h1
+        className="text-6xl md:text-7xl font-extrabold text-white leading-none mb-6"
+        style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.03em' }}
+      >
+        Reach.<br />Rescue.<br />Restore.
+      </h1>
+      <p
+        className="text-xl text-white/80 mb-10 max-w-xl leading-relaxed"
+        style={{ fontFamily: 'Open Sans, sans-serif' }}
+      >
+        Protecting vulnerable and exploited children across Thailand, Myanmar, and Brazil — one life at a time.
+      </p>
+      <div className="flex flex-wrap gap-4">
+        <DonateButton>Donate Now</DonateButton>
+        <OutlineButton href="#mission">Join the Fight</OutlineButton>
       </div>
-      
-      {/* Second Section - World Map */}
-      <div className="w-screen h-screen relative z-10">
+    </div>
+  </section>
+)
+
+// ─── Impact Stats ─────────────────────────────────────────────────────────────
+const ImpactStats = () => (
+  <section
+    id="mission"
+    className="w-full py-24 px-10"
+    style={{ backgroundColor: lii.primary }}
+  >
+    <p
+      className="text-center text-xs font-bold uppercase tracking-[0.2em] mb-16"
+      style={{ color: lii.gold, fontFamily: 'Montserrat, sans-serif' }}
+    >
+      Our Impact
+    </p>
+    <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+      {[
+        { number: '1,000+', label: 'Children Served Daily' },
+        { number: '122',    label: 'Field Staff & Partners' },
+        { number: '4',      label: 'Countries of Operation' },
+      ].map(({ number, label }) => (
+        <div key={label}>
+          <div
+            className="text-7xl font-extrabold leading-none mb-3"
+            style={{ color: lii.gold, fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.03em' }}
+          >
+            {number}
+          </div>
+          <div
+            className="text-base font-semibold uppercase tracking-widest text-white/60"
+            style={{ fontFamily: 'Montserrat, sans-serif' }}
+          >
+            {label}
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+)
+
+// ─── Globe / Mission ──────────────────────────────────────────────────────────
+const GlobeSection = () => (
+  <section
+    className="w-full flex flex-col md:flex-row items-center py-24 px-10 gap-12"
+    style={{ backgroundColor: lii.neutral }}
+  >
+    {/* Text */}
+    <div className="flex-1 max-w-lg">
+      <p
+        className="text-xs font-bold uppercase tracking-[0.2em] mb-4"
+        style={{ color: lii.tertiary, fontFamily: 'Montserrat, sans-serif' }}
+      >
+        Global Technology Mission
+      </p>
+      <h2
+        className="text-4xl font-bold mb-6 leading-tight"
+        style={{ color: lii.primary, fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em' }}
+      >
+        Independent Internet for Every Child
+      </h2>
+      <p
+        className="text-base leading-relaxed mb-6"
+        style={{ color: lii.secondary, fontFamily: 'Open Sans, sans-serif' }}
+      >
+        AP0110 equips LII with Web 4.0 mesh networking — resilient, low-cost, field-deployable connectivity that operates without cloud dependency or centralized infrastructure.
+      </p>
+      <ul
+        className="space-y-3 text-sm"
+        style={{ color: lii.secondary, fontFamily: 'Open Sans, sans-serif' }}
+      >
+        {[
+          'Eliminate reliance on expensive cloud services',
+          'Bypass faulty local grid infrastructure',
+          'Enable encrypted communications in restricted environments',
+        ].map(item => (
+          <li key={item} className="flex items-start gap-3">
+            <span className="mt-1 w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: lii.tertiary }} />
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Globe */}
+    <div className="flex-1 max-w-[520px] w-full aspect-square relative">
+      <div className="absolute inset-0 rounded-2xl overflow-hidden" style={{ backgroundColor: '#0a0a0a' }}>
         <Suspense fallback={
           <div className="flex items-center justify-center w-full h-full">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ap-cyan"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-2 border-[#C0392B] border-t-transparent" />
           </div>
         }>
-          <WorldMap />
-          {/* Overlay text on top of the map */}
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="text-3xl font-bold" style={{color: '#ff0000'}}>
-              <h1>122 staff across 4 countries<br />
-              Serving 1000+ Children every day</h1>
-            </div>
-          </div>
+          <Earth />
         </Suspense>
       </div>
+    </div>
+  </section>
+)
 
-      <div className="w-screen relative z-10 flex items-center justify-center bg-white py-20">
-            
-            <Card variant="glass">
-              <p className="space-y-3 text-gray-600 mb-6"><b className="text-gray-800">Challenge:</b> Local and international laws and regulations prevent the import and use of certain technologies.</p>
-                <div className="overflow-x-auto">
-                  <table className="w-full text-sm border-collapse">
-                    <thead>
-                      <tr className="border-b border-gray-300">
-                        <th className="text-left py-3 px-4 font-semibold text-gray-800">Technology</th>
-                        <th className="text-center py-3 px-4 font-semibold text-gray-800">Thailand</th>
-                        <th className="text-center py-3 px-4 font-semibold text-gray-800">Burma</th>
-                        <th className="text-center py-3 px-4 font-semibold text-gray-800">Brazil</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800">AP0110 Cloud</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800 whitespace-nowrap">VPN</td>
-                        <td className="py-3 px-4 text-center text-yellow-600 group relative">
-                          <span className="cursor-help">⚠️</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            Legal within content laws
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-center text-red-600 group relative">
-                          <span className="cursor-help">❌</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            Unlawful unless authorized by authorities or ISP
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800">Wifi + LAN</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800 whitespace-nowrap">LoRaWAN</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-yellow-600 group relative">
-                          <span className="cursor-help">⚠️</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            Requires telecom-ministry permission.
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800 whitespace-nowrap">SDR</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-red-600 group relative">
-                          <span className="cursor-help">❌</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            Illegal unless part of an approved educational program.
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800">Smart Cameras</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800">Weather Station</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="border-b border-gray-200 hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800">Solar + Battery</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                        <td className="py-3 px-4 text-center text-green-600">✅</td>
-                      </tr>
-                      <tr className="hover:bg-gray-50">
-                        <td className="py-3 px-4 font-medium text-gray-800 whitespace-nowrap">Handheld Radios</td>
-                        <td className="py-3 px-4 text-center text-yellow-600 group relative">
-                          <span className="cursor-help">⚠️</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            NBTC-approved 245 MHz or 78 MHz only
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-center text-yellow-600 group relative">
-                          <span className="cursor-help">⚠️</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            Permit required
-                          </div>
-                        </td>
-                        <td className="py-3 px-4 text-center text-yellow-600 group relative">
-                          <span className="cursor-help">⚠️</span>
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-10">
-                            ANATEL-certified only
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-              </div>
-            </Card>
+// ─── World Map ────────────────────────────────────────────────────────────────
+const MapSection = () => (
+  <section className="relative w-full h-screen" style={{ backgroundColor: lii.primary }}>
+    <Suspense fallback={
+      <div className="flex items-center justify-center w-full h-full">
+        <div className="animate-spin rounded-full h-12 w-12 border-2 border-[#C0392B] border-t-transparent" />
       </div>
+    }>
+      <WorldMap />
+    </Suspense>
+    {/* Overlay label */}
+    <div className="absolute top-10 left-1/2 -translate-x-1/2 z-20 text-center pointer-events-none">
+      <h2
+        className="text-3xl md:text-4xl font-extrabold text-white"
+        style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em', textShadow: '0 2px 16px rgba(0,0,0,0.7)' }}
+      >
+        122 staff across 4 countries
+      </h2>
+      <p
+        className="text-lg mt-2 font-semibold"
+        style={{ color: lii.gold, fontFamily: 'Montserrat, sans-serif', textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}
+      >
+        Serving 1,000+ children every day
+      </p>
+    </div>
+  </section>
+)
 
-      <div className="w-screen relative z-10 flex items-center justify-center bg-gradient-to-br from-black/80 to-black/60 bg-cover bg-top py-20"
-           style={{backgroundImage: "url('/images/LII/heal-section-1.jpg')"}}>
-        <div className="max-w-4xl mx-auto px-8 bg-black/60 backdrop-blur-md rounded-2xl p-8 border border-white/20">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-          <Button size="lg" variant="primary" className="whitespace-nowrap">
-          Donate
-            </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20">
-              Volunteer your expertise
-            </Button>
-          </div>
-          <div className="max-w-2xl mx-auto">
-            <h3 className="text-xl font-semibold text-white mb-4">Stay Updated with Our Newsletter</h3>
-            <div className="flex flex-col sm:flex-row gap-4 items-center">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent"
-              />
-              <Button size="lg" variant="primary" className="whitespace-nowrap">
-                Subscribe
-              </Button>
-            </div>
-          </div>
+// ─── Technology Table ─────────────────────────────────────────────────────────
+const TechTableSection = () => {
+  const rows = [
+    { tech: 'AP0110 Cloud',    th: '✅', mm: '✅', br: '✅', notes: {} },
+    { tech: 'VPN',             th: '⚠️', mm: '❌', br: '✅',
+      notes: { th: 'Legal within content laws', mm: 'Unlawful unless authorized by authorities or ISP' } },
+    { tech: 'Wifi + LAN',      th: '✅', mm: '✅', br: '✅', notes: {} },
+    { tech: 'LoRaWAN',         th: '✅', mm: '⚠️', br: '✅',
+      notes: { mm: 'Requires telecom-ministry permission' } },
+    { tech: 'SDR',             th: '✅', mm: '❌', br: '✅',
+      notes: { mm: 'Illegal unless part of an approved educational program' } },
+    { tech: 'Smart Cameras',   th: '✅', mm: '✅', br: '✅', notes: {} },
+    { tech: 'Weather Station', th: '✅', mm: '✅', br: '✅', notes: {} },
+    { tech: 'Solar + Battery', th: '✅', mm: '✅', br: '✅', notes: {} },
+    { tech: 'Handheld Radios', th: '⚠️', mm: '⚠️', br: '⚠️',
+      notes: { th: 'NBTC-approved 245 MHz or 78 MHz only', mm: 'Permit required', br: 'ANATEL-certified only' } },
+  ]
+
+  const StatusCell = ({ value, note }) => (
+    <td className="py-3 px-4 text-center relative group">
+      <span className={note ? 'cursor-help' : ''}>{value}</span>
+      {note && (
+        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-2 rounded-lg text-xs text-white whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none"
+             style={{ backgroundColor: lii.primary }}>
+          {note}
+        </div>
+      )}
+    </td>
+  )
+
+  return (
+    <section className="w-full py-24 px-10" style={{ backgroundColor: lii.neutral }}>
+      <div className="max-w-4xl mx-auto">
+        <p
+          className="text-xs font-bold uppercase tracking-[0.2em] mb-3"
+          style={{ color: lii.tertiary, fontFamily: 'Montserrat, sans-serif' }}
+        >
+          Field Operations
+        </p>
+        <h2
+          className="text-3xl font-bold mb-3"
+          style={{ color: lii.primary, fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.01em' }}
+        >
+          Technology Deployment Matrix
+        </h2>
+        <p
+          className="text-base mb-10"
+          style={{ color: lii.secondary, fontFamily: 'Open Sans, sans-serif' }}
+        >
+          <strong style={{ color: lii.primary }}>Challenge:</strong> Local and international laws restrict the import and use of certain technologies in each operating country.
+        </p>
+        <div className="overflow-x-auto rounded-xl border" style={{ borderColor: '#E8E1DA' }}>
+          <table className="w-full text-sm border-collapse bg-white">
+            <thead>
+              <tr style={{ backgroundColor: lii.primary }}>
+                <th className="text-left py-4 px-4 font-bold text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>Technology</th>
+                <th className="py-4 px-4 font-bold text-center text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>Thailand</th>
+                <th className="py-4 px-4 font-bold text-center text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>Myanmar</th>
+                <th className="py-4 px-4 font-bold text-center text-white" style={{ fontFamily: 'Montserrat, sans-serif' }}>Brazil</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, i) => (
+                <tr
+                  key={row.tech}
+                  className="border-t transition-colors hover:bg-[#F7F5F2]"
+                  style={{ borderColor: '#E8E1DA' }}
+                >
+                  <td
+                    className="py-3 px-4 font-semibold whitespace-nowrap"
+                    style={{ color: lii.primary, fontFamily: 'Open Sans, sans-serif' }}
+                  >
+                    {row.tech}
+                  </td>
+                  <StatusCell value={row.th} note={row.notes.th} />
+                  <StatusCell value={row.mm} note={row.notes.mm} />
+                  <StatusCell value={row.br} note={row.notes.br} />
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
-    </AppProvider>
+    </section>
   )
 }
+
+// ─── Donate / CTA Section ─────────────────────────────────────────────────────
+const DonateSection = () => (
+  <section
+    id="donate"
+    className="relative w-full py-32 px-10 flex flex-col items-center justify-center text-center bg-cover bg-center"
+    style={{ backgroundImage: "url('/images/LII/heal-section-1.jpg')" }}
+  >
+    <div className="absolute inset-0" style={{ backgroundColor: 'rgba(17,17,17,0.80)' }} />
+
+    <div className="relative z-10 max-w-2xl w-full">
+      {/* Handprint accent */}
+      <div className="flex justify-center mb-8 opacity-40">
+        <Image src="/images/LII/handprint.png" alt="" width={64} height={64} className="object-contain" />
+      </div>
+
+      <h2
+        className="text-5xl font-extrabold text-white mb-4 leading-tight"
+        style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.02em' }}
+      >
+        Change a Life Today
+      </h2>
+      <p
+        className="text-lg mb-10 text-white/70"
+        style={{ fontFamily: 'Open Sans, sans-serif' }}
+      >
+        Every gift prevents exploitation, funds rescue operations, and provides long-term healing for children in need.
+      </p>
+
+      <div className="flex flex-wrap gap-4 justify-center mb-14">
+        <DonateButton>Donate Now</DonateButton>
+        <OutlineButton href="#">Volunteer Your Expertise</OutlineButton>
+      </div>
+
+      {/* Newsletter */}
+      <div className="border-t border-white/20 pt-10">
+        <h3
+          className="text-lg font-bold text-white mb-5"
+          style={{ fontFamily: 'Montserrat, sans-serif' }}
+        >
+          Stay Updated
+        </h3>
+        <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            placeholder="Your email address"
+            className="flex-1 px-4 py-3 rounded-full text-sm border border-white/20 bg-white/10 text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-white/30"
+            style={{ fontFamily: 'Open Sans, sans-serif' }}
+          />
+          <DonateButton className="whitespace-nowrap">Subscribe</DonateButton>
+        </div>
+      </div>
+    </div>
+  </section>
+)
+
+// ─── Page ─────────────────────────────────────────────────────────────────────
+const HomePage = () => (
+  <AppProvider>
+    <StickyGiveTab />
+    <HeroSection />
+    <ImpactStats />
+    <GlobeSection />
+    <MapSection />
+    <TechTableSection />
+    <DonateSection />
+  </AppProvider>
+)
 
 export default HomePage

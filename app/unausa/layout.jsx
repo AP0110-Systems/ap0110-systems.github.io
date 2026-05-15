@@ -7,8 +7,8 @@ const unausaSchema = {
       '@type': 'WebPage',
       '@id': 'https://ap0110.org/unausa',
       url: 'https://ap0110.org/unausa',
-      name: 'UN Digital Public Infrastructure — AP0110 & UNA-USA',
-      description: "AP0110 and UNA-USA support the UN's Digital Public Infrastructure initiative — building open, inclusive, and interoperable digital foundations for every nation by 2030.",
+      name: 'Human Rights & Technology — AP0110 & UNA-USA Human Rights Affinity Group',
+      description: "AP0110 serves as technology and AI strategy advisors to the UNA-USA Human Rights Affinity Group — translating UN human rights instruments into actionable guidance for the digital age.",
       publisher: { '@id': 'https://ap0110.org/#organization' },
       breadcrumb: {
         '@type': 'BreadcrumbList',
@@ -24,26 +24,26 @@ const unausaSchema = {
       mainEntity: [
         {
           '@type': 'Question',
-          name: 'What is UN Digital Public Infrastructure (DPI)?',
+          name: 'What is the UNA-USA Human Rights Affinity Group?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'UN Digital Public Infrastructure (DPI) refers to open, interoperable digital systems — including digital identity, payments, and data exchange — that governments build to serve all citizens. The UN promotes DPI as a foundation for inclusive development under the Global Digital Compact.',
+            text: 'The UNA-USA Human Rights Affinity Group is a national member network open to all UNA-USA members. It shares knowledge and aligns strategy around UN human rights instruments — including the UDHR, Universal Periodic Review, and UN Human Rights Council resolutions — and brings those frameworks to community, campus, and Capitol Hill advocacy.',
           },
         },
         {
           '@type': 'Question',
-          name: 'What is the UNA-USA and its role in digital infrastructure?',
+          name: 'What is AP0110\'s role in the UNA-USA Human Rights Affinity Group?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The United Nations Association of the USA (UNA-USA) is the largest grassroots organization supporting the United Nations in the US. UNA-USA advocates for US engagement with the UN Digital Public Infrastructure initiative and the Global Digital Compact goals for universal digital access by 2030.',
+            text: 'AP0110 serves as technology and AI strategy advisors to the UNA-USA Human Rights Affinity Group, leading its Technology pillar. This includes advising on AI governance policy, building digital rights literacy among UNA-USA chapters and advocates, and applying privacy-preserving Web 4.0 technologies to human rights documentation and secure communications.',
           },
         },
         {
           '@type': 'Question',
-          name: 'How does AP0110 support UN Digital Public Infrastructure?',
+          name: 'How does the Global Digital Compact relate to human rights?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: "AP0110 partners with UNA-USA to advance the UN's Digital Public Infrastructure goals by developing Web 4.0 Independent Internet technologies — including mesh networking, decentralized protocols, and post-quantum security — that enable sovereign, inclusive digital infrastructure for every nation.",
+            text: 'The Global Digital Compact, adopted unanimously by all 193 UN member states in September 2024, is the most comprehensive multilateral agreement on digital cooperation and AI governance. It affirms that international human rights law applies in digital spaces, establishes an independent international AI scientific panel, and commits governments to protecting human rights online as they do offline.',
           },
         },
       ],
@@ -52,26 +52,27 @@ const unausaSchema = {
 }
 
 export const metadata = {
-  title: 'UN Digital Public Infrastructure — AP0110 & UNA-USA',
-  description: 'AP0110 and UNA-USA support the UN\'s Digital Public Infrastructure initiative — building open, inclusive, and interoperable digital foundations for every nation by 2030.',
+  title: 'Human Rights & Technology — AP0110 & UNA-USA',
+  description: 'AP0110 advises the UNA-USA Human Rights Affinity Group on AI strategy and technology policy — translating UN human rights instruments into practical guidance for the digital age.',
   keywords: [
-    'UN Digital Public Infrastructure',
-    'DPI',
-    'UNA-USA',
+    'UNA-USA Human Rights Affinity Group',
+    'human rights and technology',
+    'AI policy human rights',
     'AP0110',
+    'UNA-USA',
+    'algorithmic accountability',
+    'surveillance and privacy',
+    'digital rights',
     'Global Digital Compact',
-    'digital identity',
-    'digital payments',
-    'data exchange',
-    'DPI Safeguards Framework',
-    'Summit of the Future',
+    'UDHR technology',
+    'UN Human Rights Council',
+    'AI governance',
+    'digital rights literacy',
     'Web 4.0',
     'Independent Internet',
-    'mesh networking',
-    'digital inclusion',
-    'United Nations',
-    'UNDP',
-    'ITU',
+    'censorship-resistant networks',
+    'ethical AI',
+    'OHCHR digital rights',
   ].join(', '),
   authors: [{ name: 'AP0110.ORG' }],
   creator: 'AP0110.ORG',
@@ -80,8 +81,8 @@ export const metadata = {
   openGraph: {
     type: 'website',
     url: 'https://ap0110.org/unausa',
-    title: 'UN Digital Public Infrastructure — AP0110 & UNA-USA',
-    description: 'AP0110 and UNA-USA support the UN\'s Digital Public Infrastructure initiative — building open, inclusive digital foundations for every nation.',
+    title: 'Human Rights & Technology — AP0110 & UNA-USA',
+    description: 'AP0110 advises the UNA-USA Human Rights Affinity Group on AI strategy and technology policy — translating UN human rights instruments into guidance for the digital age.',
     siteName: 'AP0110.org',
     locale: 'en_US',
     images: [
@@ -89,21 +90,21 @@ export const metadata = {
         url: '/images/AP0110_moon_black.webp',
         width: 1200,
         height: 630,
-        alt: 'AP0110 & UNA-USA — UN Digital Public Infrastructure',
+        alt: 'AP0110 & UNA-USA — Human Rights & Technology',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'UN Digital Public Infrastructure — AP0110 & UNA-USA',
-    description: 'AP0110 and UNA-USA support the UN\'s Digital Public Infrastructure initiative — building open, inclusive digital foundations for every nation.',
+    title: 'Human Rights & Technology — AP0110 & UNA-USA',
+    description: 'AP0110 advises the UNA-USA Human Rights Affinity Group on AI strategy and technology policy — translating UN human rights instruments into guidance for the digital age.',
     images: ['/images/AP0110_moon_black.webp'],
   },
   alternates: {
     canonical: 'https://ap0110.org/unausa',
   },
   category: 'Technology',
-  classification: 'UN Digital Public Infrastructure',
+  classification: 'Human Rights and Technology',
 }
 
 export default function UNAUSALayout({ children }) {
