@@ -1,0 +1,154 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+// Static prose page — no interactivity, so it lives inline in the .astro (zero JS island).
+const VALUES = [
+  { name: 'Operator-centric', body: 'The people who run the technology stay in control of it — not a platform, not us.' },
+  { name: 'Privacy & security', body: 'Private by architecture, not by promise. Your data stays yours.' },
+  { name: 'Independence from surveillance', body: 'No tracking by default. The network answers to its users, not advertisers.' },
+  { name: 'Community', body: 'Built with and for the communities it serves, especially those left behind.' },
+  { name: 'Ethics', body: 'We weigh who a technology helps and who it could harm before we build it.' },
+  { name: 'Education', body: 'Knowledge worth having is knowledge shared. We document our work in the open.' },
+];
+
+// Page-specific FAQ (visible below + FAQPage schema). Answers grounded in the
+// wiki (web4) and this page's own copy; kept distinct from calcompute/web4 FAQs.
+const FAQ = [
+  {
+    q: 'What is AP0110?',
+    a: "AP0110 researches and builds an independent internet — Web 4.0, one people can own, control, and trust — and partners with public institutions to put it to work for the communities that need it most.",
+  },
+  {
+    q: 'What does AP0110 do?',
+    a: 'Three things: research — we document the technology of an independent internet in a public, living wiki; build — we turn that research into resilient, self-hosted technology owned by the people who run it; and partner — we work with public institutions and humanitarian organizations so the technology reaches the people who need it.',
+  },
+  {
+    q: 'How is AP0110 accountable and transparent?',
+    a: 'Our accountability is our openness. The research behind everything we do is public — the wiki and the source library behind everything we say — so anyone can read it, check our reasoning, and tell us where we are wrong.',
+  },
+  {
+    q: 'How can I get involved with AP0110?',
+    a: 'Explore the open research and follow the work: read the wiki, dig into the source library, and see the projects we are building with our partners.',
+  },
+];
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'AboutPage',
+      '@id': 'https://ap0110.org/about',
+      url: 'https://ap0110.org/about',
+      name: 'About AP0110',
+      description:
+        'AP0110 researches and builds an independent internet people can own and trust — and partners with public institutions to put it to work for communities that need it most.',
+      about: { '@id': 'https://ap0110.org/#organization' },
+      publisher: { '@id': 'https://ap0110.org/#organization' },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ap0110.org' },
+          { '@type': 'ListItem', position: 2, name: 'About', item: 'https://ap0110.org/about' },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://ap0110.org/about#faq',
+      mainEntity: FAQ.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title="About — AP0110.ORG | Building an independent internet for everyone"
+  description="AP0110 researches and builds an independent internet people can own and trust — and partners with public institutions to put it to work for communities that need it most."
+  keywords="AP0110, about AP0110, independent internet, Web 4.0, decentralized internet, public interest technology, charitable technology, mesh networking, user-owned internet"
+  jsonLd={[aboutSchema]}
+>
+  <div class="min-h-screen">
+    <section class="pt-32 pb-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-sm uppercase tracking-wide text-ap-cyan font-medium mb-3">About AP0110</p>
+        <h1 class="text-3xl sm:text-5xl font-bold text-gray-900 leading-tight mb-6">
+          We&apos;re building an internet that belongs to the people who use it.
+        </h1>
+
+        {/* Mission */}
+        <p class="text-xl text-gray-700 leading-relaxed mb-12">
+          <span class="font-mono">AP0110</span> researches and builds an independent internet — one people can own, control, and trust — and puts it to work for the communities that need it most.
+        </p>
+
+        {/* Who We Are */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Who we are</h2>
+        <div class="article-prose mb-12">
+          <p>We are researchers, builders, and organizers working on the technology — and the public policy — of an independent internet. We do our research in the open, in a <a href="/wiki/">public wiki</a> anyone can read, and we partner with public institutions to turn that research into real-world work. We are not a platform and we don&apos;t sell your attention; the people who use our technology are the people it answers to.</p>
+        </div>
+
+        {/* Our Story */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Our story</h2>
+        <div class="article-prose mb-12">
+          <p>The idea of an internet built for people is sixty years old. It runs from <a href="/wiki/vannevar-bush/">Vannevar Bush</a>&apos;s vision of a personal store of knowledge, through <a href="/wiki/berners-lee/">Berners-Lee</a>&apos;s decentralized web, to <a href="/wiki/nakamoto/">Nakamoto</a>&apos;s proof that a network needs no central owner. Each step returned a little more control to ordinary people — and each was followed by something that took it back.</p>
+          <p>AP0110 exists to finish the arc. We trace that lineage openly, study what worked and what didn&apos;t, and build the missing pieces — so the next era of the internet is the first one built for everyone.</p>
+        </div>
+
+        {/* How We Work */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">How we work</h2>
+        <div class="article-prose mb-12">
+          <p><strong>Research.</strong> We document the technology of an independent internet in a public, living wiki — every <a href="/docs/">source</a> and every synthesis, in the open.</p>
+          <p><strong>Build.</strong> We turn that research into working technology: resilient, self-hosted, owned by the people who run it.</p>
+          <p><strong>Partner.</strong> We work with the public institutions and community groups that reach the people who need it most, so the technology lands where it matters.</p>
+        </div>
+
+        {/* Values */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">What we believe</h2>
+        <div class="grid sm:grid-cols-2 gap-5 mb-14">
+          {VALUES.map((v) => (
+            <div class="rounded-xl border border-gray-200 bg-white/60 p-5">
+              <h3 class="font-bold text-gray-900 mb-1">{v.name}</h3>
+              <p class="text-gray-700 text-sm leading-relaxed">{v.body}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Partners — named only in the partnered-projects section + their own pages. */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Who we work with</h2>
+        <div class="article-prose mb-14">
+          <p>We partner with public institutions and humanitarian organizations to put the technology to work for real communities. See our <a href="/#efforts">partnered projects</a> for who we work with and what we&apos;re building together.</p>
+        </div>
+
+        {/* Transparency */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Working in the open</h2>
+        <div class="article-prose mb-14">
+          <p>Our accountability is our openness. The research behind everything we do is public — the <a href="/wiki/">wiki</a> and the <a href="/docs/">source library</a> behind everything we say. Read it, check our reasoning, and tell us where we&apos;re wrong.</p>
+        </div>
+
+        {/* FAQ — visible, mirrors the FAQPage schema above */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently asked questions</h2>
+        <div class="space-y-6 mb-14">
+          {FAQ.map((f) => (
+            <div>
+              <h3 class="font-bold text-gray-900 mb-2">{f.q}</h3>
+              <p class="text-gray-700 leading-relaxed">{f.a}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <div class="rounded-2xl border border-gray-200 bg-white/70 p-8 text-center">
+          <h2 class="text-2xl font-bold text-gray-900 mb-3">Be part of it.</h2>
+          <p class="text-gray-700 mb-6">An internet for everyone takes everyone. Dig into the research and follow the work.</p>
+          <div class="flex flex-wrap justify-center gap-4">
+            <a href="/wiki/web4" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-lg transition-all duration-200 hover:opacity-90">Explore our research</a>
+            <a href="/wiki" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg border-2 border-ap-cyan text-ap-cyan font-medium transition-all duration-200 hover:bg-ap-cyan hover:text-white">Read the wiki</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

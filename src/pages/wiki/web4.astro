@@ -1,0 +1,175 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { buildGraph, backlinksFor, sourceCountFor } from '@/utils/wikiGraph.js';
+import WikiGraph from '@/components/WikiGraph.jsx';
+import Particles from '@/components/Particles.jsx';
+
+const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
+const graph = buildGraph(docs, wiki);
+// Full graph feeds the hero viz; drop the linksOut/linksIn Maps so they aren't serialized into the island.
+const { nodes, edges } = graph;
+const entry = wiki.find((e) => e.id === 'web4');
+const { Content } = await render(entry);
+const backlinks = backlinksFor(graph, '/wiki/web4').map((n) => ({ id: n.id, label: n.label }));
+const sourceCount = sourceCountFor(graph, '/wiki/web4');
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// Page-specific FAQ (visible below + FAQPage schema), grounded in this wiki page.
+// Distinct from the about/ and calcompute/ FAQs.
+const FAQ = [
+  {
+    q: 'What is Web 4.0?',
+    a: 'Web 4.0 — the Independent Internet — is a resilient, self-hosted internet that people own, run, and control themselves. It is private by design rather than by policy, keeps working when the grid goes down, and answers to the communities who use it instead of to platforms or advertisers.',
+  },
+  {
+    q: 'What is the difference between Web 3.0 and Web 4.0?',
+    a: 'Each era of the web adds a verb: Read (1.0), Read-Write (2.0), Read-Write-Own (3.0), and Read-Write-Own-Control (4.0). Web 3.0 brought ownership through blockchain and machine-readable data; Web 4.0 adds control of the compute and data underneath — the axis every prior era left open.',
+  },
+  {
+    q: 'What technologies does Web 4.0 use?',
+    a: 'Self-hosting, peer-to-peer mesh networking (LoRaWAN / Meshtastic), post-quantum cryptography, low-earth-orbit satellite and community connectivity, and energy-efficient, offline-first systems that keep working on limited power or no connection at all.',
+  },
+  {
+    q: 'What principles does Web 4.0 stand for?',
+    a: 'Six: trustless (cryptographic verification, no intermediaries), ownership (real control of digital assets), safe (airgap-first nodes and modern encryption), ethical (federated, accountable nodes), equitable (equal participation regardless of resources), and sustainable (local processing that cuts energy and latency).',
+  },
+];
+
+const web4Url = 'https://ap0110.org/wiki/web4';
+const web4Schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'DefinedTerm',
+      '@id': `${web4Url}#term`,
+      name: 'Web 4.0 (Independent Internet)',
+      description:
+        'A resilient, self-hosted internet that people own, run, and control themselves — private by design, built for everyone, and answerable to the communities who use it.',
+      inDefinedTermSet: {
+        '@type': 'DefinedTermSet',
+        name: 'AP0110 Independent Internet wiki',
+        url: 'https://ap0110.org/wiki/',
+      },
+    },
+    {
+      '@type': 'Article',
+      '@id': `${web4Url}#article`,
+      headline: entry.data.title,
+      name: entry.data.title,
+      description: entry.data.description,
+      url: web4Url,
+      mainEntityOfPage: web4Url,
+      datePublished: entry.data.date.toISOString().slice(0, 10),
+      dateModified: (entry.data.updated ?? entry.data.date).toISOString?.().slice(0, 10),
+      author: { '@id': 'https://ap0110.org/#organization' },
+      publisher: { '@id': 'https://ap0110.org/#organization' },
+      about: { '@id': `${web4Url}#term` },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ap0110.org' },
+          { '@type': 'ListItem', position: 2, name: 'Wiki', item: 'https://ap0110.org/wiki' },
+          { '@type': 'ListItem', position: 3, name: 'Web 4.0', item: web4Url },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${web4Url}#faq`,
+      mainEntity: FAQ.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title={`${entry.data.title} — AP0110.ORG Wiki`}
+  description={entry.data.description}
+  keywords="Web 4.0, Independent Internet, decentralized internet, self-hosted internet, mesh networking, post-quantum security, user-owned internet, Read-Write-Own-Control, AP0110"
+  jsonLd={[web4Schema]}
+>
+  <div class="min-h-screen">
+    {/* Hero: the concept beside the full knowledge graph */}
+    <section class="pt-32 pb-8 px-4">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div>
+          <a href="/wiki/" class="inline-flex items-center gap-2 text-ap-cyan hover:text-ap-cyan/80 text-sm mb-6 group">
+            <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            All Wiki
+          </a>
+          <div class="text-xs uppercase tracking-wide text-gray-500 mb-2">{entry.data.type}</div>
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2">{entry.data.title}</h1>
+          <p class="text-ap-cyan font-medium mb-4">Built for people.</p>
+          {entry.data.description && <p class="text-gray-600 text-lg leading-relaxed mb-4">{entry.data.description}</p>}
+          <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+            <time>Updated {fmt(entry.data.updated ?? entry.data.date)}</time>
+            {sourceCount > 0 && <span>· {sourceCount} source{sourceCount === 1 ? '' : 's'}</span>}
+            {entry.data.tags.map((tag) => (
+              <a href={`/wiki/tag/${tag}/`} class="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full text-xs font-medium hover:bg-ap-cyan/20">{tag}</a>
+            ))}
+          </div>
+        </div>
+        {nodes.length > 0 && (
+          <div>
+            <WikiGraph data={{ nodes, edges }} client:load />
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* Body: the synthesized concept, in rich prose */}
+    <section class="pb-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="article-prose">
+          <Content />
+        </div>
+
+        {/* FAQ — visible, mirrors the FAQPage schema */}
+        <div class="mt-12 pt-10 border-t border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently asked questions</h2>
+          <div class="space-y-6">
+            {FAQ.map((f) => (
+              <div>
+                <h3 class="font-bold text-gray-900 mb-2">{f.q}</h3>
+                <p class="text-gray-700 leading-relaxed">{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA — this is open research; guide the reader onward, over the cyan particle network (as on the old /web4) */}
+        <section class="mt-12 pt-14 pb-14 px-4 border-t border-gray-200 text-center relative overflow-hidden min-h-[320px] flex flex-col justify-center">
+          <div class="absolute inset-0 opacity-60"><Particles client:load /></div>
+          <div class="relative z-10">
+            <h2 class="text-2xl font-bold text-gray-900 mb-3">It's all in the open.</h2>
+            <p class="text-gray-600 mb-6 max-w-xl mx-auto">Web 4.0 is built on research anyone can read and check. Follow it to the source, or see why we're building it.</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+              <a href="/docs/" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-lg transition-all duration-200 hover:opacity-90">Explore the source library</a>
+              <a href="/about/" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg border-2 border-ap-cyan text-ap-cyan font-medium transition-colors hover:bg-ap-cyan hover:text-white">Read our story</a>
+            </div>
+          </div>
+        </section>
+
+        {backlinks.length > 0 && (
+          <section class="mt-12 pt-8 border-t border-gray-200">
+            <h2 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-4">Referenced by</h2>
+            <ul class="space-y-2">
+              {backlinks.map((b) => (
+                <li>
+                  <a href={`${b.id}/`} class="text-ap-cyan hover:text-ap-cyan/80">{b.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </section>
+  </div>
+</Layout>

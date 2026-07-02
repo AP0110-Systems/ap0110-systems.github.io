@@ -1,0 +1,36 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+// Astro emits this as 404.html; GitHub Pages serves it automatically on any
+// unmatched route. Static prose, no island, so it stays zero-JS.
+const LINKS = [
+  { href: '/wiki/web4', label: 'Explore our research' },
+  { href: '/wiki', label: 'Read the wiki' },
+  { href: '/docs/', label: 'Browse the source library' },
+  { href: '/about', label: 'About AP0110' },
+];
+---
+
+<Layout title="Page not found — AP0110.ORG" description="This page has drifted off the map. Head back and keep exploring an independent internet built for everyone.">
+  <meta slot="head" name="robots" content="noindex, follow" />
+
+  <div class="min-h-screen">
+    <section class="pt-32 pb-16 px-4">
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-sm uppercase tracking-wide text-ap-cyan font-medium mb-3">Error 404</p>
+        <h1 class="text-4xl sm:text-6xl font-bold text-gray-900 leading-tight mb-6">
+          This page drifted off the map.
+        </h1>
+        <p class="text-xl text-gray-700 leading-relaxed mb-10">
+          The page you were looking for isn&apos;t here — but the research still is. Pick a thread and keep exploring the internet we&apos;re building for everyone.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-lg transition-all duration-200 hover:opacity-90">Back home</a>
+          {LINKS.map((l) => (
+            <a href={l.href} class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg border-2 border-ap-cyan text-ap-cyan font-medium transition-all duration-200 hover:bg-ap-cyan hover:text-white">{l.label}</a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

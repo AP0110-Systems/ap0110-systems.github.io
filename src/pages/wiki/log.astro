@@ -1,0 +1,36 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+// The wiki log is a CURATED, append-only record kept in the /wiki/log page mirror (so it also
+// feeds /wiki/log.md + llms.txt). It is hand-maintained on purpose: we deliberately do NOT
+// auto-generate a per-page "last edited" feed. Such a feed would publish the exact timestamps
+// and ordering of our internal editing — broadcasting working cadence and focus rather than
+// serving the reader. Anything shown here is something we chose to share.
+const pages = await getCollection('pages');
+const logPage = pages.find((p) => p.data.route === '/wiki/log');
+const { Content } = logPage ? await render(logPage) : { Content: null };
+---
+
+<Layout title="Wiki Log — AP0110.ORG" description="A curated log of how this public knowledge graph grows — what's been added, synthesized, and revised.">
+  <div class="min-h-screen">
+    <section class="pt-32 pb-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <a href="/wiki/" class="inline-flex items-center gap-2 text-ap-cyan hover:text-ap-cyan/80 text-sm mb-10 group">
+          <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          All Wiki
+        </a>
+
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6">Wiki Log</h1>
+
+        {Content && (
+          <div class="article-prose">
+            <Content />
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+</Layout>

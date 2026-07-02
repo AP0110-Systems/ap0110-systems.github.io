@@ -8,7 +8,7 @@
   --color-ap-yellow: #E2B46C;
   --color-ap-green: #47B332;
   --color-ap-blue: #0032A0;
-  --color-ap-violet: #8E24AA;
+  --color-ap-violet: #7e1dfb;    /* #8E24AA */
 }
 
 :root {
@@ -39,7 +39,7 @@
   --color-green: #47B332;     /* Apollo Green */
   --color-cyan: #00b0ff;      /* #00ACC1 */
   --color-blue: #0032A0;      /* NASA Blue */
-  --color-violet: #8E24AA;    /*  */
+  --color-violet: #7e1dfb;    /* #8E24AA */
 
   font-size: 12pt;
   font-family: Roboto, Helvetica, Arial, sans-serif;
@@ -90,6 +90,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #111;
+  /* Dot-grid backdrop (ported from AP0110.com DESIGN.md, inverted for light mode:
+     dark dots on white). Set directly on body's background — an absolute z-index:-1
+     ::before is hidden behind body's own opaque white fill. Solid brand cards cover it. */
+  background-color: #fff;
+  background-image: radial-gradient(circle, rgba(0, 0, 0, 0.09) 1px, transparent 1px);
+  background-size: 16px 16px;
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior-y: none;
@@ -1003,6 +1009,50 @@ input[type="search"]::-webkit-search-decoration {
   border: none;
   border-top: 1px solid #e5e7eb;
   margin: 2rem 0;
+}
+
+.article-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.article-prose th,
+.article-prose td {
+  text-align: left;
+  padding: 0.6rem 0.85rem;
+  vertical-align: top;
+}
+.article-prose thead th {
+  font-weight: 600;
+  color: #111827;
+  border-bottom: 2px solid #e5e7eb;
+}
+.article-prose tbody td {
+  border-bottom: 1px solid #eef0f3;
+}
+.article-prose tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+/* Wiki callouts — ⚠️ contradiction / 🔍 gap blockquotes, classed by remark-wiki.mjs.
+   Override the plain blockquote look (no italic, tinted box). */
+.article-prose blockquote.callout {
+  font-style: normal;
+  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 0.85rem 1.1rem;
+  margin: 1.5rem 0;
+  color: #1f2937;
+}
+.article-prose blockquote.callout p { margin-bottom: 0; }
+.article-prose blockquote.callout-warning {
+  border-left-color: #FF4F00;            /* international orange */
+  background-color: rgba(255, 79, 0, 0.06);
+}
+.article-prose blockquote.callout-gap {
+  border-left-color: #00b0ff;            /* ap-cyan */
+  background-color: rgba(0, 176, 255, 0.06);
 }
 
 .article-prose img {
