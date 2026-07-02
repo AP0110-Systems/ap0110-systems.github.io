@@ -1,0 +1,133 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { buildGraph, sourceCountFor } from '@/utils/wikiGraph.js';
+import WikiGraph from '@/components/WikiGraph.jsx';
+
+const [wiki, docs, pages] = await Promise.all([
+  getCollection('wiki'),
+  getCollection('docs'),
+  getCollection('pages'),
+]);
+
+// The folded-in overview thesis lives in the /wiki page mirror (single source → also feeds
+// /wiki.md + llms.txt). Render its body as the index intro.
+const wikiPage = pages.find((p) => p.data.route === '/wiki');
+const { Content: Thesis } = wikiPage ? await render(wikiPage) : { Content: null };
+
+const graph = buildGraph(docs, wiki);
+// Only nodes/edges feed the viz island — keep buildGraph's linksOut/linksIn Maps server-side.
+const graphData = { nodes: graph.nodes, edges: graph.edges };
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+
+// Live graph stats for the hero (non-overlapping: sources + syntheses = every node).
+const stats = [
+  { n: docs.length, label: docs.length === 1 ? 'Source' : 'Sources' },
+  { n: wiki.length, label: wiki.length === 1 ? 'Synthesis' : 'Syntheses' },
+  { n: graphData.edges.length, label: graphData.edges.length === 1 ? 'Connection' : 'Connections' },
+];
+
+// Catalog groups, in the wiki's reading order (Sources first as a count, then the synthesized types).
+const GROUPS = [
+  { type: 'concept', label: 'Concepts' },
+  { type: 'entity', label: 'Entities' },
+  { type: 'analysis', label: 'Analyses' },
+];
+const byType = (t) =>
+  wiki.filter((e) => e.data.type === t).sort((a, b) => a.data.title.localeCompare(b.data.title));
+
+const cardClass =
+  'rounded-lg transition-all duration-300 bg-black/5 backdrop-blur-md border border-black/10 p-5 group-hover:shadow-md group-hover:border-ap-cyan/40';
+---
+
+<Layout
+  title="Wiki — AP0110.ORG"
+  description="A small, public knowledge graph tracing the lineage of the Independent Internet (Web 4.0) — the people, ideas, and primary documents behind decentralized computing."
+>
+  <div class="min-h-screen">
+    {/* Hero: intro beside the whole graph at a glance (classic straight-edge layout); stacks on mobile. */}
+    <section class="pt-32 pb-12 px-4">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div class="text-center md:text-left">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-ap-cyan mb-4">AP0110 Knowledge Graph</p>
+          <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-5">The Wiki</h1>
+          <p class="text-lg text-gray-600 leading-relaxed mb-8">{wikiPage?.data.description}</p>
+
+          <div class="flex flex-wrap items-stretch justify-center md:justify-start divide-x divide-gray-200 mb-8">
+            {stats.map((s) => (
+              <div class="px-6 first:pl-0">
+                <div class="text-3xl font-bold text-gray-900 tabular-nums">{s.n}</div>
+                <div class="text-xs uppercase tracking-wide text-gray-500 mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div class="flex flex-wrap gap-3 justify-center md:justify-start text-sm">
+            <a href="/wiki/web4/" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-ap-cyan text-white font-medium shadow-sm hover:opacity-90 transition-opacity">Explore the graph</a>
+            <a href="/docs/" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-300 text-gray-600 font-medium hover:border-ap-cyan hover:text-ap-cyan transition-colors">Source library &rarr;</a>
+          </div>
+        </div>
+
+        {graphData.nodes.length > 0 && (
+          <div>
+            <WikiGraph data={graphData} variant="classic" client:visible />
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* The thesis, lineage, and threads — the reading path through the graph. */}
+    {Thesis && (
+      <section class="pb-4 px-4">
+        <div class="max-w-3xl mx-auto article-prose">
+          <Thesis />
+        </div>
+      </section>
+    )}
+
+    <section class="pb-16 px-4">
+      <div class="max-w-4xl mx-auto">
+        {/* Sources — the raw library; cataloged as a count that links into /docs. */}
+        <div class="mb-12">
+          <div class="flex items-baseline justify-between mb-4">
+            <h2 class="text-xl font-bold text-gray-900">Sources <span class="text-gray-400 font-normal text-base">({docs.length})</span></h2>
+            <a href="/docs/" class="text-sm text-ap-cyan hover:text-ap-cyan/80">Browse the source library &rarr;</a>
+          </div>
+          <p class="text-gray-600 text-sm">One page per primary document — papers, specs, and reports — that the synthesized pages below draw on.</p>
+        </div>
+
+        {GROUPS.map((g) => {
+          const entries = byType(g.type);
+          if (entries.length === 0) return null;
+          return (
+            <div class="mb-12">
+              <h2 class="text-xl font-bold text-gray-900 mb-4">{g.label} <span class="text-gray-400 font-normal text-base">({entries.length})</span></h2>
+              <div class="space-y-4">
+                {entries.map((entry) => {
+                  const sc = sourceCountFor(graph, `/wiki/${entry.id}`);
+                  return (
+                    <a href={`/wiki/${entry.id}/`} class="block group">
+                      <div class={cardClass}>
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-ap-cyan transition-colors mb-1">{entry.data.title}</h3>
+                        {entry.data.description && (
+                          <p class="text-gray-600 text-sm leading-relaxed mb-3">{entry.data.description}</p>
+                        )}
+                        <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500">
+                          <span>Updated {fmt(entry.data.updated ?? entry.data.date)}</span>
+                          {sc > 0 && <span class="text-gray-400">· {sc} source{sc === 1 ? '' : 's'}</span>}
+                          {entry.data.tags.map((tag) => (
+                            <span class="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full font-medium">{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  </div>
+</Layout>

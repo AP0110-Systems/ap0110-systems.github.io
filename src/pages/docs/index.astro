@@ -1,0 +1,93 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { buildGraph, backlinksFor } from '@/utils/wikiGraph.js';
+
+const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
+const sorted = docs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const graph = buildGraph(docs, wiki);
+// "Cited by N" = synthesized wiki pages that link to this source (its inbound graph edges).
+const citedBy = (slug) => backlinksFor(graph, `/docs/${slug}`).filter((n) => n.group === 'wiki').length;
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// Live stats for the hero.
+const years = docs
+  .map((d) => parseInt(String(d.data.year ?? d.data.date.getFullYear()), 10))
+  .filter((y) => !Number.isNaN(y));
+const span = `${Math.min(...years)}–${Math.max(...years)}`;
+const citations = docs.reduce((sum, d) => sum + citedBy(d.id), 0);
+const stats = [
+  { n: docs.length, label: docs.length === 1 ? 'Source' : 'Sources' },
+  { n: span, label: 'Span' },
+  { n: citations, label: citations === 1 ? 'Citation' : 'Citations' },
+];
+---
+
+<Layout
+  title="Source Library — AP0110.ORG"
+  description="The primary-document source library behind the AP0110 wiki — the papers, specs, and reports the Independent Internet is built on."
+>
+  <div class="min-h-screen">
+    {/* Hero: centered intro with live stats — the raw layer beneath the wiki (no graph here). */}
+    <section class="pt-32 pb-12 px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-ap-cyan mb-4">Primary Documents</p>
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-5">Source Library</h1>
+        <p class="text-lg text-gray-600 leading-relaxed mb-8">
+          One page per primary document — the papers, specs, books, and reports the Independent Internet is built on. Every synthesized claim in the wiki traces back to a source here.
+        </p>
+
+        <div class="flex flex-wrap items-stretch justify-center divide-x divide-gray-200 mb-8">
+          {stats.map((s) => (
+            <div class="px-6">
+              <div class="text-3xl font-bold text-gray-900 tabular-nums">{s.n}</div>
+              <div class="text-xs uppercase tracking-wide text-gray-500 mt-1">{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        <div class="flex flex-wrap gap-3 justify-center text-sm">
+          <a href="/wiki/web4/" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-ap-cyan text-white font-medium shadow-sm hover:opacity-90 transition-opacity">Explore the graph</a>
+          <a href="/wiki/" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-300 text-gray-600 font-medium hover:border-ap-cyan hover:text-ap-cyan transition-colors">Read the wiki &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-16 px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-8">All sources <span class="text-gray-400">({sorted.length})</span></h2>
+
+        {/* Single timeline of every source, newest first — links + cited-by counts. */}
+        <div class="relative">
+          <div class="absolute left-2 md:left-0 top-0 bottom-0 border-l-2 border-dashed border-ap-cyan"></div>
+          <div class="space-y-8">
+            {sorted.map((doc) => {
+              const n = citedBy(doc.id);
+              return (
+                <div class="relative flex items-start">
+                  <div class="absolute left-[9px] md:left-[1px] top-3 w-3 h-3 bg-ap-cyan rounded-full shadow-md -translate-x-1/2 z-10"></div>
+                  <a href={`/docs/${doc.id}/`} class="ml-8 md:ml-12 block w-full group">
+                    <div class="rounded-lg bg-white/60 backdrop-blur-sm border border-gray-200 p-5 group-hover:border-ap-cyan/40 group-hover:shadow-md transition-all">
+                      <div class="flex items-center gap-3 mb-1">
+                        <span class="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-0.5 rounded-full">{doc.data.year ?? fmt(doc.data.date)}</span>
+                        {doc.data.author && <span class="text-sm text-gray-500">{doc.data.author}</span>}
+                      </div>
+                      <h3 class="text-lg font-bold text-gray-900 group-hover:text-ap-cyan transition-colors mb-1">{doc.data.title}</h3>
+                      {doc.data.description && <p class="text-gray-600 text-sm leading-relaxed mb-2">{doc.data.description}</p>}
+                      <div class="flex flex-wrap items-center gap-3 text-xs text-gray-500">
+                        {n > 0 && <span class="text-ap-cyan font-medium">Cited by {n} wiki page{n === 1 ? '' : 's'}</span>}
+                        {doc.data.tags.map((tag) => (
+                          <span class="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full font-medium">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

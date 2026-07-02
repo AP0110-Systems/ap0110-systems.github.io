@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import TypingText from '@/components/TypingText';
 
 const NAV_TYPING_SPEED = 30;
@@ -24,16 +22,16 @@ function SocialLink({ href, children }) {
 
 export default function Header({
   navItems = [
-    { type: 'link', label: 'Web 4.0', href: '/web4' },
-    { type: 'link', label: 'Projects', href: '/#projects' },
-    { type: 'link', label: 'Articles', href: '/articles' },
+    { type: 'link', label: 'Web 4.0', href: '/wiki/web4' },
+    { type: 'link', label: 'About', href: '/about' },
     { type: 'link', label: 'Docs', href: '/docs' },
+    { type: 'link', label: 'Wiki', href: '/wiki' },
   ],
   theme = 'light',           // 'light' | 'dark'
-  logoText = 'AP0110.ORG //////',
+  logoText = 'AP0110.ORG',
+  pathname = '/',            // passed from Layout (Astro.url.pathname)
 }) {
   const [modalOpen, setModalOpen] = useState(false);
-  const pathname = usePathname();
   const isHomePage = pathname === '/';
   const isDark = theme === 'dark';
 
@@ -97,13 +95,13 @@ export default function Header({
           {/* Desktop nav: both themes */}
           <nav className={`hidden md:flex absolute top-0 right-0 items-center font-mono font-bold pointer-events-auto ${isDark ? 'text-gray-100' : ''}`}>
             {navItems.map((item, index) => (
-              <Link
+              <a
                 key={index}
                 href={item.href}
                 className="text-sm md:text-base px-4 md:px-5 py-2 md:py-3 hover:opacity-60 transition-opacity"
               >
                 {navText(item.label, isHomePage, NAV_TYPING_SPEED, 'text-sm md:text-base')}
-              </Link>
+              </a>
             ))}
           </nav>
         </div>
@@ -125,13 +123,13 @@ export default function Header({
                   if (!item.href) return null;
                   return (
                     <li key={index}>
-                      <Link
+                      <a
                         href={item.href}
                         className={`${isDark ? 'text-gray-200' : 'text-black'} hover:text-white transition-colors block w-fit`}
                         onClick={() => setModalOpen(false)}
                       >
                         <TypingText text={item.label} typingSpeed={40} initialDelay={0} className="inline" />
-                      </Link>
+                      </a>
                     </li>
                   );
                 })}

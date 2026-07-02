@@ -1,8 +1,6 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { usePathname } from 'next/navigation'
-import Image from 'next/image'
 import { useScrollIndicator } from '../hooks/useScrollIndicator'
 import Button from './ui/Button'
 import AmericanFlagIcon from './icons/AmericanFlagIcon'
@@ -11,8 +9,7 @@ import VolunteerModal from './VolunteerModal'
 /**
  * Footer component that switches between fixed bottom and absolute top positioning.
  */
-const Footer = () => {
-  const pathname = usePathname()
+const Footer = ({ pathname = '/' }) => {
   const { scrollPositionInVh, pageHeightInViewports } = useScrollIndicator()
   const [isExtendedFooterInView, setIsExtendedFooterInView] = useState(false)
   const [footerHeight, setFooterHeight] = useState(0)
@@ -22,7 +19,7 @@ const Footer = () => {
   // Define styling based on current page
   const getPageStyling = () => {
     switch (pathname) {
-      case '/web4/':
+      case '/wiki/web4/':
         return {
           background: 'bg-white/0',
           textColor: 'text-black'
@@ -106,21 +103,10 @@ const Footer = () => {
             <div className="max-w-6xl mx-auto w-full">
               {/* Navigation Links */}
               <div id="footer-navigation" className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12" style={{ display: 'grid' }}>
-                {/* <div>
-                  <h3 className="font-semibold mb-4 text-black"><a href="/" className="font-mono hover:text-black transition-colors">AP0110.ORG</a></h3>
-                  <ul className="space-y-2">
-                    <li><a href="/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
-                    <li><a href="/education" className="text-gray-800 hover:text-black transition-colors">Contribute</a></li>
-                    <li><a href="/children" className="text-gray-800 hover:text-black transition-colors">Donate</a></li>
-                    <li><a href="#" className="font-mono text-gray-800 hover:text-black transition-colors">AP0110.NET</a></li>
-                    <li><a href="#" className="font-mono text-gray-800 hover:text-black transition-colors">AP0110.COM</a></li>
-                  </ul>
-                </div> */}
                 
                 <div id="footer-brand-section" className="font-mono text-lg order-first md:order-none">
                   <h3 className="text-lg font-semibold mb-4 text-black"><a href="/">AP0110.ORG</a></h3>
                   <ul className="space-y-2">
-                    <li><a href="https://ap0110.net" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-black transition-colors">AP0110.NET</a></li>
                     <li><a href="https://ap0110.com" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-black transition-colors">AP0110.COM</a></li>
                   </ul>
                 </div>
@@ -137,9 +123,11 @@ const Footer = () => {
                 <div id="footer-navigation-section" className="order-2 md:order-none">
                   {/* <h3 className="text-lg font-semibold mb-4 text-black">Navigation</h3> */}
                   <ul className="space-y-2">
-                    <li><a href="/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
-                    <li><a href="/articles" className="text-gray-800 hover:text-black transition-colors">Articles</a></li>
+                    <li><a href="/about" className="text-gray-800 hover:text-black transition-colors">About Us</a></li>
+                    <li><a href="/wiki/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
                     <li><a href="/docs" className="text-gray-800 hover:text-black transition-colors">Docs</a></li>
+                    <li><a href="/wiki" className="text-gray-800 hover:text-black transition-colors">Wiki</a></li>
+                    <li><a href="/articles" className="text-gray-800 hover:text-black transition-colors">Articles</a></li>
                   </ul>
                 </div>
                 
@@ -165,22 +153,22 @@ const Footer = () => {
                 
                 {/* <div id="footer-legal-section" className="order-3 md:order-none">
                   <ul className="space-y-2">
-                    <li><a href="/web4#privacy-policy" className="text-gray-800 hover:text-black transition-colors">Privacy</a></li>
-                    <li><a href="/web4#terms-of-service" className="text-gray-800 hover:text-black transition-colors">Terms</a></li>
-                    <li><a href="/web4#cookie-policy" className="text-gray-800 hover:text-black transition-colors"> Cookies</a></li>
+                    <li><a href="/wiki/web4#privacy-policy" className="text-gray-800 hover:text-black transition-colors">Privacy</a></li>
+                    <li><a href="/wiki/web4#terms-of-service" className="text-gray-800 hover:text-black transition-colors">Terms</a></li>
+                    <li><a href="/wiki/web4#cookie-policy" className="text-gray-800 hover:text-black transition-colors"> Cookies</a></li>
                   </ul>
                 </div> */}
 
                 <div id="footer-moon-section" className="w-full order-4 md:order-none">
                   {showMoonImage && (
                     <div className="flex justify-center items-center w-full">
-                      <Image
+                      <img
                         src="/images/moon.webp"
                         alt="AP0110 Moon"
                         width={200}
                         height={200}
                         className="object-contain w-full h-auto max-w-full landscape:w-full invert"
-                        priority={false}
+                        loading="lazy"
                       />
                     </div>
                   )}
@@ -193,7 +181,7 @@ const Footer = () => {
                   <div>
                     <h3 className="text-lg font-semibold mb-4 text-black font-mono">About AP0110.org</h3>
                     <p className="text-gray-800 leading-relaxed">
-                      We are building Web 4.0 - an independent internet that operates on private infrastructure,
+                      We are Building for Web 4.0 - an independent internet that operates on private infrastructure,
                       without corporate control, surveillance, or centralized points of failure.
                     </p>
                   </div>
@@ -212,7 +200,7 @@ const Footer = () => {
               <div id="footer-copyright" className="border-t border-gray-700 pt-8 mt-8">
                 <div className="flex flex-col md:flex-row justify-between items-center">
                   <p id="footer-copyright-text" className="text-gray-400 text-sm font-mono">
-                    © 2026 AP0110.ORG
+                    © 2026 AP0110
                   </p>
                   <div id="footer-social-links" className="flex space-x-6 mt-4 md:mt-0">
                     <a href="https://github.com/AP0110-Systems" target="_blank" rel="noopener noreferrer" className="w-6 h-6 text-gray-800 hover:text-black transition-colors">

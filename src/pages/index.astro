@@ -1,0 +1,15 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Home from '@/components/pages/Home.jsx';
+import { getCollection } from 'astro:content';
+import { buildGraph } from '@/utils/wikiGraph.js';
+
+const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
+// Only nodes/edges feed the hero viz; drop buildGraph's linksOut/linksIn Maps from the prop.
+const { nodes, edges } = buildGraph(docs, wiki);
+const graph = { nodes, edges };
+---
+
+<Layout>
+  <Home graph={graph} client:load />
+</Layout>

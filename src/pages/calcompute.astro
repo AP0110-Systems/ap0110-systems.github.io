@@ -1,0 +1,67 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import CalCompute from '@/components/pages/CalCompute.jsx';
+
+// Single source of truth for the page FAQ: the FAQPage schema below and the
+// visible FAQ rendered by the CalCompute island both derive from this array.
+// CalCompute-specific questions — kept distinct from the about/ and web4/ FAQs.
+const FAQ = [
+  {
+    q: 'What is CalCompute?',
+    a: "CalCompute is California's public cloud computing cluster established by Senate Bill 53 (SB-53) to provide safe, ethical, equitable, and sustainable AI computing resources for researchers, educators, and public institutions across the state.",
+  },
+  {
+    q: 'What is Senate Bill 53 (SB-53)?',
+    a: 'Senate Bill 53 is California legislation that establishes CalCompute, a public cloud computing cluster for the state. It aims to democratize access to AI computing resources through the University of California system and other public institutions.',
+  },
+  {
+    q: 'How does CalCompute integrate with Web 4.0?',
+    a: "CalCompute integrates with AP0110's Web 4.0 Independent Internet infrastructure, using mesh networking and decentralized protocols to deliver public AI computing that is resilient, user-owned, and not reliant on a single centralized provider.",
+  },
+  {
+    q: 'Who can use CalCompute?',
+    a: 'CalCompute is designed for California researchers, educators, and public institutions — particularly within the University of California system — to access affordable and equitable AI computing resources for research and development.',
+  },
+];
+
+const calComputeSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebPage',
+      '@id': 'https://ap0110.org/calcompute',
+      url: 'https://ap0110.org/calcompute',
+      name: "CalCompute — California's Public AI Cloud",
+      description:
+        "CalCompute is California's public cloud computing cluster established by SB-53 for safe, ethical, equitable, and sustainable AI computing resources.",
+      publisher: { '@id': 'https://ap0110.org/#organization' },
+      breadcrumb: {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ap0110.org' },
+          { '@type': 'ListItem', position: 2, name: 'CalCompute', item: 'https://ap0110.org/calcompute' },
+        ],
+      },
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://ap0110.org/calcompute#faq',
+      mainEntity: FAQ.map((f) => ({
+        '@type': 'Question',
+        name: f.q,
+        acceptedAnswer: { '@type': 'Answer', text: f.a },
+      })),
+    },
+  ],
+};
+---
+
+<Layout
+  title="CalCompute — California's Public AI Cloud | AP0110"
+  description="CalCompute is California's public cloud computing cluster established by SB-53 for safe, ethical, equitable, and sustainable AI computing resources."
+  keywords="CalCompute, California cloud computing, SB-53, Senate Bill 53, public AI infrastructure, ethical AI, equitable computing, sustainable AI, University of California, UC system, California AI, public cloud platform, Web 4.0, Independent Internet, AP0110"
+  image="/images/california-postcard.jpg"
+  jsonLd={[calComputeSchema]}
+>
+  <CalCompute faq={FAQ} client:only="react" />
+</Layout>

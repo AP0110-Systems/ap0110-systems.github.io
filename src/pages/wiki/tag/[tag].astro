@@ -1,0 +1,54 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// Tag browse pages aggregate wiki + docs entries across types. Navigation only — these are
+// deliberately NOT registered in llms.txt / [...slug].md.ts / sitemap.xml (fully derivable
+// from the per-page tags, and not content of their own).
+export async function getStaticPaths() {
+  const [wiki, docs] = await Promise.all([getCollection('wiki'), getCollection('docs')]);
+  const all = [
+    ...wiki.map((e) => ({ title: e.data.title, href: `/wiki/${e.id}/`, description: e.data.description, kind: e.data.type, tags: e.data.tags })),
+    ...docs.map((e) => ({ title: e.data.title, href: `/docs/${e.id}/`, description: e.data.description, kind: 'source', tags: e.data.tags })),
+  ];
+  const tags = [...new Set(all.flatMap((e) => e.tags))];
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { tag, entries: all.filter((e) => e.tags.includes(tag)).sort((a, b) => a.title.localeCompare(b.title)) },
+  }));
+}
+
+const { tag, entries } = Astro.props;
+---
+
+<Layout title={`#${tag} — AP0110.ORG Wiki`} description={`Wiki and source pages tagged "${tag}".`}>
+  <div class="min-h-screen">
+    <section class="pt-32 pb-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <a href="/wiki/" class="inline-flex items-center gap-2 text-ap-cyan hover:text-ap-cyan/80 text-sm mb-10 group">
+          <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          All Wiki
+        </a>
+
+        <p class="text-sm uppercase tracking-wide text-gray-500 mb-1">Tag</p>
+        <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-10">#{tag} <span class="text-gray-400 font-normal text-xl">({entries.length})</span></h1>
+
+        <div class="space-y-4">
+          {entries.map((e) => (
+            <a href={e.href} class="block group">
+              <div class="rounded-lg transition-all duration-300 bg-black/5 backdrop-blur-md border border-black/10 p-5 group-hover:shadow-md group-hover:border-ap-cyan/40">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <h2 class="text-lg font-bold text-gray-900 group-hover:text-ap-cyan transition-colors">{e.title}</h2>
+                  <span class="text-xs uppercase tracking-wide text-gray-400">{e.kind}</span>
+                </div>
+                {e.description && <p class="text-gray-600 text-sm leading-relaxed">{e.description}</p>}
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

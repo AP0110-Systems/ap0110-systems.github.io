@@ -1,0 +1,139 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { buildGraph, subgraphFor, backlinksFor } from '@/utils/wikiGraph.js';
+import WikiGraph from '@/components/WikiGraph.jsx';
+
+export async function getStaticPaths() {
+  const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
+  const graph = buildGraph(docs, wiki);
+  return docs.map((entry) => {
+    const id = `/docs/${entry.id}`;
+    return {
+      params: { slug: entry.id },
+      props: {
+        entry,
+        backlinks: backlinksFor(graph, id).map((n) => ({ id: n.id, label: n.label })),
+        local: subgraphFor(graph, id, 1),
+      },
+    };
+  });
+}
+
+const { entry, backlinks, local } = Astro.props;
+const { Content } = await render(entry);
+const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const hasGraph = local.nodes.length > 1;
+
+// SEO/GEO: only the source-text docs get rich structured data (metadata only —
+// no visible/markdown changes). ScholarlyArticle for the academic papers, Article
+// for the essays/report. All fields come from existing frontmatter.
+const SOURCE_TEXT_DOCS = new Set([
+  'man-computer-symbiosis', 'icm-paper', 'augmenting-human-intellect',
+  'llms-txt', 'llm-wiki', 'ethereum-web3', 'ai-espionage-2025',
+]);
+const SCHOLARLY = new Set(['man-computer-symbiosis', 'icm-paper', 'augmenting-human-intellect']);
+function docJsonLd(e) {
+  const url = `https://ap0110.org/docs/${e.id}`;
+  const d = e.data;
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': SCHOLARLY.has(e.id) ? 'ScholarlyArticle' : 'Article',
+      '@id': `${url}#article`,
+      headline: d.title,
+      name: d.title,
+      description: d.description,
+      url,
+      mainEntityOfPage: url,
+      ...(d.author ? { author: { '@type': 'Person', name: d.author } } : {}),
+      ...(d.year ? { datePublished: d.year } : {}),
+      ...(d.sourceUrl ? { isBasedOn: d.sourceUrl, sameAs: d.sourceUrl } : {}),
+      ...(d.tags?.length ? { about: d.tags } : {}),
+      ...(d.kind === 'public-domain'
+        ? { license: 'https://creativecommons.org/publicdomain/mark/1.0/' }
+        : {}),
+      publisher: { '@id': 'https://ap0110.org/#organization' },
+      inLanguage: 'en',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://ap0110.org' },
+        { '@type': 'ListItem', position: 2, name: 'Docs', item: 'https://ap0110.org/docs' },
+        { '@type': 'ListItem', position: 3, name: d.title, item: url },
+      ],
+    },
+  ];
+}
+const jsonLd = SOURCE_TEXT_DOCS.has(entry.id) ? docJsonLd(entry) : [];
+---
+
+<Layout title={`${entry.data.title} — AP0110.ORG`} description={entry.data.description} jsonLd={jsonLd}>
+  <div class="min-h-screen">
+    {/* Hero: the source header beside its local graph */}
+    <section class="pt-32 pb-8 px-4">
+      <div class={hasGraph ? 'max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12 items-center' : 'max-w-3xl mx-auto'}>
+        <div>
+          <a href="/docs/" class="inline-flex items-center gap-2 text-ap-cyan hover:text-ap-cyan/80 text-sm mb-6 group">
+            <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            All Docs
+          </a>
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{entry.data.title}</h1>
+          {entry.data.description && <p class="text-lg text-gray-600 mb-4">{entry.data.description}</p>}
+          <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500">
+            <time>{entry.data.year ?? fmt(entry.data.date)}</time>
+            {entry.data.author && <span>by {entry.data.author}</span>}
+            {entry.data.tags.map((tag) => (
+              <a href={`/wiki/tag/${tag}/`} class="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full text-xs font-medium hover:bg-ap-cyan/20">{tag}</a>
+            ))}
+          </div>
+          <div class="flex flex-wrap items-center gap-4 mt-4">
+            {entry.data.sourceUrl && (
+              <a href={entry.data.sourceUrl} rel="noopener" target="_blank" class="inline-flex items-center gap-1.5 text-sm text-ap-cyan hover:text-ap-cyan/80">
+                View original source
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              </a>
+            )}
+            {entry.data.pdfUrl && (
+              <a href={entry.data.pdfUrl} rel="noopener" target="_blank" class="inline-flex items-center gap-1.5 text-sm text-ap-cyan hover:text-ap-cyan/80">
+                View PDF
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+              </a>
+            )}
+          </div>
+        </div>
+        {hasGraph && (
+          <div>
+            <WikiGraph data={local} variant="classic" focusNodeId={`/docs/${entry.id}`} client:visible />
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* Body */}
+    <article class="pb-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="article-prose border-t border-gray-200 pt-10">
+          <Content />
+        </div>
+
+        {backlinks.length > 0 && (
+          <section class="mt-12 pt-8 border-t border-gray-200">
+            <h2 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-4">Referenced by</h2>
+            <ul class="space-y-2">
+              {backlinks.map((b) => (
+                <li>
+                  <a href={`${b.id}/`} class="text-ap-cyan hover:text-ap-cyan/80">{b.label}</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+      </div>
+    </article>
+  </div>
+</Layout>
