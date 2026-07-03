@@ -15,11 +15,11 @@ The first web was built for universities, the next for advertisers, the latest f
 
 ## How we work
 
-We call the alternative the [Independent Internet](/wiki/web4/) (Web 4.0): an internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company. We build it three ways:
+We call the alternative the **Independent Internet** (Web 4.0): an internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company. We build it three ways:
 
 - **Research** — we trace and document the technology of an independent internet, sixty years of it, in a [public wiki](/wiki/) anyone can read.
 - **Build** — we turn that research into working technology: resilient, owned by the people who run it, and free from surveillance.
-- **Partner** — we put it to work with the public institutions and community groups that reach the people who need it most.
+- **Deploy** — we put it to work with the public institutions and community groups that reach the people who need it most.
 
 ## Partnered Projects
 

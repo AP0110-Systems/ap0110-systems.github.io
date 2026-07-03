@@ -21,7 +21,7 @@ The idea of an internet built for people is sixty years old. It runs from [Vanne
 
 - **Research.** We document the technology of an independent internet in a public, living wiki — every [source](/docs/) and every synthesis, in the open.
 - **Build.** We turn that research into working technology: resilient, self-hosted, owned by the people who run it.
-- **Partner.** We work with the public institutions and community groups that reach the people who need it most.
+- **Deploy.** We put the technology to work with the public institutions and community groups that reach the people who need it most.
 
 ## What we believe
 

@@ -4,12 +4,30 @@ import Home from '@/components/pages/Home.jsx';
 import { getCollection } from 'astro:content';
 import { buildGraph } from '@/utils/wikiGraph.js';
 
-const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
+const [docs, wiki, articles] = await Promise.all([
+  getCollection('docs'),
+  getCollection('wiki'),
+  getCollection('articles'),
+]);
 // Only nodes/edges feed the hero viz; drop buildGraph's linksOut/linksIn Maps from the prop.
 const { nodes, edges } = buildGraph(docs, wiki);
 const graph = { nodes, edges };
+
+// Live graph stats for the hero (same derivation as the /wiki and /docs heroes).
+const stats = [
+  { n: docs.length, label: docs.length === 1 ? 'Source' : 'Sources' },
+  { n: wiki.length, label: wiki.length === 1 ? 'Synthesis' : 'Syntheses' },
+  { n: edges.length, label: edges.length === 1 ? 'Connection' : 'Connections' },
+];
+
+// Newest article for the hero pill — auto-updates as articles are added.
+const newest = articles.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())[0];
+const latest = newest ? { title: newest.data.title, href: `/articles/${newest.id}/` } : null;
 ---
 
-<Layout>
-  <Home graph={graph} client:load />
+<Layout
+  title="AP0110 — An independent internet, built for everyone"
+  description="AP0110 researches and builds an independent internet people can own and trust — and puts it to work for the communities that need it most."
+>
+  <Home graph={graph} stats={stats} latest={latest} client:load />
 </Layout>

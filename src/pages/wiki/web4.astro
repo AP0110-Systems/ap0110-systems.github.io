@@ -1,19 +1,38 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
-import { buildGraph, backlinksFor, sourceCountFor } from '@/utils/wikiGraph.js';
+import { buildGraph, backlinksFor } from '@/utils/wikiGraph.js';
 import WikiGraph from '@/components/WikiGraph.jsx';
 import Particles from '@/components/Particles.jsx';
+import GlobeViewer from '@/components/GlobeViewer.jsx';
+import WikiNav from '@/components/WikiNav.astro';
+import WikiToc from '@/components/WikiToc.astro';
+import VerbLadder from '@/components/VerbLadder.astro';
 
 const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
 const graph = buildGraph(docs, wiki);
 // Full graph feeds the hero viz; drop the linksOut/linksIn Maps so they aren't serialized into the island.
 const { nodes, edges } = graph;
 const entry = wiki.find((e) => e.id === 'web4');
-const { Content } = await render(entry);
+const { Content, headings } = await render(entry);
+const byId = new Map(nodes.map((n) => [n.id, n]));
 const backlinks = backlinksFor(graph, '/wiki/web4').map((n) => ({ id: n.id, label: n.label }));
-const sourceCount = sourceCountFor(graph, '/wiki/web4');
-const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const outlinks = (graph.linksOut.get('/wiki/web4') ?? [])
+  .map((t) => byId.get(t))
+  .filter(Boolean)
+  .map((n) => ({ id: n.id, label: n.label }));
+// Live connection stats for the hero (same strip pattern as /, /wiki, /docs). Total outbound
+// links only — a direct-docs "sources" count undersells synthesis pages that cite through
+// intermediate wiki pages.
+const stats = [
+  { n: outlinks.length, label: 'Links to' },
+  { n: backlinks.length, label: 'Referenced by' },
+].filter((s) => s.n > 0);
+
+// "On this page" links from the rendered markdown's h2/h3.
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const hasLinks = outlinks.length > 0 || backlinks.length > 0;
+const hasNav = toc.length > 1 || hasLinks;
 
 // Page-specific FAQ (visible below + FAQPage schema), grounded in this wiki page.
 // Distinct from the about/ and calcompute/ FAQs.
@@ -102,15 +121,23 @@ const web4Schema = {
             <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            All Wiki
+            Wiki
           </a>
           <div class="text-xs uppercase tracking-wide text-gray-500 mb-2">{entry.data.type}</div>
           <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-2">{entry.data.title}</h1>
           <p class="text-ap-cyan font-medium mb-4">Built for people.</p>
           {entry.data.description && <p class="text-gray-600 text-lg leading-relaxed mb-4">{entry.data.description}</p>}
+          {stats.length > 0 && (
+            <div class="flex items-stretch divide-x divide-gray-200 mb-5">
+              {stats.map((s) => (
+                <div class="px-4 sm:px-6 first:pl-0">
+                  <div class="text-2xl sm:text-3xl font-bold text-gray-900 tabular-nums">{s.n}</div>
+                  <div class="text-xs uppercase tracking-wide text-gray-500 mt-1">{s.label}</div>
+                </div>
+              ))}
+            </div>
+          )}
           <div class="flex flex-wrap items-center gap-3 text-sm text-gray-500">
-            <time>Updated {fmt(entry.data.updated ?? entry.data.date)}</time>
-            {sourceCount > 0 && <span>· {sourceCount} source{sourceCount === 1 ? '' : 's'}</span>}
             {entry.data.tags.map((tag) => (
               <a href={`/wiki/tag/${tag}/`} class="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full text-xs font-medium hover:bg-ap-cyan/20">{tag}</a>
             ))}
@@ -119,14 +146,50 @@ const web4Schema = {
         {nodes.length > 0 && (
           <div>
             <WikiGraph data={{ nodes, edges }} client:load />
+            <p class="text-xs text-gray-500 text-center mt-2">
+              Live research graph — hover to spotlight, click to read.
+            </p>
           </div>
         )}
       </div>
     </section>
 
-    {/* Body: the synthesized concept, in rich prose */}
+    {/* Globe banner — northern-hemisphere dot-map ported from AP0110.com,
+        recolored for this site's light background. */}
+    <section class="pb-8 px-4">
+      <div class="max-w-6xl mx-auto relative h-[53vw] max-h-[480px] overflow-hidden rounded-lg bg-white border border-gray-200">
+        <GlobeViewer client:visible />
+      </div>
+    </section>
+
+    {/* The verb ladder — Read → Write → Own → Control. Visual companion to
+        "The web, era by era" in the prose below. */}
+    <section class="pb-10 px-4">
+      <VerbLadder />
+    </section>
+
+    {/* Body: the synthesized concept in rich prose, between the docs-style rails
+        (connected pages left, on-page links right) */}
     <section class="pb-16 px-4">
-      <div class="max-w-3xl mx-auto">
+      <div class="max-w-6xl mx-auto lg:flex lg:gap-10 border-t border-gray-200 pt-10">
+        {hasNav && (
+          <aside class={`hidden lg:block w-52 shrink-0 ${hasLinks ? '' : 'xl:hidden'}`}>
+            <div class="sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pb-8">
+              <WikiNav outlinks={outlinks} backlinks={backlinks} toc={toc} tocClass="xl:hidden" />
+            </div>
+          </aside>
+        )}
+
+        <main class="min-w-0 flex-1 max-w-3xl mx-auto lg:mx-0">
+        {hasNav && (
+          <details class="lg:hidden mb-8 rounded-lg border border-gray-200 bg-black/5">
+            <summary class="cursor-pointer px-4 py-2.5 text-sm font-medium text-gray-700 select-none">On this page &amp; linked pages</summary>
+            <div class="px-4 pb-4 pt-1">
+              <WikiNav outlinks={outlinks} backlinks={backlinks} toc={toc} />
+            </div>
+          </details>
+        )}
+
         <div class="article-prose">
           <Content />
         </div>
@@ -134,12 +197,12 @@ const web4Schema = {
         {/* FAQ — visible, mirrors the FAQPage schema */}
         <div class="mt-12 pt-10 border-t border-gray-200">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently asked questions</h2>
-          <div class="space-y-6">
+          <div class="space-y-3">
             {FAQ.map((f) => (
-              <div>
-                <h3 class="font-bold text-gray-900 mb-2">{f.q}</h3>
-                <p class="text-gray-700 leading-relaxed">{f.a}</p>
-              </div>
+              <details class="rounded-lg border border-gray-200 bg-black/5">
+                <summary class="cursor-pointer select-none px-4 py-3 font-bold text-gray-900">{f.q}</summary>
+                <p class="px-4 pb-4 text-gray-700 leading-relaxed">{f.a}</p>
+              </details>
             ))}
           </div>
         </div>
@@ -157,18 +220,9 @@ const web4Schema = {
           </div>
         </section>
 
-        {backlinks.length > 0 && (
-          <section class="mt-12 pt-8 border-t border-gray-200">
-            <h2 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-4">Referenced by</h2>
-            <ul class="space-y-2">
-              {backlinks.map((b) => (
-                <li>
-                  <a href={`${b.id}/`} class="text-ap-cyan hover:text-ap-cyan/80">{b.label}</a>
-                </li>
-              ))}
-            </ul>
-          </section>
-        )}
+        </main>
+
+        <WikiToc toc={toc} />
       </div>
     </section>
   </div>

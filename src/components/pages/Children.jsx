@@ -61,7 +61,7 @@ const HeroSection = () => (
 
     {/* LII Logo top-left */}
     <div className="absolute top-8 left-10 z-10">
-      <img src="/images/lii-logo.png" alt="Life Impact International" width={120} height={48} className="object-contain" />
+      <img src="/images/lii-logo.png" alt="Life Impact International" width={120} height={48} className="object-contain" loading="lazy" />
     </div>
 
     {/* Hero content */}
@@ -315,7 +315,7 @@ const DonateSection = () => (
     <div className="relative z-10 max-w-2xl w-full">
       {/* Handprint accent */}
       <div className="flex justify-center mb-8 opacity-40">
-        <img src="/images/LII/handprint.png" alt="" width={64} height={64} className="object-contain" />
+        <img src="/images/LII/handprint.png" alt="" width={64} height={64} className="object-contain" loading="lazy" />
       </div>
 
       <h2

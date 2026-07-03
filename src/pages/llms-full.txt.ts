@@ -14,7 +14,8 @@ export const GET: APIRoute = async () => {
 
   const sections: string[] = [];
 
-  for (const p of pages.sort((a, b) => a.data.order - b.data.order)) {
+  // The wiki log is deliberately unlisted — reachable by URL only, never linked or dumped.
+  for (const p of pages.filter((p) => p.data.route !== '/wiki/log').sort((a, b) => a.data.order - b.data.order)) {
     sections.push(p.body ?? '');
   }
   for (const a of articles.sort(byDateDesc)) {

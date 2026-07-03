@@ -9,7 +9,7 @@ kind: "public-domain"
 tags: ["governance", "human-rights", "founding-documents", "1770s"]
 ---
 
-*A companion founding document: [the Constitution of the United States](/docs/us-constitution/).*
+*See the [analysis of this document](/wiki/declaration-of-independence/) in the wiki. A companion founding document: [the Constitution of the United States](/docs/us-constitution/).*
 
 # The American Declaration of Independence
 

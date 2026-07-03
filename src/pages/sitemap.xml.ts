@@ -14,7 +14,8 @@ export const GET: APIRoute = async () => {
   ]);
 
   const urls: { loc: string; lastmod?: string }[] = [
-    ...pages.map((p) => ({ loc: `${SITE}${p.data.route}` })),
+    // The wiki log is deliberately unlisted — reachable by URL only, never linked.
+    ...pages.filter((p) => p.data.route !== '/wiki/log').map((p) => ({ loc: `${SITE}${p.data.route}` })),
     ...articles.map((a) => ({
       loc: `${SITE}/articles/${a.id}`,
       lastmod: a.data.date.toISOString().slice(0, 10),

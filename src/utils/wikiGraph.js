@@ -34,6 +34,7 @@ export function buildGraph(docs, wiki) {
     const node = {
       id,
       label: entry.data.title,
+      desc: entry.data.description ?? '', // one-line teaser shown in the hover caption
       group, // 'docs' | 'wiki'
       type: group === 'wiki' ? entry.data.type : (entry.data.kind ?? 'doc'),
       // Content weight: body length drives node radius (bigger doc → bigger node), capped

@@ -4,7 +4,7 @@ date: "2026-06-29"
 updated: "2026-06-30"
 description: "The web forgot who it was for. Web 4.0 — the Independent Internet — is a resilient, self-hosted internet people own and control. Explore the research."
 type: "concept"
-tags: ["web4", "positioning"]
+tags: ["web4"]
 ---
 
 The web most of us use every day answers to someone else. Your data is the product. Your attention is for sale. And when a platform changes its mind, the access you depend on can vanish overnight. It was not supposed to be this way.
@@ -56,7 +56,7 @@ Control is not a slogan; it needs concrete artifacts. The [agent-readable web st
 
 ## The ideas behind it
 
-None of this is new. It is the continuation of a sixty-year arc of people who believed computing should serve human beings — from [Licklider](/wiki/licklider/) and [Engelbart](/wiki/engelbart/), through [Berners-Lee](/wiki/berners-lee/) and the [Semantic Web](/wiki/semantic-web/), to [Nakamoto](/wiki/nakamoto/) and [decentralization](/wiki/decentralization/) — the long answer to [surveillance capitalism](/wiki/surveillance-capitalism/). Web 4.0 is where that arc points next.
+None of this is new — the argument is older than computing: legitimate power derives from [the consent of the governed](/wiki/declaration-of-independence/), and is [deliberately divided](/wiki/us-constitution/) so no one holds it all. In computing, it is the continuation of a sixty-year arc of people who believed computing should serve human beings — from [Licklider](/wiki/licklider/) and [Engelbart](/wiki/engelbart/), through [Berners-Lee](/wiki/berners-lee/) and the [Semantic Web](/wiki/semantic-web/), to [Nakamoto](/wiki/nakamoto/) and [decentralization](/wiki/decentralization/) — the long answer to [surveillance capitalism](/wiki/surveillance-capitalism/). Web 4.0 is where that arc points next.
 
 ## Explore the research
 

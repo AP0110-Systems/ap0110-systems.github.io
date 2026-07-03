@@ -13,6 +13,8 @@ export const GET: APIRoute = async () => {
   ]);
 
   const pageLines = pages
+    // The wiki log is deliberately unlisted — reachable by URL only, never linked.
+    .filter((p) => p.data.route !== '/wiki/log')
     .sort((a, b) => a.data.order - b.data.order)
     .map((p) => `- [${p.data.title}](${SITE}${p.data.route}): ${p.data.description}`)
     .join('\n');
@@ -36,7 +38,7 @@ export const GET: APIRoute = async () => {
 
 > AP0110.ORG documents and develops Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security — and applies it to charitable technology initiatives (CalCompute, Life Impact International, UNA-USA Human Rights).
 
-Every page is also available as markdown by appending \`.md\` to its URL (e.g. ${SITE}/wiki/web4.md). A single-file dump of all content is at ${SITE}/llms-full.txt.
+Every page is also available as markdown by appending \`.md\` to its URL (e.g. ${SITE}/wiki/web4.md). A single-file dump of all content is at ${SITE}/llms-full.txt. The full link graph of /docs and /wiki (nodes, edges, backlinks) is at ${SITE}/wiki-graph.json. A full-text search index over /docs and /wiki (title, description, tags, headings, plain-text body per entry; append \`.md\` to any id for its markdown mirror) is at ${SITE}/search.json.
 
 ## Pages
 

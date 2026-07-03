@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import TypingText from '@/components/TypingText';
+import SearchModal from '@/components/SearchModal';
 
 const NAV_TYPING_SPEED = 30;
 
@@ -32,8 +33,22 @@ export default function Header({
   pathname = '/',            // passed from Layout (Astro.url.pathname)
 }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const isHomePage = pathname === '/';
   const isDark = theme === 'dark';
+
+  // Cmd/Ctrl-K opens the wiki search from any page.
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        setSearchOpen((open) => !open);
+        setModalOpen(false);
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, []);
 
   useEffect(() => {
     if (modalOpen) {
@@ -103,6 +118,17 @@ export default function Header({
                 {navText(item.label, isHomePage, NAV_TYPING_SPEED, 'text-sm md:text-base')}
               </a>
             ))}
+            <button
+              type="button"
+              onClick={() => setSearchOpen(true)}
+              className="flex items-center gap-1.5 text-sm md:text-base px-4 md:px-5 py-2 md:py-3 hover:opacity-60 transition-opacity cursor-pointer"
+              aria-label="Search the wiki"
+            >
+              <svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </button>
           </nav>
         </div>
       </header>
@@ -133,6 +159,15 @@ export default function Header({
                     </li>
                   );
                 })}
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => { setModalOpen(false); setSearchOpen(true); }}
+                    className={`${isDark ? 'text-gray-200' : 'text-black'} hover:text-white transition-colors block w-fit cursor-pointer`}
+                  >
+                    <TypingText text="Search" typingSpeed={40} initialDelay={0} className="inline" />
+                  </button>
+                </li>
               </ul>
             </nav>
 
@@ -161,6 +196,8 @@ export default function Header({
         </div>,
         document.body
       )}
+
+      <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

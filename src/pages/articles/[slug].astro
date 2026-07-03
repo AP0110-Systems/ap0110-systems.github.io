@@ -10,9 +10,81 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await render(entry);
 const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+// SEO/GEO: structured data for every article — BlogPosting (citation/freshness
+// signals) + BreadcrumbList (navigation). All fields come from frontmatter.
+const SITE = 'https://ap0110.org';
+const url = `${SITE}/articles/${entry.id}`;
+const d = entry.data;
+const image = new URL('/images/AP0110_moon_black.webp', SITE).href;
+const isOrgAuthor = !d.author || d.author === 'AP0110.ORG';
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  '@id': `${url}#article`,
+  headline: d.title,
+  description: d.description,
+  url,
+  mainEntityOfPage: url,
+  datePublished: d.date.toISOString(),
+  dateModified: (d.updated ?? d.date).toISOString(),
+  author: isOrgAuthor
+    ? { '@id': `${SITE}/#organization` }
+    : { '@type': 'Person', name: d.author },
+  publisher: { '@id': `${SITE}/#organization` },
+  image,
+  ...(d.tags?.length ? { keywords: d.tags.join(', ') } : {}),
+  inLanguage: 'en',
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: SITE },
+    { '@type': 'ListItem', position: 2, name: 'Articles', item: `${SITE}/articles` },
+    { '@type': 'ListItem', position: 3, name: d.title, item: url },
+  ],
+};
+
+// AEO/GEO: FAQPage schema mirroring the on-page "Frequently asked questions"
+// section (PAA boxes, AI Overviews, voice answers). Keyed by slug; keep the
+// text in sync with the article body.
+const FAQ = {
+  'the-making-of-http-query': [
+    ['Why not just use POST for searches?', 'POST works, but it is neither safe nor idempotent, so caches and proxies must assume it might change data. They generally won’t cache POST responses or retry failed ones. QUERY signals that a body-carrying request is read-only and repeatable, restoring the caching and retry behavior POST gives up.'],
+    ['How is QUERY different from GET?', 'Both are safe and idempotent, but GET carries its query in the URL, which limits size and fragments caches. QUERY moves the query into the request body, so large or structured searches no longer have to fit in a URL — while keeping the same read-only guarantees that make GET cacheable.'],
+    ['When was HTTP QUERY standardized, and by whom?', 'The IETF published QUERY as RFC 10008 in June 2026, authored by Julian Reschke, James Snell, and Mike Bishop through the HTTP Working Group. The underlying idea circulated for roughly two decades and was formally reopened at the 2019 HTTP Workshop by Asbjørn Ulsberg.'],
+    ['Is the HTTP QUERY method widely supported yet?', 'Not yet. As a newly published standard, QUERY depends on servers, client libraries, and intermediaries such as proxies and CDNs adding support. Adoption of new HTTP methods is historically slow, so developers may still need POST-based fallbacks until tooling catches up.'],
+  ],
+};
+const faqSchema = FAQ[entry.id]
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: FAQ[entry.id].map(([q, a]) => ({
+        '@type': 'Question',
+        name: q,
+        acceptedAnswer: { '@type': 'Answer', text: a },
+      })),
+    }
+  : null;
+
+const jsonLd = [articleSchema, breadcrumb, ...(faqSchema ? [faqSchema] : [])];
+const keywords = d.tags?.length ? d.tags.join(', ') : undefined;
 ---
 
-<Layout title={`${entry.data.title} — AP0110.ORG`} description={entry.data.description}>
+<Layout
+  title={`${entry.data.title} — AP0110.ORG`}
+  description={entry.data.description}
+  keywords={keywords}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={d.date.toISOString()} />
+    <meta property="article:modified_time" content={(d.updated ?? d.date).toISOString()} />
+    {d.tags?.map((t) => <meta property="article:tag" content={t} />)}
+  </Fragment>
   <div class="min-h-screen">
     <article class="pt-32 pb-16 px-4">
       <div class="max-w-3xl mx-auto">

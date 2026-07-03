@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react'
 import { useScrollIndicator } from '../hooks/useScrollIndicator'
-import Button from './ui/Button'
 import AmericanFlagIcon from './icons/AmericanFlagIcon'
 import VolunteerModal from './VolunteerModal'
 
@@ -98,7 +97,7 @@ const Footer = ({ pathname = '/' }) => {
       </div> */}
 
       {/* Extended footer content */}
-        <div id="extendedFooter" className="text-black relative w-full max-w-full overflow-x-hidden border-t border-black/25">
+        <div id="extendedFooter" className="text-black relative w-full max-w-full overflow-x-hidden border-t border-black/25 bg-white/90 backdrop-blur">
           <div className="py-16 px-4 w-full max-w-full">
             <div className="max-w-6xl mx-auto w-full">
               {/* Navigation Links */}

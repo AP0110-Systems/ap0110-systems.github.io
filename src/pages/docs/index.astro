@@ -4,18 +4,46 @@ import { getCollection } from 'astro:content';
 import { buildGraph, backlinksFor } from '@/utils/wikiGraph.js';
 
 const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
-const sorted = docs.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const graph = buildGraph(docs, wiki);
-// "Cited by N" = synthesized wiki pages that link to this source (its inbound graph edges).
-const citedBy = (slug) => backlinksFor(graph, `/docs/${slug}`).filter((n) => n.group === 'wiki').length;
+// "Cited by" = synthesized wiki pages that link to this source (its inbound graph edges).
+const citingPages = (slug) => backlinksFor(graph, `/docs/${slug}`).filter((n) => n.group === 'wiki');
 const fmt = (d) => d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+const domain = (u) => new URL(u).hostname.replace(/^www\./, '');
+
+// What a click delivers, per `kind` — the dot classes double as the timeline markers
+// and the filter-button legend. Complete literal strings so Tailwind detects them.
+const KIND = {
+  'public-domain': { label: 'Full text', dot: 'bg-ap-cyan' },
+  copyrighted: { label: 'Summary + link', dot: 'bg-white border-2 border-ap-cyan' },
+  living: { label: 'Living standard', dot: 'bg-ap-cyan ring-4 ring-ap-cyan/25' },
+  doc: { label: 'Document', dot: 'bg-gray-400' },
+};
+
+// Chronological, oldest first — the library reads as a lineage, 1776 forward.
+const sorted = docs.sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+// Group into decades for the era headers + jump rail.
+const decades = [];
+for (const doc of sorted) {
+  const label = `${Math.floor(doc.data.date.getFullYear() / 10) * 10}s`;
+  if (decades.at(-1)?.label !== label) decades.push({ label, docs: [] });
+  decades.at(-1).docs.push(doc);
+}
+
+// Filter pills: tags used on 2+ sources, minus the decade tags (the jump rail covers those).
+const tagCounts = new Map();
+for (const d of docs) for (const t of d.data.tags) tagCounts.set(t, (tagCounts.get(t) ?? 0) + 1);
+const filterTags = [...tagCounts]
+  .filter(([t, n]) => n >= 2 && !/^\d{4}s$/.test(t))
+  .sort((a, b) => b[1] - a[1])
+  .map(([t]) => t);
 
 // Live stats for the hero.
 const years = docs
   .map((d) => parseInt(String(d.data.year ?? d.data.date.getFullYear()), 10))
   .filter((y) => !Number.isNaN(y));
 const span = `${Math.min(...years)}–${Math.max(...years)}`;
-const citations = docs.reduce((sum, d) => sum + citedBy(d.id), 0);
+const citations = docs.reduce((sum, d) => sum + citingPages(d.id).length, 0);
 const stats = [
   { n: docs.length, label: docs.length === 1 ? 'Source' : 'Sources' },
   { n: span, label: 'Span' },
@@ -55,39 +83,157 @@ const stats = [
 
     <section class="pb-16 px-4">
       <div class="max-w-4xl mx-auto">
-        <h2 class="text-sm font-bold uppercase tracking-wide text-gray-500 mb-8">All sources <span class="text-gray-400">({sorted.length})</span></h2>
+        {/* Filters: kind (doubles as the dot legend) + common tags. */}
+        <div class="mb-4">
+          <div class="flex flex-wrap items-center gap-2 mb-3">
+            <button type="button" data-kind-btn="all" aria-pressed="true" class="text-xs font-medium px-3 py-1.5 rounded-full border border-gray-300 text-gray-600 hover:border-ap-cyan transition-colors aria-pressed:bg-ap-cyan aria-pressed:border-ap-cyan aria-pressed:text-white">All kinds</button>
+            {Object.entries(KIND).filter(([k]) => sorted.some((d) => (d.data.kind ?? 'doc') === k)).map(([k, meta]) => (
+              <button type="button" data-kind-btn={k} aria-pressed="false" class="inline-flex items-center gap-2 text-xs font-medium px-3 py-1.5 rounded-full border border-gray-300 text-gray-600 hover:border-ap-cyan transition-colors aria-pressed:bg-ap-cyan/10 aria-pressed:border-ap-cyan aria-pressed:text-ap-cyan">
+                <span class={`w-2.5 h-2.5 rounded-full shrink-0 ${meta.dot}`}></span>
+                {meta.label}
+              </button>
+            ))}
+          </div>
+          <div class="flex flex-wrap items-center gap-2">
+            {filterTags.map((t) => (
+              <button type="button" data-tag-btn={t} aria-pressed="false" class="text-xs font-medium px-2.5 py-1 rounded-full bg-ap-cyan/10 text-ap-cyan hover:bg-ap-cyan/20 transition-colors aria-pressed:bg-ap-cyan aria-pressed:text-white">{t}</button>
+            ))}
+          </div>
+        </div>
 
-        {/* Single timeline of every source, newest first — links + cited-by counts. */}
+        {/* Sticky rail: decade jump links + count + sort, pinned below the 50px fixed header. */}
+        <div class="sticky top-[50px] z-20 -mx-4 px-4 py-2.5 bg-white/90 backdrop-blur-sm border-b border-gray-200 mb-10">
+          <div class="flex items-center gap-4 text-sm">
+            <nav class="flex-1 flex gap-1 overflow-x-auto" aria-label="Jump to decade">
+              {decades.map((d) => (
+                <a href={`#decade-${d.label}`} data-decade-link={d.label} class="px-2.5 py-1 rounded-md font-medium text-gray-500 hover:text-ap-cyan whitespace-nowrap tabular-nums transition-colors">{d.label}</a>
+              ))}
+            </nav>
+            <span class="text-xs text-gray-500 whitespace-nowrap tabular-nums"><span id="shown-count">{sorted.length}</span> of {sorted.length}</span>
+            <button type="button" id="sort-btn" class="text-xs font-medium text-gray-600 hover:text-ap-cyan whitespace-nowrap transition-colors">Oldest first &darr;</button>
+          </div>
+        </div>
+
+        {/* Single timeline spine; decade sections flip order via flex-col-reverse on sort. */}
         <div class="relative">
           <div class="absolute left-2 md:left-0 top-0 bottom-0 border-l-2 border-dashed border-ap-cyan"></div>
-          <div class="space-y-8">
-            {sorted.map((doc) => {
-              const n = citedBy(doc.id);
-              return (
-                <div class="relative flex items-start">
-                  <div class="absolute left-[9px] md:left-[1px] top-3 w-3 h-3 bg-ap-cyan rounded-full shadow-md -translate-x-1/2 z-10"></div>
-                  <a href={`/docs/${doc.id}/`} class="ml-8 md:ml-12 block w-full group">
-                    <div class="rounded-lg bg-white/60 backdrop-blur-sm border border-gray-200 p-5 group-hover:border-ap-cyan/40 group-hover:shadow-md transition-all">
-                      <div class="flex items-center gap-3 mb-1">
-                        <span class="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-0.5 rounded-full">{doc.data.year ?? fmt(doc.data.date)}</span>
-                        {doc.data.author && <span class="text-sm text-gray-500">{doc.data.author}</span>}
+          <div id="timeline" class="flex flex-col gap-12">
+            {decades.map((dec) => (
+              <section id={`decade-${dec.label}`} data-decade class="scroll-mt-28">
+                <h2 class="relative ml-8 md:ml-12 mb-5">
+                  <span class="text-2xl font-bold text-gray-900 tabular-nums">{dec.label}</span>
+                  <span class="ml-3 text-sm text-gray-500" data-decade-count>{dec.docs.length} source{dec.docs.length === 1 ? '' : 's'}</span>
+                </h2>
+                <div class="flex flex-col gap-6" data-decade-cards>
+                  {dec.docs.map((doc) => {
+                    const kind = KIND[doc.data.kind ?? 'doc'];
+                    const cited = citingPages(doc.id);
+                    return (
+                      <div data-card data-kind={doc.data.kind ?? 'doc'} data-tags={doc.data.tags.join(' ')} class="relative flex items-start">
+                        <div class={`absolute left-[9px] md:left-[1px] top-4 w-3 h-3 rounded-full shadow-md -translate-x-1/2 z-10 ${kind.dot}`}></div>
+                        <div class="relative ml-8 md:ml-12 w-full group rounded-lg bg-white/60 backdrop-blur-sm border border-gray-200 p-5 hover:border-ap-cyan/40 hover:shadow-md transition-all">
+                          <div class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-1">
+                            <span class="text-sm font-semibold text-ap-cyan bg-ap-cyan/10 px-3 py-0.5 rounded-full">{doc.data.year ?? fmt(doc.data.date)}</span>
+                            {doc.data.author && <span class="text-sm text-gray-500">{doc.data.author}</span>}
+                            <span class="text-xs text-gray-400 uppercase tracking-wide">{kind.label}</span>
+                          </div>
+                          {/* Stretched link: the title's ::after covers the card; inner links sit above it at z-10. */}
+                          <h3 class="text-lg font-bold text-gray-900 mb-1">
+                            <a href={`/docs/${doc.id}/`} class="group-hover:text-ap-cyan transition-colors after:absolute after:inset-0">{doc.data.title}</a>
+                          </h3>
+                          {doc.data.description && <p class="text-gray-600 text-sm leading-relaxed mb-3">{doc.data.description}</p>}
+                          <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs">
+                            {cited.length > 0 && (
+                              <span class="flex flex-wrap items-center gap-1.5">
+                                <span class="text-gray-400">Cited by</span>
+                                {cited.map((n) => (
+                                  <a href={`${n.id}/`} title={n.label} class="relative z-10 bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full font-medium hover:bg-ap-cyan/10 hover:text-ap-cyan transition-colors max-w-48 truncate">{n.label}</a>
+                                ))}
+                              </span>
+                            )}
+                            {doc.data.pdfUrl && (
+                              <a href={doc.data.pdfUrl} rel="noopener" target="_blank" class="relative z-10 font-medium text-ap-cyan hover:underline">PDF &darr;</a>
+                            )}
+                            {doc.data.sourceUrl && (
+                              <a href={doc.data.sourceUrl} rel="noopener" target="_blank" class="relative z-10 font-medium text-gray-500 hover:text-ap-cyan transition-colors">{domain(doc.data.sourceUrl)} &nearr;</a>
+                            )}
+                            <span class="flex flex-wrap gap-1.5 ml-auto">
+                              {doc.data.tags.map((tag) => (
+                                <button type="button" data-tag-btn={tag} aria-pressed="false" class="relative z-10 bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full font-medium hover:bg-ap-cyan/20 transition-colors aria-pressed:bg-ap-cyan aria-pressed:text-white">{tag}</button>
+                              ))}
+                            </span>
+                          </div>
+                        </div>
                       </div>
-                      <h3 class="text-lg font-bold text-gray-900 group-hover:text-ap-cyan transition-colors mb-1">{doc.data.title}</h3>
-                      {doc.data.description && <p class="text-gray-600 text-sm leading-relaxed mb-2">{doc.data.description}</p>}
-                      <div class="flex flex-wrap items-center gap-3 text-xs text-gray-500">
-                        {n > 0 && <span class="text-ap-cyan font-medium">Cited by {n} wiki page{n === 1 ? '' : 's'}</span>}
-                        {doc.data.tags.map((tag) => (
-                          <span class="bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full font-medium">{tag}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </a>
+                    );
+                  })}
                 </div>
-              );
-            })}
+              </section>
+            ))}
           </div>
         </div>
       </div>
     </section>
   </div>
 </Layout>
+
+<script>
+  const cards = [...document.querySelectorAll('[data-card]')];
+  const sections = [...document.querySelectorAll('[data-decade]')];
+  const shownCount = document.getElementById('shown-count');
+  let kind = 'all';
+  let tag = null;
+
+  function apply() {
+    let shown = 0;
+    for (const c of cards) {
+      const el = c as HTMLElement;
+      const ok =
+        (kind === 'all' || el.dataset.kind === kind) &&
+        (!tag || (el.dataset.tags ?? '').split(' ').includes(tag));
+      el.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    }
+    for (const s of sections) {
+      const visible = [...s.querySelectorAll('[data-card]')].filter((c) => !c.classList.contains('hidden'));
+      s.classList.toggle('hidden', visible.length === 0);
+      const count = s.querySelector('[data-decade-count]');
+      if (count) count.textContent = `${visible.length} source${visible.length === 1 ? '' : 's'}`;
+      const link = document.querySelector(`[data-decade-link="${s.id.replace('decade-', '')}"]`);
+      link?.classList.toggle('hidden', visible.length === 0);
+    }
+    if (shownCount) shownCount.textContent = String(shown);
+    document.querySelectorAll('[data-kind-btn]').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.kindBtn === kind)));
+    document.querySelectorAll('[data-tag-btn]').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.tagBtn === tag)));
+  }
+
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('[data-kind-btn], [data-tag-btn]') as HTMLElement | null;
+    if (!btn) return;
+    if (btn.dataset.kindBtn) kind = btn.dataset.kindBtn;
+    else tag = tag === btn.dataset.tagBtn ? null : btn.dataset.tagBtn!; // click again to clear
+    apply();
+  });
+
+  // Sort toggle: pure visual reversal — flex-col-reverse on the decade list and each card list.
+  const sortBtn = document.getElementById('sort-btn')!;
+  sortBtn.addEventListener('click', () => {
+    const lists = [document.getElementById('timeline')!, ...document.querySelectorAll('[data-decade-cards]')];
+    const newestFirst = lists[0].classList.toggle('flex-col-reverse');
+    lists.slice(1).forEach((l) => l.classList.toggle('flex-col-reverse', newestFirst));
+    sortBtn.innerHTML = newestFirst ? 'Newest first &uarr;' : 'Oldest first &darr;';
+  });
+
+  // Scrollspy: highlight the decade currently in view on the jump rail.
+  const spy = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const link = document.querySelector(`[data-decade-link="${entry.target.id.replace('decade-', '')}"]`);
+        link?.classList.toggle('text-ap-cyan', entry.isIntersecting);
+        link?.classList.toggle('bg-ap-cyan/10', entry.isIntersecting);
+      }
+    },
+    { rootMargin: '-100px 0px -60% 0px' }
+  );
+  sections.forEach((s) => spy.observe(s));
+</script>

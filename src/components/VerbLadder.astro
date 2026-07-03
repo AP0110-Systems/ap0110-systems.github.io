@@ -1,0 +1,66 @@
+---
+// The Verb Ladder — each web era adds a verb; Control is the axis every era left open.
+// Content mirrors "The web, era by era" in src/content/wiki/web4.md. Zero-JS:
+// real text in an HTML grid (accessible, responsive), CSS-only scroll reveal.
+const ERAS = [
+  { era: 'Web 1.0', built: 'universities', verbs: ['Read'] },
+  { era: 'Web 2.0', built: 'data brokers', verbs: ['Read', 'Write'] },
+  { era: 'Web 3.0', built: 'AI', verbs: ['Read', 'Write', 'Own'] },
+  { era: 'Web 4.0', built: 'you', verbs: ['Read', 'Write', 'Own', 'Control'], current: true },
+];
+---
+
+<figure class="verb-ladder max-w-3xl mx-auto">
+  {/* items-end bottom-aligns the columns, so the stacks rise left → right on their own. */}
+  <div class="grid grid-cols-4 gap-2 sm:gap-4 items-end">
+    {ERAS.map(({ era, built, verbs, current }) => (
+      <div>
+        <div class="flex flex-col">
+          {[...verbs].reverse().map((v, i) => (
+            <div
+              class:list={[
+                'verb mb-1.5 rounded-lg border px-1 py-1.5 sm:py-2 text-center text-[11px] sm:text-sm font-semibold',
+                v === 'Control'
+                  ? 'bg-ap-cyan border-ap-cyan text-white'
+                  : i === 0
+                    ? 'bg-white border-gray-400 text-gray-900'
+                    : 'bg-white/60 border-gray-200 text-gray-500',
+              ]}
+            >
+              {v}
+            </div>
+          ))}
+        </div>
+        <div class:list={['border-t-2 pt-2 mt-1', current ? 'border-ap-cyan' : 'border-gray-300']}>
+          <div class="font-bold text-gray-900 text-xs sm:text-base">{era}</div>
+          <div class="text-[10px] sm:text-xs text-gray-500">
+            built for <span class:list={current ? 'text-ap-orange font-semibold' : undefined}>{built}</span>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+  <figcaption class="text-center text-xs sm:text-sm text-gray-500 mt-5">
+    Each era of the web added a verb. <span class="font-medium text-gray-900">Control</span> is the one every era left open.
+  </figcaption>
+</figure>
+
+<style>
+  /* Pills fade up as they scroll into view — bottom rows enter first, so the
+     ladder builds bottom-up. Static in browsers without animation-timeline. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .verb {
+        animation: verb-rise linear both;
+        animation-timeline: view();
+        animation-range: entry 10% entry 45%;
+      }
+    }
+  }
+  @keyframes verb-rise {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+</style>

@@ -20,7 +20,7 @@ const FAQ = [
   },
   {
     q: 'What does AP0110 do?',
-    a: 'Three things: research — we document the technology of an independent internet in a public, living wiki; build — we turn that research into resilient, self-hosted technology owned by the people who run it; and partner — we work with public institutions and humanitarian organizations so the technology reaches the people who need it.',
+    a: 'Three things: research — we document the technology of an independent internet in a public, living wiki; build — we turn that research into resilient, self-hosted technology owned by the people who run it; and deploy — we put it to work with public institutions and humanitarian organizations so it reaches the people who need it.',
   },
   {
     q: 'How is AP0110 accountable and transparent?',
@@ -74,6 +74,12 @@ const aboutSchema = {
   <div class="min-h-screen">
     <section class="pt-32 pb-16 px-4">
       <div class="max-w-3xl mx-auto">
+        <a href="/" class="inline-flex items-center gap-2 text-ap-cyan hover:text-ap-cyan/80 text-sm mb-6 group">
+          <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Home
+        </a>
         <p class="text-sm uppercase tracking-wide text-ap-cyan font-medium mb-3">About AP0110</p>
         <h1 class="text-3xl sm:text-5xl font-bold text-gray-900 leading-tight mb-6">
           We&apos;re building an internet that belongs to the people who use it.
@@ -97,12 +103,24 @@ const aboutSchema = {
           <p>AP0110 exists to finish the arc. We trace that lineage openly, study what worked and what didn&apos;t, and build the missing pieces — so the next era of the internet is the first one built for everyone.</p>
         </div>
 
-        {/* How We Work */}
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">How we work</h2>
-        <div class="article-prose mb-12">
-          <p><strong>Research.</strong> We document the technology of an independent internet in a public, living wiki — every <a href="/docs/">source</a> and every synthesis, in the open.</p>
-          <p><strong>Build.</strong> We turn that research into working technology: resilient, self-hosted, owned by the people who run it.</p>
-          <p><strong>Partner.</strong> We work with the public institutions and community groups that reach the people who need it most, so the technology lands where it matters.</p>
+        {/* How We Work — same three pillars (and step markers) as the landing page. */}
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">How we work</h2>
+        <div class="grid sm:grid-cols-3 gap-5 mb-12">
+          <div class="rounded-xl border border-gray-200 bg-white/60 p-5">
+            <div class="text-xs text-ap-cyan font-semibold tracking-wide mb-2">01</div>
+            <h3 class="font-bold text-gray-900 mb-1">Research</h3>
+            <p class="text-gray-700 text-sm leading-relaxed">We document the technology of an independent internet in a public, living wiki — every <a href="/docs/" class="text-ap-cyan hover:underline">source</a> and every synthesis, in the open.</p>
+          </div>
+          <div class="rounded-xl border border-gray-200 bg-white/60 p-5">
+            <div class="text-xs text-ap-cyan font-semibold tracking-wide mb-2">02</div>
+            <h3 class="font-bold text-gray-900 mb-1">Build</h3>
+            <p class="text-gray-700 text-sm leading-relaxed">We turn that research into working technology: resilient, self-hosted, owned by the people who run it.</p>
+          </div>
+          <div class="rounded-xl border border-gray-200 bg-white/60 p-5">
+            <div class="text-xs text-ap-cyan font-semibold tracking-wide mb-2">03</div>
+            <h3 class="font-bold text-gray-900 mb-1">Deploy</h3>
+            <p class="text-gray-700 text-sm leading-relaxed">We put the technology to work with the public institutions and community groups that reach the people who need it most, so it lands where it matters.</p>
+          </div>
         </div>
 
         {/* Values */}
@@ -130,12 +148,12 @@ const aboutSchema = {
 
         {/* FAQ — visible, mirrors the FAQPage schema above */}
         <h2 class="text-2xl font-bold text-gray-900 mb-6">Frequently asked questions</h2>
-        <div class="space-y-6 mb-14">
+        <div class="space-y-3 mb-14">
           {FAQ.map((f) => (
-            <div>
-              <h3 class="font-bold text-gray-900 mb-2">{f.q}</h3>
-              <p class="text-gray-700 leading-relaxed">{f.a}</p>
-            </div>
+            <details class="rounded-lg border border-gray-200 bg-black/5">
+              <summary class="cursor-pointer select-none px-4 py-3 font-bold text-gray-900">{f.q}</summary>
+              <p class="px-4 pb-4 text-gray-700 leading-relaxed">{f.a}</p>
+            </details>
           ))}
         </div>
 

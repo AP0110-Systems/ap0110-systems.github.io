@@ -28,6 +28,7 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
   const canvasRef = useRef(null)
   const rafRef = useRef(null)
   const labelRef = useRef(null)
+  const descRef = useRef(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -46,6 +47,13 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
     let height = 0
     let dpr = Math.min(window.devicePixelRatio || 1, 2)
     let hover = -1
+    // Obsidian-style drag: the grabbed node is pinned to the cursor while the sim reheats.
+    let dragIdx = -1
+    let dragX = 0
+    let dragY = 0
+    let dragged = false // true once the mouse actually moved → suppress the click navigation
+    let downX = 0
+    let downY = 0
 
     const logoImg = new Image()
     let logoReady = false
@@ -92,9 +100,11 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
     const V_MAX = 12 // clamp per-tick speed so nothing flings across the canvas
     const GAP = 6 // minimum clear space between node edges
 
-    // Edge degree per node (used for the center-badge fallback below).
+    // Edge degree per node (used for the center-badge fallback below) + adjacency sets
+    // (used to spotlight the hovered node's neighborhood in draw()).
     const degree = new Array(N).fill(0)
-    for (const [a, b] of edges) { degree[a]++; degree[b]++ }
+    const nbr = Array.from({ length: N }, () => new Set())
+    for (const [a, b] of edges) { degree[a]++; degree[b]++; nbr[a].add(b); nbr[b].add(a) }
 
     // The "main" node (radial only) is pinned at center and drawn as the AP0110 badge.
     // /wiki/web4 is the conceptual hub, so it holds the badge; historically it was the
@@ -193,13 +203,14 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
         }
       }
 
-      // Keep the main node pinned dead-center (after collision may have nudged it).
-      if (mainIdx >= 0) {
+      // Keep the main node pinned dead-center (after collision may have nudged it) —
+      // unless the user is dragging it, in which case the drag pin below wins.
+      if (mainIdx >= 0 && mainIdx !== dragIdx) {
         const m = nodes[mainIdx]
         m.x = 0; m.y = 0; m.vx = 0; m.vy = 0
       }
       // Per-page local graph: pin the focused node at center too.
-      if (focusIdx >= 0 && focusIdx !== mainIdx) {
+      if (focusIdx >= 0 && focusIdx !== mainIdx && focusIdx !== dragIdx) {
         const f = nodes[focusIdx]
         f.x = 0; f.y = 0; f.vx = 0; f.vy = 0
       }
@@ -208,12 +219,17 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
       if (focusIdx >= 0) {
         const f = nodes[focusIdx]
         for (let i = 0; i < N; i++) {
-          if (i === focusIdx) continue
+          if (i === focusIdx || i === dragIdx) continue
           const n = nodes[i]
           const d = Math.hypot(n.x, n.y) || 0.001
           const minD = 2 * (f.r + n.r + GAP)
           if (d < minD) { const s = minD / d; n.x *= s; n.y *= s; n.vx = 0; n.vy = 0 }
         }
+      }
+      // Drag pin: hold the grabbed node exactly at the cursor (overrides every force above).
+      if (dragIdx >= 0) {
+        const n = nodes[dragIdx]
+        n.x = dragX; n.y = dragY; n.vx = 0; n.vy = 0
       }
     }
 
@@ -222,6 +238,8 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
     // capped at 1 so small/local graphs render at natural size. Returns [ox, oy, scale] in
     // canvas-local coords; shared by draw() and pick() so hit-testing always matches the paint.
     const PAD = 10 // breathing room + covers the hover/focus ring overshoot
+    let view = [0, 0, 1] // last computed transform; held frozen while dragging so the
+    // graph doesn't re-fit (and slide under the cursor) as the dragged node moves.
     const viewTransform = () => {
       let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity
       for (const n of nodes) {
@@ -233,21 +251,27 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
       const scale = Math.min(1, (width - 2 * PAD) / gw, (height - 2 * PAD) / gh)
       const ox = width / 2 - ((minX + maxX) / 2) * scale
       const oy = height / 2 - ((minY + maxY) / 2) * scale
-      return [ox, oy, scale]
+      view = [ox, oy, scale]
+      return view
     }
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height)
-      const [ox, oy, scale] = viewTransform()
+      const [ox, oy, scale] = dragIdx >= 0 ? view : viewTransform()
       ctx.save()
       ctx.translate(ox, oy)
       ctx.scale(scale, scale) // draw in sim coords; the transform handles fit + centering
 
+      // Obsidian-style spotlight: while hovering, the hovered node + its direct neighbors
+      // stay at full strength and everything else fades back.
+      const spotlight = hover >= 0
+      const inSpot = (i) => i === hover || nbr[hover].has(i)
+
       ctx.lineWidth = 1 / scale // keep ~1px visual stroke regardless of fit scale
       for (const [a, b] of edges) {
-        // Darken the hovered node's own links; leave the rest faint.
-        const incident = hover >= 0 && (a === hover || b === hover)
-        ctx.strokeStyle = incident ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.15)'
+        // Darken the hovered node's own links; fade the rest (further while spotlighting).
+        const incident = spotlight && (a === hover || b === hover)
+        ctx.strokeStyle = incident ? 'rgba(0,0,0,0.5)' : spotlight ? 'rgba(0,0,0,0.05)' : 'rgba(0,0,0,0.15)'
         ctx.beginPath()
         ctx.moveTo(nodes[a].x, nodes[a].y)
         ctx.lineTo(nodes[b].x, nodes[b].y)
@@ -261,6 +285,9 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
         const isHover = i === hover
         const isFocus = i === focusIdx
         const rr = n.r + (isHover ? 2 : 0) + (isFocus ? 4 : 0)
+        // Gently fade nodes outside the hovered neighborhood (badge disc + logo included —
+        // globalAlpha applies to the drawImage glyph too).
+        ctx.globalAlpha = spotlight && !inSpot(i) ? 0.4 : 1
         if (i === mainIdx || i === badgeIdx) {
           // AP0110 badge: black disc + inverted (light) logo glyph scaled to fit.
           ctx.beginPath()
@@ -324,12 +351,15 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
       requestAnimationFrame(() => { roScheduled = false; measure() })
     }
 
+    // Pointer → sim coords via the cached transform (matches the last paint).
+    const toSim = (ev) => {
+      const rect = canvas.getBoundingClientRect()
+      const [ox, oy, scale] = view
+      return [(ev.clientX - rect.left - ox) / scale, (ev.clientY - rect.top - oy) / scale]
+    }
     // Pointer → nearest node within its radius (in canvas-local coords).
     const pick = (ev) => {
-      const rect = canvas.getBoundingClientRect()
-      const [ox, oy, scale] = viewTransform()
-      const mx = (ev.clientX - rect.left - ox) / scale
-      const my = (ev.clientY - rect.top - oy) / scale
+      const [mx, my] = toSim(ev)
       let best = -1
       let bestD = Infinity
       for (let i = 0; i < N; i++) {
@@ -345,8 +375,33 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
     const setCaption = () => {
       const el = labelRef.current
       if (el) el.textContent = hover >= 0 ? nodes[hover].label : ''
+      const de = descRef.current
+      if (de) de.textContent = hover >= 0 ? nodes[hover].desc || '' : ''
     }
+    const onDown = (ev) => {
+      const i = pick(ev)
+      if (i < 0) return
+      dragIdx = i
+      dragged = false
+      downX = ev.clientX
+      downY = ev.clientY
+      dragX = nodes[i].x
+      dragY = nodes[i].y
+      ev.preventDefault() // no text-selection while dragging
+    }
+    const onUp = () => { dragIdx = -1 }
     const onMove = (ev) => {
+      if (dragIdx >= 0) {
+        // 3px dead zone so a plain click (with jitter) still navigates.
+        if (!dragged && Math.hypot(ev.clientX - downX, ev.clientY - downY) < 3) return
+        dragged = true
+        ;[dragX, dragY] = toSim(ev)
+        const n = nodes[dragIdx]
+        n.x = dragX; n.y = dragY; n.vx = 0; n.vy = 0
+        alpha = Math.max(alpha, 0.3) // reheat so neighbors respond to the drag
+        if (!running) { running = true; rafRef.current = requestAnimationFrame(frame) }
+        return
+      }
       const prev = hover
       hover = pick(ev)
       canvas.style.cursor = hover >= 0 ? 'pointer' : 'default'
@@ -356,12 +411,15 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
       }
     }
     const onClick = (ev) => {
+      if (dragged) { dragged = false; return } // a drag isn't a click
       const i = pick(ev)
       if (i >= 0) window.location.href = `${nodes[i].id}/`
     }
-    const onLeave = () => { hover = -1; canvas.style.cursor = 'default'; setCaption(); if (!running) draw() }
+    const onLeave = () => { dragIdx = -1; hover = -1; canvas.style.cursor = 'default'; setCaption(); if (!running) draw() }
 
     measure()
+    canvas.addEventListener('mousedown', onDown)
+    window.addEventListener('mouseup', onUp)
     canvas.addEventListener('mousemove', onMove)
     canvas.addEventListener('click', onClick)
     canvas.addEventListener('mouseleave', onLeave)
@@ -381,6 +439,8 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
       ro.disconnect()
+      canvas.removeEventListener('mousedown', onDown)
+      window.removeEventListener('mouseup', onUp)
       canvas.removeEventListener('mousemove', onMove)
       canvas.removeEventListener('click', onClick)
       canvas.removeEventListener('mouseleave', onLeave)
@@ -393,11 +453,11 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
         <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
       </div>
       <div className="mt-4 flex items-center justify-between gap-4 text-sm">
-        <div
-          ref={labelRef}
-          aria-live="polite"
-          className="min-w-0 flex-1 text-left font-medium text-gray-700 truncate"
-        />
+        {/* min-h reserves two lines so the legend doesn't jump when the caption appears */}
+        <div aria-live="polite" className="min-w-0 flex-1 min-h-10 text-left">
+          <div ref={labelRef} className="font-medium text-gray-700 truncate" />
+          <div ref={descRef} className="text-gray-500 truncate" />
+        </div>
         <div className="flex shrink-0 items-center gap-4 text-gray-500">
           <span className="flex items-center gap-1.5">
             <span className="inline-block h-2.5 w-2.5 rounded-full" style={{ backgroundColor: 'rgb(40,40,40)' }} />
@@ -409,6 +469,17 @@ export default function WikiGraph({ data, variant = 'radial', focusNodeId }) {
           </span>
         </div>
       </div>
+      {/* Crawlable/accessible mirror of the canvas: the same nodes as plain links.
+          Server-rendered at build time (the island is client:visible/load, not client:only). */}
+      <nav className="sr-only" aria-label="Knowledge graph pages">
+        <ul>
+          {(data?.nodes ?? []).map((n) => (
+            <li key={n.id}>
+              <a href={`${n.id}/`}>{n.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   )
 }

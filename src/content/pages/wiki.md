@@ -5,7 +5,7 @@ route: "/wiki"
 order: 45
 ---
 
-This wiki is a small, public knowledge graph. The [source library](/docs/) holds one page per primary document; these synthesized pages connect them into a single story. Explore them visually on the [Web 4.0 page](/wiki/web4/).
+This wiki is a small, public knowledge graph. The source library holds one page per primary document; these synthesized pages connect them into a single story. Explore them visually on the [Web 4.0 page](/wiki/web4/).
 
 ## The thesis
 

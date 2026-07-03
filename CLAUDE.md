@@ -67,6 +67,8 @@ npm run preview  # serve the built dist/ locally
 │   │   ├── Header.jsx Footer.jsx AP0110MonoProvider.jsx TypingText.jsx
 │   │   ├── Earth.jsx Moon.jsx MoonDataOverlay.jsx WorldMap.jsx CaliforniaUCMap.jsx flyover.jsx
 │   │   ├── WikiGraph.jsx          # zero-dep grayscale force-graph (the /web4 hero)
+│   │   ├── WikiNav.astro WikiToc.astro  # docs-style rails on /wiki/[slug] + /docs/[slug]
+│   │   │                          #   (linked-pages nav + scrollspy "On this page" TOC)
 │   │   ├── DonationModal.jsx VolunteerModal.jsx  icons/  ui/{Button,Card}.jsx
 │   │   └── pages/                 # page bodies (Home, Web4, Guide, Radios, Whitepaper,
 │   │       │                      #   CalCompute, Children, UNAUSA, Contribute)
@@ -81,7 +83,9 @@ npm run preview  # serve the built dist/ locally
 Every route is mirrored as markdown for LLMs/agents:
 - **`/llms.txt`** (`src/pages/llms.txt.ts`) — index: H1 + summary + Pages/Articles/Docs link lists.
 - **`/llms-full.txt`** (`src/pages/llms-full.txt.ts`) — all page markdown concatenated.
-- **`/<route>.md`** (`src/pages/[...slug].md.ts`) — per-page mirror; each HTML page links its `.md` via `<link rel="alternate" type="text/markdown">` in `Layout.astro`.
+- **`/<route>.md`** (`src/pages/[...slug].md.ts`) — per-page mirror; each HTML page links its `.md` via `<link rel="alternate" type="text/markdown">` in `Layout.astro`. Docs/wiki mirrors get an auto-appended **`## Backlinks`** section (from `buildGraph`/`backlinksFor` at build time — .md parity with WikiNav's "Referenced by" rail; omitted when a page has no backlinks).
+- **`/wiki-graph.json`** (`src/pages/wiki-graph.json.ts`) — the LLM-wiki link graph (`nodes`, `edges`, `linksOut`, `linksIn`) serialized from the same `buildGraph()` that powers `/web4`, so an agent can map the wiki in one fetch instead of crawling.
+- **`/search.json`** (`src/pages/search.json.ts`) — full-text search index over docs + wiki (id, title, description, tags, headings, **full plain-text body** per entry — markdown stripped via `stripMarkdown` in `src/lib/search.js`). Backs the Header's **Cmd/Ctrl-K search modal** (`src/components/SearchModal.jsx`; zero-dep token ranking in `src/lib/search.js`, self-check via `node src/lib/search.js`; index lazy-fetched on first open) and is directly fetchable by agents. Sized for a corpus up to a few MB raw; past ~3 MB, switch the human UI to Pagefind's chunked index.
 - Article/doc/**wiki** mirrors generate from their source markdown. **Page mirrors are hand-authored in `src/content/pages/*.md`** (each has `route`/`order` frontmatter; `wiki.md` mirrors the `/wiki` index). **Keep them in sync when you change page copy.** `sitemap.xml.ts` and `llms.txt.ts` both derive their URL lists from these collections — all four endpoints (`llms.txt.ts`, `llms-full.txt.ts`, `[...slug].md.ts`, `sitemap.xml.ts`) already register `wiki`, so a new wiki/doc page is mirrored and indexed automatically.
 
 ## The web4 LLM-wiki (knowledge graph)
@@ -91,6 +95,8 @@ The `/web4` page opens on a **grayscale, force graph** — a public, read-only L
 **The two collections** (`src/content.config.ts`):
 - **`docs/` = the raw source library.** One page per primary document (papers, specs, books, reports). `writingSchema` + `year?` (display string, e.g. `"1962-10"`), `sourceUrl?` (canonical link-out, rendered as "View original source"), `kind` (`public-domain | copyrighted | living | doc`, default `doc`). Routes: `/docs/`, `/docs/[slug]`.
 - **`wiki/` = synthesized pages.** Entities, concepts, analyses, and one overview. Schema: `title`/`date`/`description`/`tags` + `type` (`entity | concept | analysis | overview`). Routes: `/wiki/`, `/wiki/[slug]`.
+
+Detail pages (`/wiki/[slug]`, `/docs/[slug]`) share a docs-site body below the hero: sticky left rail of **connected pages only** ("Links to" from `graph.linksOut`, "Referenced by" from backlinks — never a full page list; `WikiNav.astro`) and a sticky right "On this page" TOC with scrollspy (`WikiToc.astro`; folded into the left rail at `lg`, a `<details>` disclosure on mobile). Sticky positioning depends on `body`/the Layout slot wrapper using `overflow-x: clip` — do not reintroduce `overflow: hidden`/`auto` on them.
 
 **The graph** is built at **build time**, not runtime: `web4.astro` calls `buildGraph(docs, wiki)` from `src/utils/wikiGraph.js` and passes the result as a prop to the `Web4` island, which renders `<WikiGraph data={graph} />` as the hero. So a content change reflows the graph on the next build with **no code changes**.
 - **Nodes** = every `docs`/`wiki` page. Node `id` is the page path (`/docs/<slug>`, `/wiki/<slug>`) so a doc and a wiki page may share a slug. Node `size` = body length → drives node radius. Shade by group: docs dark, wiki mid-gray, `overview` darkest.

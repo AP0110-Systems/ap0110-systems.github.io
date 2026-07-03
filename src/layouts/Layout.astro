@@ -9,6 +9,8 @@ const {
   description = 'AP0110 builds Independent Internet (Web 4.0) — open-source mesh networking, decentralized protocols, and post-quantum security for user-owned internet infrastructure.',
   keywords = 'Web 4.0, Independent Internet, decentralized internet, mesh networking, AP0110, post-quantum security, edge computing, user-owned internet, decentralized protocols',
   image = '/images/AP0110_moon_black.webp',
+  // og:type — 'website' for most pages, 'article' for blog posts/docs.
+  ogType = 'website',
   // Optional per-page structured data (array of schema.org objects), rendered
   // alongside the site-wide Organization + WebSite graph.
   jsonLd = [],
@@ -64,7 +66,7 @@ const organizationSchema = {
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="text/markdown" href={mdMirror} />
 
-    <!-- Inter (replaces next/font/google) -->
+    <!-- Fonts: Inter (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -78,7 +80,7 @@ const organizationSchema = {
     <link rel="preload" as="image" href="/images/AP0110_moon_black.webp" />
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -109,12 +111,27 @@ const organizationSchema = {
     <!-- Per-page <head> additions (e.g. section-specific font links) -->
     <slot name="head" />
   </head>
-  <body class="overflow-x-hidden max-w-full">
+  <body class="overflow-x-clip max-w-full">
     <AP0110MonoProvider client:load />
     <Header pathname={Astro.url.pathname} client:load />
-    <div class="w-full max-w-full overflow-x-hidden">
+    {/* overflow-x-clip (not -hidden): clips the same but doesn't create a scroll
+        container, so position:sticky inside pages (wiki rails) works. */}
+    <div class="w-full max-w-full overflow-x-clip">
       <slot />
     </div>
     <Footer pathname={Astro.url.pathname} client:load />
+    <div id="reading-progress" style="position:fixed;top:50px;left:0;width:0;height:2px;background:#00b0ff;z-index:998;pointer-events:none" aria-hidden="true"></div>
+    <script>
+      const bar = document.getElementById('reading-progress');
+      let ticking = false;
+      function updateProgress() {
+        ticking = false;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        bar.style.width = max > 0 ? `${(window.scrollY / max) * 100}%` : '0%';
+      }
+      window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(updateProgress); }
+      }, { passive: true });
+    </script>
   </body>
 </html>
