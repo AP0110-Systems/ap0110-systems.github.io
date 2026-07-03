@@ -10,7 +10,7 @@ The [agent-readable web standards](/wiki/agent-readable-web-standards/) look ali
 
 ## Five standards, five paths
 
-- [robots.txt](/docs/robots-txt/) — informal for nearly thirty years, then formalized by a neutral body (IETF, RFC 9309). The mature case.
+- [robots.txt](/docs/robots-txt/) — informal for nearly thirty years, then formalized by a neutral body (the [IETF](/wiki/ietf/), RFC 9309). The mature case.
 - [sitemap.xml](/docs/sitemap-xml/) — born inside one company, adopted jointly by three, and then *frozen* under those corporate sponsors with no neutral steward. The cautionary case.
 - [AGENTS.md](/docs/agents-md/) — moved early to a neutral home (the Linux Foundation). The encouraging case.
 - [llms.txt](/docs/llms-txt/) — still a single lab's proposal ([Jeremy Howard](/wiki/jeremy-howard/) / Answer.AI).

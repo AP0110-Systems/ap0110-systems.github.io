@@ -1,6 +1,7 @@
 ---
 title: "Tim Berners-Lee"
 date: "2026-06-29"
+updated: "2026-07-03"
 description: "Inventor of the World Wide Web and advocate for a decentralized, machine-readable, user-controlled web."
 type: "entity"
 tags: ["pioneer", "web"]
@@ -15,4 +16,4 @@ tags: ["pioneer", "web"]
 
 ## Significance
 
-Berners-Lee built a Web that was decentralized by default — no permission to publish or link. The Independent Internet argues that property eroded and must be rebuilt; his [Semantic Web](/wiki/semantic-web/) work is the bridge toward Web 4.0.
+Berners-Lee built a Web that was decentralized by default — no permission to publish or link. The Independent Internet argues that property eroded and must be rebuilt; his [Semantic Web](/wiki/semantic-web/) work is the bridge toward Web 4.0. The HTTP he authored is not frozen: it still evolves in the open under the [IETF](/wiki/ietf/) — for example the [QUERY method](/docs/rfc-10008-http-query/) (RFC 10008, 2026).
