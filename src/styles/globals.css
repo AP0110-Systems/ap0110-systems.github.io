@@ -12,7 +12,9 @@
 }
 
 :root {
-  overflow-x: hidden;
+  /* clip, not hidden — same reason as body below: hidden makes the root a
+     clipping scroll container and position:sticky (wiki/docs rails) jitters. */
+  overflow-x: clip;
   /* Hide scrollbars */
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* Internet Explorer */
@@ -61,7 +63,7 @@
 
 html {
   overscroll-behavior-y: none;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100vw;
   scroll-padding-top: 6em;
   /* Hide the main page scrollbar only (design choice) — inner scrollables keep
@@ -74,10 +76,10 @@ html, body {
   margin: 0;
   padding: 0;
   /* height: auto (default) — do NOT set fit-content/a fixed height here. With the
-     non-visible overflow-x on both (hidden on html, clip on body), a content-bound
+     non-visible overflow-x on both (clip on html and body), a content-bound
      body height makes WebKit/iOS pick body as the scroll container but then it
      can't scroll (wheel/touch dead, only keyboard arrows work). ponytail: leave auto. */
-  background-color: #fff;
+  background-color: #fafafa;
 }
 
 body {
@@ -91,7 +93,7 @@ body {
   /* Dot-grid backdrop (ported from AP0110.com DESIGN.md, inverted for light mode:
      dark dots on white). Set directly on body's background — an absolute z-index:-1
      ::before is hidden behind body's own opaque white fill. Solid brand cards cover it. */
-  background-color: #fff;
+  background-color: #fafafa;
   background-image: radial-gradient(circle, rgba(0, 0, 0, 0.09) 1px, transparent 1px);
   background-size: 16px 16px;
   /* clip, not hidden/auto: html also sets overflow, so these don't propagate to
@@ -483,11 +485,11 @@ input[type="search"]::-webkit-search-decoration {
 .alert.failure .safe {
   display: none;
 }
-.alert.success {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 24px rgba(71, 179, 50, 0.35);
-}
+/* ponytail: whitepaper elevation — hairline shadow, no colored glow. `.alert` is
+   currently unused (old-static-site parity); delete this block if it stays dead. */
+.alert.success,
 .alert.failure {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 79, 0, 0.35);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
 /* Cross-browser backdrop blur support */
@@ -1041,4 +1043,55 @@ input[type="search"]::-webkit-search-decoration {
   max-width: 100%;
   border-radius: 0.5rem;
   margin: 1.5rem 0;
+}
+
+/* Whitepaper numbering — flagship /web4 only (scoped to .wp-prose / .wp-fig, so the
+   docs & wiki detail pages that also use .article-prose stay unnumbered). Counters run
+   in document order, so no counter-reset/wrapper is needed. ponytail: CSS counters, no JS. */
+.wp-paper {
+  counter-reset: wp-sec wp-fig;
+}
+/* Section marker: Roman numeral by default, Arabic number crossfaded in on hover.
+   Two pseudos stacked in a hanging left gutter (CSS can't animate a `content` swap).
+   ponytail: desktop delight — no :hover on touch, so mobile shows the Roman only
+   (still a valid number). Narrow gutter fits ~IV; widen padding-left for longer pages. */
+main.wp-prose .article-prose h2 {
+  position: relative;
+  padding-left: 1.8em;
+}
+main.wp-prose .article-prose h2::before,
+main.wp-prose .article-prose h2::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--color-ap-cyan);
+  font-variant-numeric: tabular-nums;
+  transition: opacity 0.2s ease;
+}
+main.wp-prose .article-prose h2::before {
+  counter-increment: wp-sec;
+  content: counter(wp-sec, upper-roman) ".";
+}
+main.wp-prose .article-prose h2::after {
+  content: counter(wp-sec) ".";
+  opacity: 0;
+}
+main.wp-prose .article-prose h2:hover::before { opacity: 0; }
+main.wp-prose .article-prose h2:hover::after { opacity: 1; }
+figure.wp-fig {
+  margin: 3rem 0;
+}
+figure.wp-fig figcaption {
+  counter-increment: wp-fig;
+  margin-top: 0.625rem;
+  text-align: center;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+figure.wp-fig figcaption::before {
+  content: "Figure " counter(wp-fig) " — ";
+  color: var(--color-ap-cyan);
 }

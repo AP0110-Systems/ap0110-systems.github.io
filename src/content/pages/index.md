@@ -11,7 +11,7 @@ AP0110 researches and builds technology people can own and trust — and puts it
 
 ## The internet stopped working for us
 
-The first web was built for universities, the next for advertisers, the latest for machines. Somewhere along the way the internet became something done *to* people — tracked by default, owned by a handful of companies, and quick to fail the communities that can least afford it. It doesn't have to be this way.
+The first web was built for universities, the next for advertisers, the latest for machines. Somewhere along the way the internet became something done *to* people — tracked by default, owned by a handful of companies, and quick to fail the communities that can least afford it. Today, every device talks through a central server — a single point of failure; when it dies, every device goes offline with it. Add mesh links between the devices and the same failure just reroutes: traffic flows device-to-device and the network stays online. It doesn't have to be this way.
 
 ## How we work
 

@@ -39,11 +39,11 @@ const [featured, ...rest] = articles;
             {/* Featured: the newest post, given a wider, higher-contrast card. */}
             <a
               href={`/articles/${featured.id}/`}
-              class="group relative block rounded-2xl bg-white/70 backdrop-blur-sm border border-gray-200 p-7 sm:p-9 shadow-sm hover:border-ap-cyan/40 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              class="group relative block rounded-xl bg-white/70 backdrop-blur-sm border border-gray-200 p-7 sm:p-9 shadow-sm hover:border-ap-cyan/40 hover:shadow-md transition-all duration-300"
             >
               <div class="flex items-center gap-3 mb-4">
                 <span class="text-[0.65rem] font-semibold uppercase tracking-[0.15em] text-ap-cyan bg-ap-cyan/10 px-2.5 py-1 rounded-full">Latest</span>
-                <span class="text-xs text-gray-500 tabular-nums">{fmt(featured.data.date)} · {readMins(featured.body)} min read</span>
+                <span class="text-xs font-mono text-gray-500 tabular-nums">{fmt(featured.data.date)} · {readMins(featured.body)} min read</span>
               </div>
               <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 group-hover:text-ap-cyan transition-colors mb-3 text-balance">
                 {featured.data.title}
@@ -73,9 +73,9 @@ const [featured, ...rest] = articles;
                 {rest.map((article) => (
                   <a
                     href={`/articles/${article.id}/`}
-                    class="group relative flex flex-col rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200 p-6 hover:border-ap-cyan/40 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    class="group relative flex flex-col rounded-xl bg-white/60 backdrop-blur-sm border border-gray-200 p-6 hover:border-ap-cyan/40 hover:shadow-md transition-all duration-300"
                   >
-                    <div class="text-xs text-gray-500 tabular-nums mb-2">{fmt(article.data.date)} · {readMins(article.body)} min read</div>
+                    <div class="text-xs font-mono text-gray-500 tabular-nums mb-2">{fmt(article.data.date)} · {readMins(article.body)} min read</div>
                     <h2 class="text-lg font-bold text-gray-900 group-hover:text-ap-cyan transition-colors mb-2 text-balance">
                       {article.data.title}
                     </h2>

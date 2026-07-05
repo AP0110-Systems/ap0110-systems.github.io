@@ -25,8 +25,8 @@ export default function Header({
   navItems = [
     { type: 'link', label: 'Web 4.0', href: '/wiki/web4' },
     { type: 'link', label: 'About', href: '/about' },
-    { type: 'link', label: 'Docs', href: '/docs' },
     { type: 'link', label: 'Wiki', href: '/wiki' },
+    { type: 'link', label: 'Docs', href: '/docs' },
   ],
   theme = 'light',           // 'light' | 'dark'
   logoText = 'AP0110.ORG',

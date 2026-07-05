@@ -48,7 +48,7 @@ const Card = ({
   
   const variantClasses = {
     default: 'bg-white/10 backdrop-blur-md border border-white/20',
-    glass: 'bg-white/5 backdrop-blur-sm border border-white/10 shadow-2xl',
+    glass: 'bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg',
     solid: 'bg-white/20 backdrop-blur-lg border border-white/30',
     light: 'bg-black/10 backdrop-blur-md border border-black/20'
   }

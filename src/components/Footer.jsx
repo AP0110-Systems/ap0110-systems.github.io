@@ -111,7 +111,7 @@ const Footer = ({ pathname = '/' }) => {
                 </div>
 
                 <div id="footer-navigation-section" className="order-2 md:order-none">
-                  {/* <h3 className="text-lg font-semibold mb-4 text-black">Navigation</h3> */}
+                  <h3 className="text-lg font-semibold mb-4 text-black">Projects</h3>
                   <ul className="space-y-2">
                     <li><a href="/calcompute" className="text-gray-800 hover:text-black transition-colors">CalCompute</a></li>
                     <li><a href="/unausa" className="text-gray-800 hover:text-black transition-colors">UNA-USA DPI</a></li>
@@ -120,12 +120,12 @@ const Footer = ({ pathname = '/' }) => {
                 </div>
 
                 <div id="footer-navigation-section" className="order-2 md:order-none">
-                  {/* <h3 className="text-lg font-semibold mb-4 text-black">Navigation</h3> */}
+                  <h3 className="text-lg font-semibold mb-4 text-black">Navigation</h3>
                   <ul className="space-y-2">
                     <li><a href="/about" className="text-gray-800 hover:text-black transition-colors">About Us</a></li>
                     <li><a href="/wiki/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
-                    <li><a href="/docs" className="text-gray-800 hover:text-black transition-colors">Docs</a></li>
                     <li><a href="/wiki" className="text-gray-800 hover:text-black transition-colors">Wiki</a></li>
+                    <li><a href="/docs" className="text-gray-800 hover:text-black transition-colors">Docs</a></li>
                     <li><a href="/articles" className="text-gray-800 hover:text-black transition-colors">Articles</a></li>
                   </ul>
                 </div>

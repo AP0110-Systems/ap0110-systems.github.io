@@ -39,12 +39,12 @@ const stats = [
 ];
 
 // Catalog groups, in the wiki's reading order (Sources first as a count, then the synthesized
-// types). Concepts/entities are compact grids sorted most-referenced first; analyses are
-// full-width cards ordered chronologically by their subject document.
+// types). Concepts/entities are compact title-only grids sorted most-referenced first;
+// analyses are a single-column list ordered chronologically by their subject document.
 const TYPE = {
-  concept: { label: 'Concept', text: 'text-ap-cyan', dot: 'bg-ap-cyan' },
-  entity: { label: 'Entity', text: 'text-ap-blue', dot: 'bg-ap-blue' },
-  analysis: { label: 'Analysis', text: 'text-ap-violet', dot: 'bg-ap-violet' },
+  concept: { dot: 'bg-ap-cyan' },
+  entity: { dot: 'bg-ap-blue' },
+  analysis: { dot: 'bg-ap-violet' },
 };
 const GROUPS = [
   { type: 'concept', id: 'concepts', label: 'Concepts', grid: true },
@@ -63,8 +63,6 @@ const byType = (t) => {
   return entries.sort((a, b) => refCount(b.id) - refCount(a.id) || a.data.title.localeCompare(b.data.title));
 };
 
-const cardClass =
-  'relative h-full rounded-lg transition-all duration-300 bg-black/5 backdrop-blur-md border border-black/10 group-hover:shadow-md group-hover:border-ap-cyan/40';
 ---
 
 <Layout
@@ -140,48 +138,48 @@ const cardClass =
                 <span class={`w-2.5 h-2.5 rounded-full ${t.dot}`}></span>
                 {g.label} <span class="text-gray-400 font-normal text-base">({entries.length})</span>
               </h2>
-              <div class={g.grid ? 'grid sm:grid-cols-2 gap-4' : 'space-y-4'}>
-                {entries.map((entry) => {
-                  // Total outbound links (docs + wiki) — a direct-docs "sources" count
-                  // undersold synthesis pages that cite through intermediate wiki pages.
-                  const out = (graph.linksOut.get(`/wiki/${entry.id}`) ?? []).length;
-                  const refs = refCount(entry.id);
-                  const subject = g.type === 'analysis' ? subjectDoc(entry) : null;
-                  // No edit dates anywhere on the site — they read as staleness even when
-                  // the content is current.
-                  const meta = [
-                    refs > 0 && `Referenced by ${refs}`,
-                    out > 0 && `Links to ${out}`,
-                  ].filter(Boolean).join(' · ');
-                  return (
-                    <div class="group">
-                      <div class={`${cardClass} ${g.grid ? 'p-4' : 'p-5'}`}>
-                        <div class={`text-[10px] font-semibold uppercase tracking-wide mb-1 ${t.text}`}>{t.label}</div>
-                        {/* Stretched link: the title's ::after covers the card; inner links sit above it at z-10. */}
-                        <h3 class="text-lg font-bold text-gray-900 mb-1">
-                          <a href={`/wiki/${entry.id}/`} class="group-hover:text-ap-cyan transition-colors after:absolute after:inset-0">{entry.data.title}</a>
-                        </h3>
-                        {entry.data.description && (
-                          <p class="text-gray-600 text-sm leading-relaxed mb-3">{entry.data.description}</p>
-                        )}
-                        {subject && (
-                          <p class="text-xs text-gray-500 mb-3">
-                            Analysis of{' '}
-                            <a href={`/docs/${subject.id}/`} class="relative z-10 font-medium text-ap-violet hover:underline">{subject.data.title}</a>
-                            {subject.data.year && <span class="text-gray-400"> ({subject.data.year})</span>}
-                          </p>
-                        )}
-                        <div class="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-xs text-gray-500">
-                          {meta && <span class="text-gray-400">{meta}</span>}
-                          {entry.data.tags.map((tag) => (
-                            <a href={`/wiki/tag/${tag}/`} class="relative z-10 bg-ap-cyan/10 text-ap-cyan px-2 py-0.5 rounded-full font-medium hover:bg-ap-cyan/20 transition-colors">{tag}</a>
-                          ))}
+              {/* Compact directory, not cards — descriptions/tags/link counts live on the
+                  detail pages; the index only needs to be scannable. */}
+              {g.grid ? (
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {entries.map((entry) => (
+                    <a
+                      href={`/wiki/${entry.id}/`}
+                      title={entry.data.description}
+                      class="group flex items-center gap-2.5 rounded-lg border border-black/10 bg-black/5 px-3.5 py-2.5 hover:border-ap-cyan/40 hover:shadow-sm transition-all"
+                    >
+                      <span class={`w-1.5 h-1.5 rounded-full shrink-0 ${t.dot}`}></span>
+                      <span class="text-sm font-semibold text-gray-900 group-hover:text-ap-cyan transition-colors leading-snug">{entry.data.title}</span>
+                    </a>
+                  ))}
+                </div>
+              ) : (
+                <ol class="border-y border-gray-200 divide-y divide-gray-200">
+                  {entries.map((entry) => {
+                    const subject = subjectDoc(entry);
+                    return (
+                      <li class="group relative flex items-baseline gap-4 py-3">
+                        {/* Chronological list — the year is the subject document's, not an edit date. */}
+                        <span class="w-14 shrink-0 text-xs text-gray-400 tabular-nums text-right">{subject?.data.year ?? ''}</span>
+                        <div class="min-w-0">
+                          {/* Stretched link: the title's ::after covers the row; the subject link sits above it at z-10. */}
+                          <h3 class="text-base font-semibold text-gray-900 leading-snug">
+                            <a href={`/wiki/${entry.id}/`} class="group-hover:text-ap-cyan transition-colors after:absolute after:inset-0">{entry.data.title}</a>
+                            {subject && (
+                              <span class="font-normal text-sm text-gray-500">
+                                {' '}· on <a href={`/docs/${subject.id}/`} class="relative z-10 text-ap-violet hover:underline">{subject.data.title}</a>
+                              </span>
+                            )}
+                          </h3>
+                          {entry.data.description && (
+                            <p class="text-sm text-gray-500 leading-relaxed line-clamp-1">{entry.data.description}</p>
+                          )}
                         </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                      </li>
+                    );
+                  })}
+                </ol>
+              )}
             </div>
           );
         })}

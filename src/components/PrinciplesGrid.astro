@@ -1,0 +1,64 @@
+---
+// The six principles of Web 4.0 as a card grid with line icons. Content is
+// verbatim from the table in src/content/wiki/web4.md ("What it stands for"),
+// which stays in the markdown so the /wiki/web4.md mirror keeps the data.
+// Zero-JS: real text + inline SVG icons from Lucide (lucide.dev, ISC —
+// badge-check, key-round, shield, scale, equal, leaf).
+const PRINCIPLES = [
+  {
+    name: 'Trustless',
+    body: 'Cryptographic verification; no trusted intermediaries.',
+    icon: '<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/>',
+  },
+  {
+    name: 'Ownership',
+    body: 'Complete control over digital assets; no revocable licenses.',
+    icon: '<path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"/><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"/>',
+  },
+  {
+    name: 'Safe',
+    body: 'Airgap-first nodes, on-premises data, modern encryption.',
+    icon: '<path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>',
+  },
+  {
+    name: 'Ethical',
+    body: 'Federated nodes; accountability across communities.',
+    icon: '<path d="M12 3v18"/><path d="m19 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M3 7h1a17 17 0 0 0 8-2 17 17 0 0 0 8 2h1"/><path d="m5 8 3 8a5 5 0 0 1-6 0zV7"/><path d="M7 21h10"/>',
+  },
+  {
+    name: 'Equitable',
+    body: 'Equal participation regardless of background or resources.',
+    icon: '<line x1="5" x2="19" y1="9" y2="9"/><line x1="5" x2="19" y1="15" y2="15"/>',
+  },
+  {
+    name: 'Sustainable',
+    body: 'Local processing reduces energy waste and latency.',
+    icon: '<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  },
+];
+---
+
+<div class="max-w-3xl mx-auto">
+  {/* This grid IS the six-principles section — the table was removed from
+      web4.md so the page doesn't say everything twice. */}
+  <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">What it stands for — the six principles</h2>
+  <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+    {PRINCIPLES.map((p) => (
+      <div class="rounded-xl border border-gray-200 bg-white/60 p-4 sm:p-5">
+        <svg
+          class="w-6 h-6 text-ap-cyan mb-3"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          set:html={p.icon}
+        />
+        <h3 class="font-bold text-gray-900 text-sm sm:text-base mb-1">{p.name}</h3>
+        <p class="text-gray-700 text-xs sm:text-sm leading-relaxed">{p.body}</p>
+      </div>
+    ))}
+  </div>
+</div>

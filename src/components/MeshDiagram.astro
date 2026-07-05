@@ -1,0 +1,233 @@
+---
+// A controlled comparison: both panels show the SAME network — six client
+// devices (laptop, phone, desktop, tablet, smart glasses, watch) wired
+// through a central server — and the SAME failure (the server dies). The only
+// difference is the wireless mesh between the devices in the right panel:
+// discrete beams of data fire device-to-device on staggered cycles (ring +
+// crossing chords — every device has four mesh neighbors), server up or down.
+// When the server dies, the spokes vanish; without the mesh every device goes
+// offline, with it the network stays Online. Glyphs: lucide.dev (ISC).
+// Played as one synchronized 10s CSS loop — failure, outage, then a staged
+// recovery (server → links → devices) so the cycle closes without a reset.
+// Zero JS; reduced-motion users get the static outage state. Text equivalent:
+// src/content/pages/index.md.
+
+// Six devices on a ring around the server, rotated 30° (flat-top hexagon).
+const NODES = Array.from({ length: 6 }, (_, i) => {
+  const a = (i * Math.PI) / 3 + Math.PI / 6;
+  return [Math.round(100 + 55 * Math.sin(a)), Math.round(80 - 55 * Math.cos(a))];
+});
+const HUB = [100, 80];
+// Mesh wiring: the ring plus every skip-one chord — a hexagram of redundant
+// paths. Chords pass ~27px from center, clear of the server glyph.
+const RING = NODES.map((_, i) => [i, (i + 1) % 6]);
+const MESH = [...RING, ...NODES.map((_, i) => [i, (i + 2) % 6])];
+// Diameters between opposite devices pass directly over the server's spot —
+// they only carry traffic once the server is offline (while it's up, opposite
+// devices talk through it via the spokes).
+const DIAG = [[0, 3], [1, 4], [2, 5]];
+
+// Trim link endpoints back from the node centers so lines meet the glyphs
+// cleanly instead of crossing them.
+const trim = (p, q, rp, rq) => {
+  const dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy);
+  return {
+    x1: +(p[0] + (dx / L) * rp).toFixed(1),
+    y1: +(p[1] + (dy / L) * rp).toFixed(1),
+    x2: +(q[0] - (dx / L) * rq).toFixed(1),
+    y2: +(q[1] - (dy / L) * rq).toFixed(1),
+  };
+};
+const spoke = (i) => trim(HUB, NODES[i], 14, 11);
+const peer = ([a, b]) => trim(NODES[a], NODES[b], 11, 11);
+
+// Beams: one discrete transmission per mesh path, firing on its own cycle so
+// the traffic looks random. dasharray "14 200" on pathLength 100 keeps a
+// single dash per line; hand-rolled durations/delays/directions (no
+// Math.random at build — the values must be stable across builds), and a few
+// beams get a mid-flight static dashoffset so the reduced-motion still shows
+// data hopping between devices.
+// Widely-spread coprime-ish durations so per-path firing rhythms never sync —
+// crossing speed varies with them too, like real links of different quality.
+const DURS = [2.4, 3.7, 2.1, 4.9, 3.1, 2.7, 4.3, 2.2, 3.9, 5.3, 2.9, 4.6, 3.3, 2.5, 4.1];
+const DELAYS = [-0.7, -2.9, -1.3, -4.1, -0.2, -2.2, -3.5, -1.8, -0.9, -4.7, -2.6, -3.1, -1.5, -3.8, -0.4];
+const FLIP = [0, 1, 0, 0, 1, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1];
+const STILLS = { 1: 180, 4: 165, 9: 195, 13: 172 };
+// Beams run center-to-center (no trim): the packet slides under the receiving
+// device's white backing disc, so it visibly disappears into the node.
+const beam = (e, i) => {
+  const [a, b] = FLIP[i] ? [e[1], e[0]] : e;
+  return {
+    x1: NODES[a][0], y1: NODES[a][1], x2: NODES[b][0], y2: NODES[b][1],
+    style: `--dur:${DURS[i]}s; animation-delay:${DELAYS[i]}s; stroke-dashoffset:${STILLS[i] ?? 114}`,
+  };
+};
+
+const xMark = ([x, y], s = 6) => `M${x - s} ${y - s} l${2 * s} ${2 * s} M${x + s} ${y - s} l${-2 * s} ${2 * s}`;
+// Flow toward the server: clients upload to the hub, so panel A's traffic
+// dashes run node → hub.
+const spokeIn = (i) => trim(NODES[i], HUB, 11, 14);
+
+// Lucide glyph inner paths (24×24), placed via translate/scale. One of each
+// device — laptop, phone, desktop, tablet, smart glasses, smartwatch — same
+// glyph at the same position in both panels.
+const LAPTOP = '<path d="M18 5a2 2 0 0 1 2 2v8.526a2 2 0 0 0 .212.897l1.068 2.127a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45l1.068-2.127A2 2 0 0 0 4 15.526V7a2 2 0 0 1 2-2z"/><path d="M20.054 15.987H3.946"/>';
+const SMARTPHONE = '<rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/>';
+const TABLET = '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><line x1="12" x2="12.01" y1="18" y2="18"/>';
+const MONITOR = '<rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/>';
+const GLASSES = '<circle cx="6" cy="15" r="4"/><circle cx="18" cy="15" r="4"/><path d="M14 15a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M2.5 13 5 7c.7-1.3 1.4-2 3-2"/><path d="M21.5 13 19 7c-.7-1.3-1.5-2-3-2"/>';
+const WATCH = '<path d="M12 10v2.2l1.6 1"/><path d="m16.13 7.66-.81-4.05a2 2 0 0 0-2-1.61h-2.68a2 2 0 0 0-2 1.61l-.78 4.05"/><path d="m7.88 16.36.8 4a2 2 0 0 0 2 1.61h2.72a2 2 0 0 0 2-1.61l.81-4.05"/><circle cx="12" cy="12" r="6"/>';
+const SERVER = '<rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" x2="6.01" y1="6" y2="6"/><line x1="6" x2="6.01" y1="18" y2="18"/>';
+const DEVICES = [LAPTOP, SMARTPHONE, MONITOR, TABLET, GLASSES, WATCH];
+const DEVICE = (i) => DEVICES[i];
+
+const glyph = ([x, y], scale) => `translate(${+(x - 12 * scale).toFixed(1)} ${+(y - 12 * scale).toFixed(1)}) scale(${scale})`;
+---
+
+<figure class="mesh-diagram max-w-xl mx-auto">
+  {/* One card holds the whole comparison. */}
+  <div class="rounded-xl border border-gray-200 bg-white/70 p-4 sm:p-6">
+    <div class="grid grid-cols-2 gap-4 sm:gap-8">
+      {/* ——— Without mesh: the server is the only path ——— */}
+      <div class="text-center">
+        <h3 class="text-xs sm:text-sm font-bold text-gray-900">Without mesh&hellip;</h3>
+      <svg viewBox="0 0 200 160" fill="none" aria-hidden="true" class="w-full h-auto">
+        {/* Live spokes only — cyan links with white traffic flowing toward
+            the server while it's up; they vanish (rather than turn dotted)
+            when it dies. */}
+        {NODES.map((_, i) => (
+          <>
+            <line class="link-live" {...spoke(i)} stroke="var(--color-ap-cyan)" stroke-width="2" opacity="0" />
+            <line class="flow flow-spoke" {...spokeIn(i)} stroke="#ffffff" stroke-width="1.2" stroke-dasharray="2 7" stroke-linecap="round" opacity="0" />
+          </>
+        ))}
+        {NODES.map((p, i) => (
+          <>
+            <circle cx={p[0]} cy={p[1]} r="10" fill="#ffffff" />
+            <g class="node-offline" transform={glyph(p, 0.62)} stroke="#d1d5db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={DEVICE(i)} />
+            <path class="x-dev" d={xMark([p[0] + 8, p[1] - 8], 3.5)} stroke="var(--color-ap-orange)" stroke-width="2" />
+          </>
+        ))}
+        <circle cx={HUB[0]} cy={HUB[1]} r="13" fill="#ffffff" />
+        <g class="hub" transform={glyph(HUB, 0.8)} stroke="#d1d5db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={SERVER} />
+        <circle class="ripple" cx={HUB[0]} cy={HUB[1]} r="12" stroke="var(--color-ap-orange)" stroke-width="1.5" opacity="0" />
+        <path class="x-mark" d={xMark([HUB[0] + 11, HUB[1] - 11])} stroke="var(--color-ap-orange)" stroke-width="2.5" />
+      </svg>
+        <p class="text-[11px] sm:text-xs text-gray-500 leading-snug">&hellip;every device depends on the server.</p>
+      </div>
+
+      {/* ——— With mesh: same network, same failure, plus the fallback ——— */}
+      <div class="text-center">
+        <h3 class="text-xs sm:text-sm font-bold text-gray-900">With mesh&hellip;</h3>
+      <svg viewBox="0 0 200 160" fill="none" aria-hidden="true" class="w-full h-auto">
+        {/* Spokes here are plain cyan (no traffic animation) so the eye reads
+            the beams as this panel's motion; they still vanish on failure. */}
+        {NODES.map((_, i) => (
+          <line class="link-live" {...spoke(i)} stroke="var(--color-ap-cyan)" stroke-width="2" opacity="0" />
+        ))}
+        {/* The mesh is wireless: no drawn wiring at all — just discrete beams
+            of data firing device-to-device on staggered cycles, server up or
+            down, each path sending a packet one way and then the other every
+            cycle. The mesh chatters the whole time; it is simply what's left
+            when the spokes vanish. */}
+        {MESH.map((e, i) => (
+          <line
+            class="beam"
+            {...beam(e, i)}
+            pathLength="100"
+            stroke="var(--color-ap-cyan)"
+            stroke-width="2.5"
+            stroke-dasharray="14 200"
+            stroke-linecap="round"
+          />
+        ))}
+        {/* Server painted BEFORE the diameter beams: once it's offline,
+            opposite devices transfer directly over it. Device discs still
+            paint last, so those packets vanish into the receiving node. */}
+        <circle cx={HUB[0]} cy={HUB[1]} r="13" fill="#ffffff" />
+        <g class="hub" transform={glyph(HUB, 0.8)} stroke="#d1d5db" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={SERVER} />
+        <g class="beams-diag" opacity="1">
+          {DIAG.map((e, i) => (
+            <line
+              class="beam"
+              {...beam(e, MESH.length + i)}
+              pathLength="100"
+              stroke="var(--color-ap-cyan)"
+              stroke-width="2.5"
+              stroke-dasharray="14 200"
+              stroke-linecap="round"
+            />
+          ))}
+        </g>
+        {NODES.map((p, i) => (
+          <>
+            <circle cx={p[0]} cy={p[1]} r="10" fill="#ffffff" />
+            <g transform={glyph(p, 0.62)} stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={DEVICE(i)} />
+          </>
+        ))}
+        <circle class="ripple" cx={HUB[0]} cy={HUB[1]} r="12" stroke="var(--color-ap-orange)" stroke-width="1.5" opacity="0" />
+        <path class="x-mark" d={xMark([HUB[0] + 11, HUB[1] - 11])} stroke="var(--color-ap-orange)" stroke-width="2.5" />
+      </svg>
+        <p class="text-[11px] sm:text-xs text-gray-500 leading-snug">&hellip;the devices keep each other online.</p>
+      </div>
+    </div>
+  </div>
+</figure>
+
+<style>
+  /* One shared 10s timeline, both panels in sync. Mesh beams run on their own
+     independent cycles the whole time. Markup defaults = the outage state, so
+     reduced-motion and no-animation users see the still that carries the
+     argument. The recovery replays the failure in reverse — server first,
+     then links, then devices — so the loop closes without a reset:
+       0–15%   healthy: cyan spokes with white traffic into both servers;
+               mesh beams already chattering in the right panel
+       15–18%  the failure: ✕ + ripple, both servers pale
+       18–22%  the spokes and their traffic fade out entirely
+       22–30%  without-mesh only: the cut-off devices go offline (pale + ✕),
+               and the diameter transfers open up over the dead server
+       30–56%  hold the outage
+       56–64%  the server comes back: ✕ fades, server darkens, diameter
+               transfers wind down
+       60–70%  the spokes and their traffic return
+       68–76%  without-mesh devices come back online; their ✕s fade
+       76–100% healthy again — the loop restarts seamlessly. */
+  @media (prefers-reduced-motion: no-preference) {
+    .mesh-diagram .x-mark { animation: m-x 10s linear infinite; }
+    .mesh-diagram .x-dev { animation: m-x-dev 10s linear infinite; }
+    .mesh-diagram .ripple { animation: m-ripple 10s linear infinite; }
+    .mesh-diagram .link-live { animation: m-live 10s linear infinite; }
+    .mesh-diagram .hub { animation: m-fail 10s linear infinite; }
+    .mesh-diagram .node-offline { animation: m-offline 10s linear infinite; }
+    .mesh-diagram .flow-spoke { animation: m-flowdash 0.8s linear infinite, m-gate-spoke 10s linear infinite; }
+    .mesh-diagram .beam { animation: m-beam var(--dur, 1.8s) linear infinite; }
+    .mesh-diagram .beams-diag { animation: m-gate-diag 10s linear infinite; }
+  }
+  @keyframes m-flowdash { to { stroke-dashoffset: -9; } }
+  @keyframes m-x { 0%, 13% { opacity: 0; } 16%, 56% { opacity: 1; } 60%, 100% { opacity: 0; } }
+  /* Device ✕s land as each device goes offline, one beat after the links die,
+     and fade as the devices come back. */
+  @keyframes m-x-dev { 0%, 22% { opacity: 0; } 30%, 68% { opacity: 1; } 74%, 100% { opacity: 0; } }
+  @keyframes m-ripple {
+    0%, 13% { opacity: 0; r: 12; }
+    16% { opacity: 0.7; r: 14; }
+    24%, 100% { opacity: 0; r: 26; }
+  }
+  @keyframes m-live { 0%, 15% { opacity: 1; } 22%, 60% { opacity: 0; } 68%, 100% { opacity: 1; } }
+  @keyframes m-fail { 0%, 14% { stroke: #111827; } 18%, 58% { stroke: #d1d5db; } 64%, 100% { stroke: #111827; } }
+  @keyframes m-offline { 0%, 22% { stroke: #111827; } 30%, 68% { stroke: #d1d5db; } 76%, 100% { stroke: #111827; } }
+  /* Each beam cycle: a packet crosses one way, idles, crosses back the other
+     way (offset retracing reverses the travel direction), idles again. The
+     staggered per-path durations/delays make the two directions fire in no
+     visible pattern. */
+  @keyframes m-beam {
+    0% { stroke-dashoffset: 228; }
+    22% { stroke-dashoffset: 114; }
+    50% { stroke-dashoffset: 114; }
+    72% { stroke-dashoffset: 228; }
+    100% { stroke-dashoffset: 228; }
+  }
+  @keyframes m-gate-spoke { 0%, 15% { opacity: 0.85; } 20%, 64% { opacity: 0; } 70%, 100% { opacity: 0.85; } }
+  /* Diameter transfers only exist while the server is down. */
+  @keyframes m-gate-diag { 0%, 22% { opacity: 0; } 28%, 56% { opacity: 1; } 64%, 100% { opacity: 0; } }
+</style>

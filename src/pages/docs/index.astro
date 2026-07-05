@@ -38,6 +38,52 @@ const filterTags = [...tagCounts]
   .sort((a, b) => b[1] - a[1])
   .map(([t]) => t);
 
+// Horizontal overview strip: every source as a dot on a REAL time axis —
+// the vertical list below gives eras equal weight; this shows the actual
+// clustering (the 1960s burst, the long gaps, the 2020s pile-up). Pre-1900
+// founding documents sit in a compressed zone behind an axis break; the
+// modern era (1945→) is proportional. Same-year sources stack upward.
+const yearOf = (d) => {
+  const m = String(d.data.year ?? d.data.date.getFullYear()).match(/\d{4}/);
+  return m ? +m[0] : d.data.date.getFullYear();
+};
+const MODERN_MIN = 1945;
+const MODERN_MAX = Math.max(...docs.map(yearOf));
+const xOf = (y) =>
+  y < 1900 ? 4 + ((y - 1776) / (1787 - 1776)) * 5 : 17 + ((y - MODERN_MIN) / (MODERN_MAX - MODERN_MIN)) * 80;
+const stackByYear = new Map();
+const dots = sorted.map((d) => {
+  const y = yearOf(d);
+  const stack = stackByYear.get(y) ?? 0;
+  stackByYear.set(y, stack + 1);
+  return {
+    id: d.id,
+    title: d.data.title,
+    year: d.data.year ?? String(y),
+    x: +xOf(y).toFixed(2),
+    stack,
+    dot: KIND[d.data.kind ?? 'doc'].dot,
+    kind: d.data.kind ?? 'doc',
+    tags: d.data.tags.join(' '),
+    // Clamp tooltips near the edges so they don't overflow the strip.
+    tip: xOf(y) < 10 ? 'left-0' : xOf(y) > 90 ? 'right-0' : 'left-1/2 -translate-x-1/2',
+  };
+});
+const TICKS = [1950, 1975, 2000, 2025].map((y) => ({ y, x: +xOf(y).toFixed(2) }));
+
+// Era bands — the same era boundaries as the homepage verb ladder (1991 the
+// web goes public, 2004 Web 2.0 named, 2014 Web3 coined, 4.0 = now), so a
+// source's position also tells you which web era produced it.
+const BANDS = [
+  { label: 'Foundations', x: 0, w: xOf(1991), cls: 'border-transparent', lbl: 'left-1.5 text-gray-400' },
+  { label: 'Web 1.0', x: xOf(1991), w: xOf(2004) - xOf(1991), cls: 'border-gray-200 bg-gray-100/50', lbl: 'left-1.5 text-gray-400 hidden sm:block' },
+  { label: 'Web 2.0', x: xOf(2004), w: xOf(2014) - xOf(2004), cls: 'border-gray-200', lbl: 'left-1.5 text-gray-400 hidden sm:block' },
+  { label: 'Web 3.0', x: xOf(2014), w: 100 - xOf(2014), cls: 'border-gray-200 bg-gray-100/50', lbl: 'left-1.5 text-gray-400 hidden sm:block' },
+  // Web 4.0 is a zero-width cyan meridian at the strip's right edge — the
+  // present moment, said by position alone.
+  { label: 'Web 4.0', x: 100, w: 0, cls: 'border-l-2 border-ap-cyan', lbl: 'right-1 text-ap-cyan/80' },
+].map((b) => ({ ...b, x: +b.x.toFixed(2), w: +b.w.toFixed(2) }));
+
 // Live stats for the hero.
 const years = docs
   .map((d) => parseInt(String(d.data.year ?? d.data.date.getFullYear()), 10))
@@ -77,6 +123,46 @@ const stats = [
         <div class="flex flex-wrap gap-3 justify-center text-sm">
           <a href="/wiki/web4/" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-ap-cyan text-white font-medium shadow-sm hover:opacity-90 transition-opacity">Explore the graph</a>
           <a href="/wiki/" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-gray-300 text-gray-600 font-medium hover:border-ap-cyan hover:text-ap-cyan transition-colors">Read the wiki &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    {/* The library on one real time axis — each dot is a source, click to read.
+        Era bands share the verb ladder's dates; the filters below also dim
+        these dots, so the strip doubles as the filtered set's time profile. */}
+    <section class="pb-10 px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="relative h-24" aria-label="All sources on a time axis">
+          {BANDS.map((b) => (
+            <div class={`absolute top-4 bottom-7 border-l ${b.cls}`} style={`left: ${b.x}%; width: ${b.w}%`}>
+              <span class={`absolute -top-4 text-[9px] uppercase tracking-wider whitespace-nowrap ${b.lbl}`}>{b.label}</span>
+            </div>
+          ))}
+          <div class="absolute left-0 right-0 bottom-7 border-t border-gray-300"></div>
+          {/* Axis break between the founding documents and the modern era. */}
+          <div class="absolute bottom-7 translate-y-1/2 -translate-x-1/2 bg-white px-1 flex gap-1" style="left: 13%">
+            <span class="block w-px h-3.5 bg-gray-400 rotate-[20deg]"></span>
+            <span class="block w-px h-3.5 bg-gray-400 rotate-[20deg]"></span>
+          </div>
+          {dots.map((d) => (
+            <a
+              href={`/docs/${d.id}/`}
+              aria-label={`${d.title} (${d.year})`}
+              data-dot
+              data-kind={d.kind}
+              data-tags={d.tags}
+              class={`group/dot absolute w-3 h-3 rounded-full shadow-sm -translate-x-1/2 z-10 outline-none transition-all hover:scale-125 focus-visible:ring-2 focus-visible:ring-ap-cyan focus-visible:ring-offset-1 before:absolute before:-inset-2 before:content-[''] ${d.dot}`}
+              style={`left: ${d.x}%; bottom: ${22 + d.stack * 10}px`}
+            >
+              <span class={`pointer-events-none absolute bottom-full mb-2 z-20 w-max max-w-56 rounded-md bg-gray-900 px-2 py-1 text-left text-[11px] leading-snug text-white opacity-0 shadow-lg transition-opacity group-hover/dot:opacity-100 group-focus-visible/dot:opacity-100 ${d.tip}`}>
+                {d.title} <span class="font-mono text-gray-400">{d.year}</span>
+              </span>
+            </a>
+          ))}
+          <span class="absolute bottom-1 -translate-x-1/2 font-mono text-[10px] text-gray-400 tabular-nums" style="left: 6.5%">1776–87</span>
+          {TICKS.map((t) => (
+            <span class="absolute bottom-1 -translate-x-1/2 font-mono text-[10px] text-gray-400 tabular-nums" style={`left: ${t.x}%`}>{t.y}</span>
+          ))}
         </div>
       </div>
     </section>
@@ -201,6 +287,16 @@ const stats = [
       if (count) count.textContent = `${visible.length} source${visible.length === 1 ? '' : 's'}`;
       const link = document.querySelector(`[data-decade-link="${s.id.replace('decade-', '')}"]`);
       link?.classList.toggle('hidden', visible.length === 0);
+    }
+    // Keep the timeline strip in sync: dots of filtered-out sources dim and
+    // stop being clickable, so the strip shows the filtered set's time profile.
+    for (const el of document.querySelectorAll('[data-dot]')) {
+      const d = el as HTMLElement;
+      const ok =
+        (kind === 'all' || d.dataset.kind === kind) &&
+        (!tag || (d.dataset.tags ?? '').split(' ').includes(tag));
+      d.classList.toggle('opacity-20', !ok);
+      d.classList.toggle('pointer-events-none', !ok);
     }
     if (shownCount) shownCount.textContent = String(shown);
     document.querySelectorAll('[data-kind-btn]').forEach((b) => b.setAttribute('aria-pressed', String((b as HTMLElement).dataset.kindBtn === kind)));

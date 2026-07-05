@@ -1,9 +1,24 @@
 import WikiGraph from '@/components/WikiGraph.jsx'
+import { PILLAR_ICONS, CHEVRON } from '@/components/pillarIcons.js'
+
+const PillarIcon = ({ icon, className }) => (
+  <svg
+    className={className}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    dangerouslySetInnerHTML={{ __html: icon }}
+  />
+)
 import '@/components/pages/uc-brand/styles/uc_style.css'
 import '@/components/pages/una-usa-brand/styles/una-usa_style.css'
 import '@/components/pages/lii-brand/style/LII_style.css'
 
-export default function HomePage({ graph, stats, latest }) {
+export default function HomePage({ graph, stats, latest, verbLadder }) {
   return (
     <>
       {/* Hero — mission first; the public knowledge graph is the visual proof of the open
@@ -33,7 +48,7 @@ export default function HomePage({ graph, stats, latest }) {
               </div>
             )}
             <div className="flex flex-wrap gap-4">
-              <a href="/wiki/web4" className="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-lg transition-all duration-200 hover:opacity-90">
+              <a href="/wiki/web4" className="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-sm transition-all duration-200 hover:opacity-90">
                 Explore our research
               </a>
               <a href="/about" className="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg border-2 border-ap-cyan text-ap-cyan font-medium transition-all duration-200 hover:bg-ap-cyan hover:text-white">
@@ -65,6 +80,14 @@ export default function HomePage({ graph, stats, latest }) {
         </div>
       </section>
 
+      {/* The verb ladder — slotted from index.astro (zero-JS Astro component).
+          Picks up right where the problem section leaves off. */}
+      {verbLadder && (
+        <section className="px-4 py-12 md:py-16">
+          <div className="max-w-6xl mx-auto">{verbLadder}</div>
+        </section>
+      )}
+
       {/* Approach — three pillars, active verbs. */}
       <section className="px-4 py-12 md:py-16">
         <div className="max-w-6xl mx-auto">
@@ -72,22 +95,34 @@ export default function HomePage({ graph, stats, latest }) {
           <p className="text-lg text-gray-700 mb-10 max-w-3xl">
             We call the alternative the <strong>Independent Internet</strong> — Web 4.0. An internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company. We build it in three ways.
           </p>
-          <div className="grid sm:grid-cols-3 gap-6">
+          {/* Pipeline chevrons sit in the grid gaps at sm+ — research feeds build feeds deploy. */}
+          <div className="relative grid sm:grid-cols-3 gap-6">
             <div className="rounded-2xl bg-white/70 backdrop-blur-sm border border-gray-200 p-6">
-              <div className="text-xs text-ap-cyan font-semibold tracking-wide mb-2">01</div>
+              <div className="flex items-center justify-between mb-2">
+                <PillarIcon icon={PILLAR_ICONS.research} className="w-5 h-5 text-ap-cyan" />
+                <div className="text-xs text-ap-cyan font-semibold tracking-wide">01</div>
+              </div>
               <h3 className="text-xl font-bold text-black mb-2">Research</h3>
               <p className="text-gray-700 leading-relaxed">We trace and document the technology of an independent internet — sixty years of it — in a <a href="/wiki" className="text-ap-cyan hover:underline">public wiki</a> anyone can read.</p>
             </div>
             <div className="rounded-2xl bg-white/70 backdrop-blur-sm border border-gray-200 p-6">
-              <div className="text-xs text-ap-cyan font-semibold tracking-wide mb-2">02</div>
+              <div className="flex items-center justify-between mb-2">
+                <PillarIcon icon={PILLAR_ICONS.build} className="w-5 h-5 text-ap-cyan" />
+                <div className="text-xs text-ap-cyan font-semibold tracking-wide">02</div>
+              </div>
               <h3 className="text-xl font-bold text-black mb-2">Build</h3>
               <p className="text-gray-700 leading-relaxed">We turn that research into working technology — resilient, owned by the people who run it, and free from surveillance.</p>
             </div>
             <div className="rounded-2xl bg-white/70 backdrop-blur-sm border border-gray-200 p-6">
-              <div className="text-xs text-ap-cyan font-semibold tracking-wide mb-2">03</div>
+              <div className="flex items-center justify-between mb-2">
+                <PillarIcon icon={PILLAR_ICONS.deploy} className="w-5 h-5 text-ap-cyan" />
+                <div className="text-xs text-ap-cyan font-semibold tracking-wide">03</div>
+              </div>
               <h3 className="text-xl font-bold text-black mb-2">Deploy</h3>
               <p className="text-gray-700 leading-relaxed">We put it to work with the public institutions and community groups that reach the people who need it most.</p>
             </div>
+            <PillarIcon icon={CHEVRON} className="hidden sm:block absolute left-1/3 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+            <PillarIcon icon={CHEVRON} className="hidden sm:block absolute left-2/3 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
           </div>
         </div>
       </section>
@@ -143,7 +178,7 @@ export default function HomePage({ graph, stats, latest }) {
           <h2 className="text-2xl md:text-3xl font-bold text-black mb-4">Help build an internet that belongs to everyone.</h2>
           <p className="text-lg text-gray-700 mb-8">Read the research and follow the work.</p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="/wiki/web4" className="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-lg transition-all duration-200 hover:opacity-90">Explore our research</a>
+            <a href="/wiki/web4" className="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-sm transition-all duration-200 hover:opacity-90">Explore our research</a>
             <a href="/about" className="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg border-2 border-ap-cyan text-ap-cyan font-medium transition-all duration-200 hover:bg-ap-cyan hover:text-white">Read our story</a>
           </div>
         </div>

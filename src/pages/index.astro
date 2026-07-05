@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import Home from '@/components/pages/Home.jsx';
+import VerbLadder from '@/components/VerbLadder.astro';
 import { getCollection } from 'astro:content';
 import { buildGraph } from '@/utils/wikiGraph.js';
 
@@ -29,5 +30,9 @@ const latest = newest ? { title: newest.data.title, href: `/articles/${newest.id
   title="AP0110 — An independent internet, built for everyone"
   description="AP0110 researches and builds an independent internet people can own and trust — and puts it to work for the communities that need it most."
 >
-  <Home graph={graph} stats={stats} latest={latest} client:load />
+  {/* The verb ladder is a zero-JS Astro component slotted into the React island
+      between the problem and approach sections. */}
+  <Home graph={graph} stats={stats} latest={latest} client:load>
+    <VerbLadder slot="verbLadder" />
+  </Home>
 </Layout>

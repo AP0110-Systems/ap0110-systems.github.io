@@ -1,7 +1,7 @@
 ---
 title: "Independent Internet (Web 4.0)"
 date: "2026-06-29"
-updated: "2026-06-30"
+updated: "2026-07-04"
 description: "The web forgot who it was for. Web 4.0 — the Independent Internet — is a resilient, self-hosted internet people own and control. Explore the research."
 type: "concept"
 tags: ["web4"]
@@ -23,17 +23,6 @@ For thirty years the web has drifted from its founding promise. A handful of pla
 
 None of this is inevitable. Every piece of it is a choice about who holds control — and control can be handed back. That is the work.
 
-## What it stands for — the six principles
-
-| # | Principle | Meaning |
-|---|-----------|---------|
-| 1 | **Trustless** | Cryptographic verification; no trusted intermediaries. |
-| 2 | **Ownership** | Complete control over digital assets; no revocable licenses. |
-| 3 | **Safe** | Airgap-first nodes, on-premises data, modern encryption. |
-| 4 | **Ethical** | Federated nodes; accountability across communities. |
-| 5 | **Equitable** | Equal participation regardless of background or resources. |
-| 6 | **Sustainable** | Local processing reduces energy waste and latency. |
-
 ## How it works — key technologies
 
 - **Self-hosting.** Be your own service provider, and keep complete control over your data and infrastructure.
@@ -44,7 +33,7 @@ None of this is inevitable. Every piece of it is a choice about who holds contro
 
 ## The web, era by era
 
-Each era of the web added a verb: Read (1.0), Read-Write (2.0), Read-Write-Own (3.0), and now **Read-Write-Own-Control** (4.0). Control of the compute and data underneath is the axis every prior era left open — and each of those eras still hands something forward:
+Control of the compute and data underneath is the axis every prior era left open — and each of the eras before it still hands something forward:
 
 - **Web 1.0 — the static web (built for universities).** Stable, verifiable records with a small attack surface.
 - **Web 2.0 — the dynamic web (built for data brokers).** Participation and user-generated content — but returned to operators, without the intermediaries or the surveillance.

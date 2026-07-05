@@ -8,13 +8,29 @@ import GlobeViewer from '@/components/GlobeViewer.jsx';
 import WikiNav from '@/components/WikiNav.astro';
 import WikiToc from '@/components/WikiToc.astro';
 import VerbLadder from '@/components/VerbLadder.astro';
+import PrinciplesGrid from '@/components/PrinciplesGrid.astro';
+import MeshDiagram from '@/components/MeshDiagram.astro';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import remarkWiki from '@/lib/remark-wiki.mjs';
 
 const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
 const graph = buildGraph(docs, wiki);
 // Full graph feeds the hero viz; drop the linksOut/linksIn Maps so they aren't serialized into the island.
 const { nodes, edges } = graph;
 const entry = wiki.find((e) => e.id === 'web4');
-const { Content, headings } = await render(entry);
+const { headings } = await render(entry);
+// Split the body into its ## sections so each diagram sits inline with the prose it
+// illustrates, instead of stacking above the article. Same remark pipeline as the site
+// build, so heading IDs match the TOC slugs. web4.md stays the single source — the .md
+// mirror, wiki graph, and search index still render from it untouched.
+// ponytail: naive split on "## " at line start — fine here (no code fences in this page).
+const mdProcessor = await createMarkdownProcessor({ remarkPlugins: [remarkWiki] });
+const sections = await Promise.all(
+  entry.body.split(/^(?=## )/m).map(async (chunk) => ({
+    heading: chunk.match(/^##\s+(.+?)\s*$/m)?.[1] ?? '',
+    html: (await mdProcessor.render(chunk)).code,
+  })),
+);
 const byId = new Map(nodes.map((n) => [n.id, n]));
 const backlinks = backlinksFor(graph, '/wiki/web4').map((n) => ({ id: n.id, label: n.label }));
 const outlinks = (graph.linksOut.get('/wiki/web4') ?? [])
@@ -43,7 +59,7 @@ const FAQ = [
   },
   {
     q: 'What is the difference between Web 3.0 and Web 4.0?',
-    a: 'Each era of the web adds a verb: Read (1.0), Read-Write (2.0), Read-Write-Own (3.0), and Read-Write-Own-Control (4.0). Web 3.0 brought ownership through blockchain and machine-readable data; Web 4.0 adds control of the compute and data underneath — the axis every prior era left open.',
+    a: 'Web 3.0 brought ownership through blockchain and machine-readable data; Web 4.0 adds control of the compute and data underneath — the axis every prior era left open.',
   },
   {
     q: 'What technologies does Web 4.0 use?',
@@ -112,7 +128,7 @@ const web4Schema = {
   keywords="Web 4.0, Independent Internet, decentralized internet, self-hosted internet, mesh networking, post-quantum security, user-owned internet, Read-Write-Own-Control, AP0110"
   jsonLd={[web4Schema]}
 >
-  <div class="min-h-screen">
+  <div class="wp-paper min-h-screen">
     {/* Hero: the concept beside the full knowledge graph */}
     <section class="pt-32 pb-8 px-4">
       <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 lg:gap-12 items-center">
@@ -144,12 +160,10 @@ const web4Schema = {
           </div>
         </div>
         {nodes.length > 0 && (
-          <div>
+          <figure class="wp-fig !my-0">
             <WikiGraph data={{ nodes, edges }} client:load />
-            <p class="text-xs text-gray-500 text-center mt-2">
-              Live research graph — hover to spotlight, click to read.
-            </p>
-          </div>
+            <figcaption>The live research graph — every source and synthesis, linked. Hover to spotlight, click to read.</figcaption>
+          </figure>
         )}
       </div>
     </section>
@@ -160,12 +174,6 @@ const web4Schema = {
       <div class="max-w-6xl mx-auto relative h-[53vw] max-h-[480px] overflow-hidden rounded-lg bg-white border border-gray-200">
         <GlobeViewer client:visible />
       </div>
-    </section>
-
-    {/* The verb ladder — Read → Write → Own → Control. Visual companion to
-        "The web, era by era" in the prose below. */}
-    <section class="pb-10 px-4">
-      <VerbLadder />
     </section>
 
     {/* Body: the synthesized concept in rich prose, between the docs-style rails
@@ -180,7 +188,7 @@ const web4Schema = {
           </aside>
         )}
 
-        <main class="min-w-0 flex-1 max-w-3xl mx-auto lg:mx-0">
+        <main class="wp-prose min-w-0 flex-1 max-w-3xl mx-auto lg:mx-0">
         {hasNav && (
           <details class="lg:hidden mb-8 rounded-lg border border-gray-200 bg-black/5">
             <summary class="cursor-pointer px-4 py-2.5 text-sm font-medium text-gray-700 select-none">On this page &amp; linked pages</summary>
@@ -190,9 +198,17 @@ const web4Schema = {
           </details>
         )}
 
-        <div class="article-prose">
-          <Content />
-        </div>
+        {/* Prose rendered section-by-section so each diagram lands beside the copy it
+            illustrates. Figures sit between the .article-prose blocks (not inside), so the
+            article's element styles don't reach into the diagram labels. */}
+        {sections.map((s) => (
+          <Fragment>
+            <div class="article-prose" set:html={s.html} />
+            {s.heading.includes('at stake') && <div class="my-12"><PrinciplesGrid /></div>}
+            {s.heading.includes('key technologies') && <figure class="wp-fig"><MeshDiagram /><figcaption>The core Web 4.0 technologies, meshed.</figcaption></figure>}
+            {s.heading.includes('era by era') && <figure class="wp-fig"><VerbLadder /><figcaption>Read → Write → Own → Control, era by era.</figcaption></figure>}
+          </Fragment>
+        ))}
 
         {/* FAQ — visible, mirrors the FAQPage schema */}
         <div class="mt-12 pt-10 border-t border-gray-200">
@@ -214,7 +230,7 @@ const web4Schema = {
             <h2 class="text-2xl font-bold text-gray-900 mb-3">It's all in the open.</h2>
             <p class="text-gray-600 mb-6 max-w-xl mx-auto">Web 4.0 is built on research anyone can read and check. Follow it to the source, or see why we're building it.</p>
             <div class="flex flex-wrap gap-4 justify-center">
-              <a href="/docs/" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-lg transition-all duration-200 hover:opacity-90">Explore the source library</a>
+              <a href="/docs/" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg bg-ap-cyan text-white font-medium shadow-sm transition-all duration-200 hover:opacity-90">Explore the source library</a>
               <a href="/about/" class="inline-flex items-center justify-center px-6 py-3 text-lg rounded-lg border-2 border-ap-cyan text-ap-cyan font-medium transition-colors hover:bg-ap-cyan hover:text-white">Read our story</a>
             </div>
           </div>

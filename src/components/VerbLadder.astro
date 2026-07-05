@@ -1,53 +1,63 @@
 ---
-// The Verb Ladder — each web era adds a verb; Control is the axis every era left open.
-// Content mirrors "The web, era by era" in src/content/wiki/web4.md. Zero-JS:
-// real text in an HTML grid (accessible, responsive), CSS-only scroll reveal.
+// The Verb Ladder — one bar per verb (Read / Write / Own / Control), spanning
+// from the era that introduced it to Web 4.0, over an era-start-year x-axis.
+// Zero-JS: HTML grid (accessible, responsive), CSS-only scroll reveal.
+// Era start years: 1991 the web goes public, 2004 "Web 2.0" named at the
+// O'Reilly conference, 2014 "Web3" coined as blockchain ownership emerges.
 const ERAS = [
-  { era: 'Web 1.0', built: 'universities', verbs: ['Read'] },
-  { era: 'Web 2.0', built: 'data brokers', verbs: ['Read', 'Write'] },
-  { era: 'Web 3.0', built: 'AI', verbs: ['Read', 'Write', 'Own'] },
-  { era: 'Web 4.0', built: 'you', verbs: ['Read', 'Write', 'Own', 'Control'], current: true },
+  { era: 'Web 1.0', since: '1991', built: 'universities' },
+  { era: 'Web 2.0', since: '2004', built: 'data brokers' },
+  { era: 'Web 3.0', since: '2014', built: 'AI' },
+  { era: 'Web 4.0', since: 'now', built: 'you', current: true },
+];
+// start = the era column (1-4) that introduced the verb. Literal class names
+// so Tailwind sees them.
+const VERBS = [
+  { v: 'Read', col: 'col-start-1' },
+  { v: 'Write', col: 'col-start-2' },
+  { v: 'Own', col: 'col-start-3' },
+  { v: 'Control', col: 'col-start-4', current: true },
 ];
 ---
 
 <figure class="verb-ladder max-w-3xl mx-auto">
-  {/* items-end bottom-aligns the columns, so the stacks rise left → right on their own. */}
-  <div class="grid grid-cols-4 gap-2 sm:gap-4 items-end">
-    {ERAS.map(({ era, built, verbs, current }) => (
-      <div>
-        <div class="flex flex-col">
-          {[...verbs].reverse().map((v, i) => (
-            <div
-              class:list={[
-                'verb mb-1.5 rounded-lg border px-1 py-1.5 sm:py-2 text-center text-[11px] sm:text-sm font-semibold',
-                v === 'Control'
-                  ? 'bg-ap-cyan border-ap-cyan text-white'
-                  : i === 0
-                    ? 'bg-white border-gray-400 text-gray-900'
-                    : 'bg-white/60 border-gray-200 text-gray-500',
-              ]}
-            >
-              {v}
-            </div>
-          ))}
-        </div>
-        <div class:list={['border-t-2 pt-2 mt-1', current ? 'border-ap-cyan' : 'border-gray-300']}>
-          <div class="font-bold text-gray-900 text-xs sm:text-base">{era}</div>
-          <div class="text-[10px] sm:text-xs text-gray-500">
-            built for <span class:list={current ? 'text-ap-orange font-semibold' : undefined}>{built}</span>
-          </div>
+  <div class="grid grid-cols-4 gap-x-2 sm:gap-x-4 gap-y-1.5">
+    {ERAS.map(({ era, built, current }) => (
+      <div class:list={['border-b-2 pb-2 mb-1', current ? 'border-ap-cyan' : 'border-gray-300']}>
+        <div class="font-bold text-gray-900 text-xs sm:text-base">{era}</div>
+        <div class="text-[10px] sm:text-xs text-gray-500">
+          built for <span class:list={current ? 'text-ap-orange font-semibold' : undefined}>{built}</span>
         </div>
       </div>
     ))}
+    {VERBS.map(({ v, col, current }) => (
+      <div
+        class:list={[
+          'verb col-end-5 rounded-lg border px-2 sm:px-3 py-1.5 sm:py-2 text-[11px] sm:text-sm font-semibold',
+          col,
+          current ? 'bg-ap-cyan border-ap-cyan text-white' : 'bg-white border-gray-300 text-gray-900',
+        ]}
+      >
+        {v}
+      </div>
+    ))}
+    {/* x-axis: continuous baseline with a tick at each era's start year. */}
+    <div class="col-span-4 border-t border-gray-300 mt-1.5">
+      <div class="grid grid-cols-4 gap-x-2 sm:gap-x-4">
+        {ERAS.map(({ since, current }) => (
+          <div class:list={['border-l pl-1.5 pt-1 font-mono text-[10px] sm:text-xs', current ? 'border-ap-cyan text-ap-cyan' : 'border-gray-300 text-gray-400']}>
+            {since}
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
-  <figcaption class="text-center text-xs sm:text-sm text-gray-500 mt-5">
-    Each era of the web added a verb. <span class="font-medium text-gray-900">Control</span> is the one every era left open.
-  </figcaption>
 </figure>
 
 <style>
-  /* Pills fade up as they scroll into view — bottom rows enter first, so the
-     ladder builds bottom-up. Static in browsers without animation-timeline. */
+  /* Bars fade up as they scroll into view — lower rows (newer verbs) enter
+     last, so the ladder builds top-down toward Control. Static in browsers
+     without animation-timeline. */
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
       .verb {
