@@ -10,8 +10,9 @@ export async function getStaticPaths() {
   const [docs, wiki] = await Promise.all([getCollection('docs'), getCollection('wiki')]);
   const graph = buildGraph(docs, wiki);
   const byId = new Map(graph.nodes.map((n) => [n.id, n]));
-  // /wiki/web4 has its own rich static route (wiki/web4.astro) — skip it here to avoid a route collision.
-  return wiki.filter((entry) => entry.id !== 'web4').map((entry) => {
+  // /wiki/web4 and /wiki/glossary have their own rich static routes (wiki/web4.astro,
+  // wiki/glossary.astro) — skip them here to avoid a route collision.
+  return wiki.filter((entry) => entry.id !== 'web4' && entry.id !== 'glossary').map((entry) => {
     const id = `/wiki/${entry.id}`;
     return {
       params: { slug: entry.id },

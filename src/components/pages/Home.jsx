@@ -35,7 +35,7 @@ export default function HomePage({ graph, stats, latest, verbLadder }) {
               An independent internet, built for everyone.
             </h1>
             <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
-              <span className="font-mono">AP0110</span> researches and builds technology people can own and trust — and puts it to work for the communities that have been surveilled, sidelined, or left offline.
+              <span className="font-mono">AP0110</span> researches and builds technology people can own and verify — and puts it to work for the communities that have been surveilled, sidelined, or left offline.
             </p>
             {stats && (
               <div className="flex items-stretch divide-x divide-gray-200 mb-8">
@@ -93,7 +93,7 @@ export default function HomePage({ graph, stats, latest, verbLadder }) {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl md:text-4xl font-bold text-black mb-3">How we work</h2>
           <p className="text-lg text-gray-700 mb-10 max-w-3xl">
-            We call the alternative the <strong>Independent Internet</strong> — Web 4.0. An internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company. We build it in three ways.
+            We use technology to research the world, and the world to research technology. The <strong>Independent Internet</strong> — Web 4.0 — is one product of that work: an internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company.
           </p>
           {/* Pipeline chevrons sit in the grid gaps at sm+ — research feeds build feeds deploy. */}
           <div className="relative grid sm:grid-cols-3 gap-6">

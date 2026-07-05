@@ -8,8 +8,6 @@ kind: "living"
 tags: ["knowledge-management", "llm", "agents"]
 ---
 
-*See the [analysis of this document](/wiki/llm-wiki/) in the wiki.*
-
 # LLM Wiki
 
 A pattern for building personal knowledge bases using LLMs.

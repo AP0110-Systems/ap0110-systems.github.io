@@ -8,18 +8,17 @@ This repository is the website itself. Fixing a typo, improving a page, or helpi
 
 ## What we do
 
-Web 4.0 is the research; these are the reasons for it. Four initiatives, all live on the site:
+Web 4.0 is the research; these are the reasons for it. Three initiatives, all live on the site:
 
 - **CalCompute** — a public AI cloud for California, built with the University of California so compute isn't only for those who can already afford it (SB-53).
 - **Human Rights & Technology** — advising the UNA-USA Human Rights Affinity Group on keeping technology accountable to the people it touches.
 - **Fight Child Trafficking** — a partnership with Life Impact International, bringing independent network infrastructure to the field where children are most at risk.
-- **Donate a Node** — the simplest way to help: fund a Meshtastic mesh node and put a community that has no connection back on the map.
 
 Every one of these runs on the same open, agent-readable standards this site is built to demonstrate.
 
 ## Help build it
 
-- **Support the work:** [ap0110.org](https://ap0110.org) — donate, sponsor a node, or get involved.
+- **Support the work:** [ap0110.org](https://ap0110.org) — donate or get involved.
 - **Contribute to the site:** open an issue or a pull request. Content, accessibility, and copy fixes are as welcome as code.
 
 ---

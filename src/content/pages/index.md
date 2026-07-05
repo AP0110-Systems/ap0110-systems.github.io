@@ -1,13 +1,13 @@
 ---
 title: AP0110 — An independent internet, built for everyone
-description: AP0110 researches and builds an independent internet people can own and trust — and puts it to work for the communities that need it most.
+description: AP0110 researches and builds an independent internet people can own and verify — and puts it to work for the communities that need it most.
 route: "/"
 order: 0
 ---
 
 # An independent internet, built for everyone.
 
-AP0110 researches and builds technology people can own and trust — and puts it to work for the communities that have been surveilled, sidelined, or left offline.
+AP0110 researches and builds technology people can own and verify — and puts it to work for the communities that have been surveilled, sidelined, or left offline.
 
 ## The internet stopped working for us
 
@@ -15,7 +15,7 @@ The first web was built for universities, the next for advertisers, the latest f
 
 ## How we work
 
-We call the alternative the **Independent Internet** (Web 4.0): an internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company. We build it three ways:
+We use technology to research the world, and the world to research technology. The **Independent Internet** (Web 4.0) is one product of that work: an internet people can run themselves, that keeps working when the grid goes down, and that answers to its community rather than a company.
 
 - **Research** — we trace and document the technology of an independent internet, sixty years of it, in a [public wiki](/wiki/) anyone can read.
 - **Build** — we turn that research into working technology: resilient, owned by the people who run it, and free from surveillance.

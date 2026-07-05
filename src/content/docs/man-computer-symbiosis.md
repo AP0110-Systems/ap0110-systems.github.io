@@ -9,8 +9,6 @@ kind: "public-domain"
 tags: ["foundations", "interactive-computing", "1960s"]
 ---
 
-*See the [analysis of this document](/wiki/man-computer-symbiosis/) in the wiki.*
-
 # Man-Computer Symbiosis
 
 **J. C. R. Licklider**  

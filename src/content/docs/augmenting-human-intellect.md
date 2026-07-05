@@ -10,8 +10,6 @@ kind: "copyrighted"
 tags: ["foundations", "augmentation", "1960s"]
 ---
 
-*See the [analysis of this document](/wiki/augmenting-human-intellect/) in the wiki.*
-
 FOSR-3223 
 
 

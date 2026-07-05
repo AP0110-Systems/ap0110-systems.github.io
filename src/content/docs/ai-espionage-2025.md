@@ -10,8 +10,6 @@ kind: "copyrighted"
 tags: ["security", "agents", "2020s"]
 ---
 
-*See the [analysis of this document](/wiki/ai-espionage-2025/) in the wiki.*
-
 [Read the report](https://assets.anthropic.com/m/ec212e6566a0d47/original/Disrupting-the-first-reported-AI-orchestrated-cyber-espionage-campaign.pdf)
 
 We recently argued that an [inflection point](https://www.anthropic.com/research/building-ai-cyber-defenders) had been reached in cybersecurity: a point at which AI models had become genuinely useful for cybersecurity operations, both for good and for ill. This was based on systematic evaluations showing cyber capabilities doubling in six months; we’d also been tracking real-world cyberattacks, observing how malicious actors were using AI capabilities. While we predicted these capabilities would continue to evolve, what has stood out to us is how quickly they have done so at scale.

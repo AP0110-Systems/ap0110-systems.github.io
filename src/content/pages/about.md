@@ -1,13 +1,13 @@
 ---
 title: "About — AP0110.ORG"
-description: "AP0110 researches and builds an independent internet people can own and trust — and partners with public institutions to put it to work for communities that need it most."
+description: "AP0110 researches and builds an independent internet people can own and verify — and partners with public institutions to put it to work for communities that need it most."
 route: "/about"
 order: 5
 ---
 
 # We're building an internet that belongs to the people who use it.
 
-AP0110 researches and builds an independent internet — one people can own, control, and trust — and puts it to work for the communities that need it most.
+AP0110 researches and builds an independent internet — one people can own, control, and verify — and puts it to work for the communities that need it most.
 
 ## Who we are
 
@@ -18,6 +18,8 @@ We are researchers, builders, and organizers working on the technology — and t
 The idea of an internet built for people is sixty years old. It runs from [Vannevar Bush](/wiki/vannevar-bush/)'s vision of a personal store of knowledge, through [Berners-Lee](/wiki/berners-lee/)'s decentralized web, to [Nakamoto](/wiki/nakamoto/)'s proof that a network needs no central owner. Each step returned a little more control to ordinary people — and each was followed by something that took it back. AP0110 exists to finish the arc.
 
 ## How we work
+
+We use technology to research the world, and the world to research technology.
 
 - **Research.** We document the technology of an independent internet in a public, living wiki — every [source](/docs/) and every synthesis, in the open.
 - **Build.** We turn that research into working technology: resilient, self-hosted, owned by the people who run it.

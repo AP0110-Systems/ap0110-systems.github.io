@@ -10,8 +10,6 @@ kind: "copyrighted"
 tags: ["agents", "context-engineering", "icm"]
 ---
 
-*See the [analysis of this document](/wiki/icm-paper/) in the wiki.*
-
 # Interpretable Context Methodology: Folder Structure as Agent Architecture
 
 Jake Van Clief, David McDermott  

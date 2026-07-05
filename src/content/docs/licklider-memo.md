@@ -9,8 +9,6 @@ kind: "copyrighted"
 tags: ["foundations", "networking", "1960s"]
 ---
 
-*See the [analysis of this document](/wiki/licklider-memo/) in the wiki.*
-
 # Memorandum For Members and Affiliates of the Intergalactic Computer Network
 
 **Source:** <https://www.columbia.edu/~jrh29/licklider/man-computer_symbiosis.html>

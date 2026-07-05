@@ -940,6 +940,17 @@ input[type="search"]::-webkit-search-decoration {
   text-underline-offset: 2px;
 }
 
+/* A linked heading (e.g. glossary headwords) reads as a heading, not a link —
+   cyan only on hover to signal it's clickable. */
+.article-prose :is(h2, h3, h4) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-prose :is(h2, h3, h4) a:hover {
+  color: #00b0ff;
+}
+
 .article-prose a:hover {
   color: #0090d4;
 }

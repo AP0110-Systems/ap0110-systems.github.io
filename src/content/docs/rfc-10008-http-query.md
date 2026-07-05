@@ -10,14 +10,6 @@ kind: "public-domain"
 tags: ["standards", "http", "2020s"]
 ---
 
-> Full text of [RFC 10008](https://datatracker.ietf.org/doc/rfc10008/), reproduced verbatim. RFCs are freely distributable under the IETF Trust's [BCP 78](https://www.rfc-editor.org/info/bcp78) Legal Provisions.
-
-## Why it's in this library
-
-HTTP is [Tim Berners-Lee](/wiki/berners-lee/)'s invention, but it was never his to freeze — it evolves in the open under the [IETF](/wiki/ietf/), the neutral body that stewards the Web's core protocols. QUERY adds a *safe, idempotent* way to send a query in the request body, so a large query can be cached and automatically retried instead of being crammed into a URI or hidden inside an opaque POST. Cache-friendly, repeatable requests are exactly the plumbing a [decentralized](/wiki/decentralization/) web of many independent servers needs. The spec even restates the Web's founding rule — that any important resource "ought to be identified by a URI" — the same principle behind [Berners-Lee's original proposal](/docs/information-management-proposal/).
-
----
-
 ## Abstract
 
 This specification defines the QUERY method for HTTP. A QUERY requests that the request target process the enclosed content in a safe and idempotent manner and then respond with the result of that processing. This is similar to POST requests, but QUERY requests can be automatically repeated or restarted without concern for partial state changes.

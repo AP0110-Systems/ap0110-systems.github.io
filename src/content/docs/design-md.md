@@ -8,8 +8,6 @@ kind: "living"
 tags: ["standards", "design-systems", "agent-readable"]
 ---
 
-*See the [analysis of this document](/wiki/design-md/) in the wiki.*
-
 # design.md (Google Labs)
 
 Source: https://stitch.withgoogle.com/docs/design-md/specification

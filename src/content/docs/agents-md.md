@@ -9,8 +9,6 @@ kind: "living"
 tags: ["standards", "coding-agents", "agent-readable"]
 ---
 
-*See the [analysis of this document](/wiki/agents-md/) in the wiki.*
-
 # AGENTS.md
 
 Source: https://agents.md/

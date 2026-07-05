@@ -9,8 +9,6 @@ kind: "living"
 tags: ["standards", "crawlers", "agent-readable"]
 ---
 
-*See the [analysis of this document](/wiki/sitemap-xml/) in the wiki.*
-
 # Sitemaps.org — Local Capture
 
 **Source URL:** https://www.sitemaps.org

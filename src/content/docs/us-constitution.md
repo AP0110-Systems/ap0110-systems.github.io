@@ -9,8 +9,6 @@ kind: "public-domain"
 tags: ["governance", "human-rights", "founding-documents", "bill-of-rights", "1780s"]
 ---
 
-*See the [analysis of this document](/wiki/us-constitution/) in the wiki. A companion founding document: [the Declaration of Independence](/docs/declaration-of-independence/).*
-
 # The Constitution of the United States of America
 
 > "We the People of the United States, in Order to form a more perfect Union, establish Justice, insure domestic Tranquility, provide for the common defence, promote the general Welfare, and secure the Blessings of Liberty to ourselves and our Posterity, do ordain and establish this Constitution for the United States of America."

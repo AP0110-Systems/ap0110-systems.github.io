@@ -9,8 +9,6 @@ kind: "living"
 tags: ["standards", "crawlers", "agent-readable"]
 ---
 
-*See the [analysis of this document](/wiki/robots-txt/) in the wiki.*
-
 # /robots.txt — Robots Exclusion Protocol
 
 Source: https://www.robotstxt.org/ (returned 403 to programmatic fetch

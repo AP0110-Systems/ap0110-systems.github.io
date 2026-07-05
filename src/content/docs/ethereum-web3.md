@@ -9,8 +9,6 @@ kind: "living"
 tags: ["web3", "decentralization", "2010s"]
 ---
 
-*See the [analysis of this document](/wiki/ethereum-web3/) in the wiki.*
-
 # Introduction to Web3 (Ethereum - August 6, 2025)
 
 Centralization has helped onboard billions of people to the World Wide Web and created the stable, robust infrastructure on which it lives. At the same time, a handful of centralized entities have a stronghold on large swathes of the World Wide Web, unilaterally deciding what should and should not be allowed.

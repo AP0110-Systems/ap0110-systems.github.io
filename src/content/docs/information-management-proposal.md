@@ -10,8 +10,6 @@ kind: "public-domain"
 tags: ["web", "hypertext", "1980s"]
 ---
 
-*See the [analysis of this document](/wiki/information-management-proposal/) in the wiki.*
-
 # Information Management: A Proposal
 
 **Tim Berners-Lee, CERN**
@@ -20,8 +18,6 @@ tags: ["web", "hypertext", "1980s"]
 ---
 
 *This proposal concerns the management of general information about accelerators and experiments at CERN. It discusses the problems of loss of information about complex evolving systems and derives a solution based on a distributed hypertext system.*
-
-*[Figure: the proposal's famous overview diagram — a web of circles and arrows connecting "Hypertext", CERN divisions, people, documents, and systems like Enquire and CERNDOC with typed links such as "describes", "includes", "refers to", and "wrote".]*
 
 ## Overview
 
@@ -301,8 +297,6 @@ The only way in which sufficient flexibility can be incorporated is to separate 
 
 This division also is important in order to allow the heterogeneity which is required at CERN (and would be a boon for the world in general).
 
-*[Figure: a client/server model for a distributed hypertext system — browser programs on many kinds of machine talking across the network to server programs over a common protocol.]*
-
 *Fig 2. A client/server model for a distributed hypertext system.*
 
 Therefore, **an important phase in the design of the system is to define this interface**. After that, the development of various forms of display program and of database server can proceed in parallel. This will have been done well if many different information sources, past, present and future, can be mapped onto the definition, and if many different human interface programs can be written over the years to take advantage of new technology and standards.
@@ -312,8 +306,6 @@ Therefore, **an important phase in the design of the system is to define this in
 **The system must achieve a critical usefulness early on.** Existing hypertext systems have had to justify themselves solely on new data. If, however, there was an existing base of data of personnel, for example, to which new data could be linked, the value of each new piece of data would be greater.
 
 What is required is a gateway program which will map an existing structure onto the hypertext model, and allow limited (perhaps read-only) access to it. This takes the form of a hypertext server written to provide existing information in a form matching the standard interface. One would not imagine the server actually generating a hypertext database from and existing one: rather, it would generate a hypertext view of an existing database.
-
-*[Figure: a hypertext gateway sitting between a hypertext browser and an existing data system.]*
 
 *Fig 3. A hypertext gateway allows existing data to be seen in hypertext form by a hypertext browser.*
 

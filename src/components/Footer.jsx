@@ -125,6 +125,7 @@ const Footer = ({ pathname = '/' }) => {
                     <li><a href="/about" className="text-gray-800 hover:text-black transition-colors">About Us</a></li>
                     <li><a href="/wiki/web4" className="text-gray-800 hover:text-black transition-colors">Web 4.0</a></li>
                     <li><a href="/wiki" className="text-gray-800 hover:text-black transition-colors">Wiki</a></li>
+                    <li><a href="/wiki/glossary" className="text-gray-800 hover:text-black transition-colors">Glossary</a></li>
                     <li><a href="/docs" className="text-gray-800 hover:text-black transition-colors">Docs</a></li>
                     <li><a href="/articles" className="text-gray-800 hover:text-black transition-colors">Articles</a></li>
                   </ul>

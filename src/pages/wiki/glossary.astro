@@ -1,0 +1,285 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import remarkWiki from '@/lib/remark-wiki.mjs';
+
+// The glossary stays a wiki-collection page (src/content/wiki/glossary.md) so the .md
+// mirror, search index, wiki graph, and sitemap keep rendering from it untouched. This
+// route just gives it a bespoke, glossary-native presentation instead of the generic
+// wiki/[slug] article shell — [slug].astro skips this id to avoid a route collision.
+const wiki = await getCollection('wiki');
+const entry = wiki.find((e) => e.id === 'glossary');
+// Astro's own heading slugs — reused as entry anchor ids so existing deep links
+// (/wiki/glossary/#decentralization) and the .md mirror's anchors still resolve.
+const { headings } = await render(entry);
+const h2Slugs = headings.filter((h) => h.depth === 2).map((h) => h.slug);
+
+// Parse "## [Term](/href) \n definition" blocks into structured entries, rendering each
+// definition through the same markdown pipeline as the site build (so inline links /
+// emphasis render). ponytail: naive split on "## " at line start + one-paragraph
+// definitions — fine here, the glossary has no code fences.
+const mdProcessor = await createMarkdownProcessor({ remarkPlugins: [remarkWiki] });
+const blocks = entry.body.split(/^(?=## )/m).slice(1);
+const parsed = await Promise.all(
+  blocks.map(async (block, i) => {
+    const headingLine = block.match(/^##\s+(.+?)\s*$/m)?.[1] ?? '';
+    const link = headingLine.match(/^\[(.+?)\]\((.+?)\)$/);
+    const defMd = block.replace(/^##\s+.+\r?\n?/m, '').trim();
+    const html = (await mdProcessor.render(defMd)).code;
+    return {
+      term: link ? link[1] : headingLine,
+      href: link ? link[2] : null,
+      slug: h2Slugs[i] ?? '',
+      html,
+    };
+  }),
+);
+
+const terms = parsed.sort((a, b) => a.term.localeCompare(b.term));
+
+// Group alphabetically for the A–Z rail + section anchors.
+const groups = [];
+for (const t of terms) {
+  const letter = t.term[0].toUpperCase();
+  if (groups.at(-1)?.letter !== letter) groups.push({ letter, terms: [] });
+  groups.at(-1).terms.push(t);
+}
+const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const present = new Set(groups.map((g) => g.letter));
+
+// Surfaced stats: how many terms, how many carry a dedicated page, how many primary
+// sources they cite (distinct /docs/ links across all definitions).
+const withPage = terms.filter((t) => t.href).length;
+const sourceCount = new Set(
+  terms.flatMap((t) => [...t.html.matchAll(/href="(\/docs\/[^"#]+)/g)].map((m) => m[1])),
+).size;
+const stats = [
+  { n: terms.length, label: 'Terms' },
+  { n: withPage, label: 'Dedicated pages' },
+  { n: sourceCount, label: 'Sources cited' },
+];
+
+// DefinedTermSet schema — the machine-readable form of a glossary, for answer engines.
+const stripTags = (h) => h.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const glossaryUrl = 'https://ap0110.org/wiki/glossary';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'DefinedTermSet',
+  '@id': `${glossaryUrl}#termset`,
+  name: 'AP0110 Independent Internet Glossary',
+  description: entry.data.description,
+  url: glossaryUrl,
+  hasDefinedTerm: terms.map((t) => ({
+    '@type': 'DefinedTerm',
+    '@id': `${glossaryUrl}#${t.slug}`,
+    name: t.term,
+    description: stripTags(t.html),
+    inDefinedTermSet: `${glossaryUrl}#termset`,
+    ...(t.href ? { url: `https://ap0110.org${t.href}` } : {}),
+  })),
+};
+---
+
+<Layout
+  title="Glossary — AP0110.ORG Wiki"
+  description={entry.data.description}
+  keywords="Independent Internet glossary, Web 4.0 glossary, decentralization, self-hosting, surveillance capitalism, agent-readable standards, definitions"
+  jsonLd={[schema]}
+>
+  <div class="min-h-screen">
+    {/* Hero — centered, like the /docs library; no graph, this is a reference index. */}
+    <section class="pt-32 pb-10 px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <a href="/wiki/" class="inline-flex items-center gap-2 text-ap-cyan hover:text-ap-cyan/80 text-sm mb-6 group">
+          <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Wiki
+        </a>
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-ap-cyan mb-4">Reference · Web 4.0</p>
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-5">Glossary</h1>
+        <p class="text-lg text-gray-600 leading-relaxed mb-8">{entry.data.description}</p>
+
+        <div class="flex flex-wrap items-stretch justify-center divide-x divide-gray-200">
+          {stats.map((s) => (
+            <div class="px-6">
+              <div class="text-3xl font-bold text-gray-900 tabular-nums">{s.n}</div>
+              <div class="text-xs uppercase tracking-wide text-gray-500 mt-1">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-20 px-4">
+      <div class="max-w-4xl mx-auto">
+        {/* Sticky toolbar: live filter + full A–Z rail (dead letters dimmed) + count. */}
+        <div class="sticky top-[50px] z-20 -mx-4 px-4 py-2.5 bg-white/90 backdrop-blur-sm border-b border-gray-200 mb-8">
+          <div class="flex items-center gap-3">
+            <div class="relative flex-1 max-w-xs">
+              <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z" />
+              </svg>
+              <input
+                id="gloss-filter"
+                type="search"
+                autocomplete="off"
+                placeholder="Filter terms…"
+                aria-label="Filter glossary"
+                class="w-full pl-9 pr-10 py-1.5 text-sm rounded-lg border border-gray-300 bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:border-ap-cyan focus:ring-2 focus:ring-ap-cyan/20"
+              />
+              <kbd class="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:block text-[10px] font-mono text-gray-400 border border-gray-200 rounded px-1 bg-gray-50 pointer-events-none">/</kbd>
+            </div>
+            <span id="gloss-count" class="ml-auto text-xs text-gray-500 tabular-nums whitespace-nowrap">{terms.length} terms</span>
+          </div>
+          <nav class="flex flex-wrap gap-0.5 mt-2" aria-label="Jump to letter">
+            {ALPHABET.map((L) =>
+              present.has(L) ? (
+                <a
+                  href={`#letter-${L}`}
+                  data-letter-link={L}
+                  class="w-6 h-6 inline-flex items-center justify-center rounded text-xs font-semibold text-gray-500 hover:bg-ap-cyan/10 hover:text-ap-cyan transition-colors"
+                >{L}</a>
+              ) : (
+                <span aria-hidden="true" class="w-6 h-6 inline-flex items-center justify-center rounded text-xs font-semibold text-gray-300 select-none">{L}</span>
+              ),
+            )}
+          </nav>
+        </div>
+
+        <p id="gloss-empty" class="hidden text-center text-sm text-gray-500 py-10">No terms match &ldquo;<span id="gloss-empty-q"></span>&rdquo;.</p>
+
+        {/* Term/definition register: a real <dl>, grouped by letter, term left / definition right. */}
+        {groups.map((g) => (
+          <section id={`letter-${g.letter}`} data-letter={g.letter} class="scroll-mt-36 mb-10">
+            <div class="flex items-center gap-3 mb-1">
+              <span class="text-sm font-bold text-ap-cyan">{g.letter}</span>
+              <span class="flex-1 h-px bg-gray-200"></span>
+            </div>
+            <dl class="divide-y divide-gray-100">
+              {g.terms.map((t) => (
+                <div
+                  data-entry
+                  data-term={t.term.toLowerCase()}
+                  class="group grid sm:grid-cols-[minmax(0,12rem)_1fr] gap-x-10 gap-y-1.5 py-5"
+                >
+                  <dt id={t.slug} class="scroll-mt-36 min-w-0 text-base font-bold text-gray-900 leading-snug">
+                    {t.href ? (
+                      <a href={t.href} title="Read the full wiki page" class="group/term hover:text-ap-cyan transition-colors">
+                        {t.term}<span class="text-gray-300 group-hover/term:text-ap-cyan transition-colors">&nbsp;→</span>
+                      </a>
+                    ) : (
+                      t.term
+                    )}
+                    <a
+                      href={`#${t.slug}`}
+                      aria-label={`Link to “${t.term}”`}
+                      class="ml-1 font-normal text-gray-300 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 hover:text-ap-cyan transition-opacity"
+                    >#</a>
+                  </dt>
+                  <dd class="gloss-def text-[0.95rem] text-gray-700 leading-relaxed" set:html={t.html}></dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  /* Definition prose is injected HTML — style just its inline elements. */
+  .gloss-def :global(p) {
+    margin: 0;
+  }
+  .gloss-def :global(a) {
+    color: #00b0ff;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .gloss-def :global(a:hover) {
+    color: #0090d4;
+  }
+  .gloss-def :global(a[href^='#']) {
+    /* Cross-references to other glossary entries: quieter than external links. */
+    color: inherit;
+    text-decoration-style: dotted;
+    text-decoration-color: #9ca3af;
+  }
+  .gloss-def :global(a[href^='#']:hover) {
+    color: #00b0ff;
+    text-decoration-color: #00b0ff;
+  }
+  .gloss-def :global(strong) {
+    font-weight: 600;
+    color: #111827;
+  }
+</style>
+
+<script>
+  const entries = [...document.querySelectorAll('[data-entry]')] as HTMLElement[];
+  const sections = [...document.querySelectorAll('[data-letter]')] as HTMLElement[];
+  const input = document.getElementById('gloss-filter') as HTMLInputElement;
+  const count = document.getElementById('gloss-count')!;
+  const empty = document.getElementById('gloss-empty')!;
+  const emptyQ = document.getElementById('gloss-empty-q')!;
+  const chipFor = (letter: string) => document.querySelector(`[data-letter-link="${letter}"]`);
+
+  // Scrollspy: single active letter — the LAST section above the reading line (the
+  // IntersectionObserver band lights several of these short sections at once).
+  function updateSpy() {
+    const visible = sections.filter((s) => !s.classList.contains('hidden'));
+    let active: HTMLElement | null = visible[0] ?? null;
+    for (const s of visible) {
+      if (s.getBoundingClientRect().top <= 160) active = s;
+    }
+    for (const s of sections) {
+      const chip = chipFor(s.dataset.letter!);
+      chip?.classList.toggle('bg-ap-cyan/10', s === active);
+      chip?.classList.toggle('text-ap-cyan', s === active);
+    }
+  }
+
+  function apply() {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    for (const e of entries) {
+      // Match the term name first, then fall back to the definition text (so "RAG",
+      // "Zuboff", "Memex" find the entry that mentions them).
+      const ok = !q || e.dataset.term!.includes(q) || e.textContent!.toLowerCase().includes(q);
+      e.classList.toggle('hidden', !ok);
+      if (ok) shown++;
+    }
+    for (const s of sections) {
+      const visible = [...s.querySelectorAll('[data-entry]')].some((e) => !e.classList.contains('hidden'));
+      s.classList.toggle('hidden', !visible);
+      const chip = chipFor(s.dataset.letter!);
+      chip?.classList.toggle('opacity-30', !visible);
+      chip?.classList.toggle('pointer-events-none', !visible);
+    }
+    count.textContent = shown === entries.length ? `${entries.length} terms` : `${shown} of ${entries.length}`;
+    emptyQ.textContent = input.value.trim();
+    empty.classList.toggle('hidden', shown > 0);
+    updateSpy();
+  }
+
+  input.addEventListener('input', apply);
+  addEventListener('scroll', updateSpy, { passive: true });
+  updateSpy();
+
+  // "/" focuses the filter (unless already typing somewhere); Esc clears and blurs.
+  addEventListener('keydown', (e) => {
+    const el = document.activeElement;
+    const typing = el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement;
+    if (e.key === '/' && !typing && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      e.preventDefault();
+      input.focus();
+    } else if (e.key === 'Escape' && el === input) {
+      input.value = '';
+      apply();
+      input.blur();
+    }
+  });
+</script>
