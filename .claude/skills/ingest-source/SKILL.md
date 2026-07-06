@@ -1,6 +1,6 @@
 ---
 name: ingest-source
-description: Add a new source to the site's LLM-wiki (the /web4 knowledge graph). Use when the human provides a document, URL, or pasted content and asks to "ingest", "add", or "process" a source. Writes a `src/content/docs/` page, synthesizes/updates `src/content/wiki/` pages, cross-links everything with standard Markdown links, and commits with plain git. Do NOT use for one-off questions about an existing source (that's a query, not an ingest).
+description: Add a new source to the site's LLM-wiki (the /web4 knowledge graph). Use when the human provides a document, URL, or pasted content and asks to "ingest", "add", or "process" a source. Writes a `src/content/docs/` page, synthesizes/updates `src/content/wiki/` pages, cross-links everything with standard Markdown links, and hands the human a ready-to-run git commit command (the agent never commits). Do NOT use for one-off questions about an existing source (that's a query, not an ingest).
 ---
 
 # Ingest a source
@@ -39,12 +39,12 @@ Implements [CLAUDE.md → "The web4 LLM-wiki"](../../../CLAUDE.md). One source �
 
 6. **Timeline (optional).** If the source belongs on the /web4 chronological timeline, add an entry to the `TIMELINE` array in `src/components/pages/Web4.jsx`. Ask if unsure.
 
-## Content rules (public charity surface)
+## Content rules (public research surface)
 
 - Strip anything marked 🔒 **Internal** (DPI pipeline, COI, coalition positioning).
 - Don't mention AP0110.com in docs/wiki content.
 
-## Verify, then commit
+## Verify, then hand off the commit
 
 ```bash
 node src/utils/wikiGraph.js   # edge-parser self-check
@@ -52,10 +52,9 @@ npm run build                 # the gate: type-checks collection frontmatter
 ```
 Also confirm the new page is not an isolated node and every `/docs|/wiki` link it makes has a matching page.
 
-Commit with plain git, one commit for the whole ingest:
+**The human commits, not the agent.** Finish by surfacing one ready-to-run command for the whole ingest:
 ```bash
-git add src/content/ [src/components/pages/Web4.jsx]
-git commit -m "ingest: <short title> — <one-line subject>"
+git add src/content/ [src/components/pages/Web4.jsx] && git commit -m "ingest: <short title> — <one-line subject>"
 ```
 
 ## When to stop and ask

@@ -1,11 +1,11 @@
 ---
 name: lint-wiki
-description: Run a health-check pass over the site's LLM-wiki (`src/content/docs/` + `src/content/wiki/`). Use when the human says "lint", "health check", "clean up the wiki", or asks for an audit of dead links, isolated nodes, contradictions, or stale pages. Fixes what it finds, reports in chat, commits with plain git. Do NOT use as a substitute for fixing a specific known bug — for a targeted fix, just edit and commit with `fix:`.
+description: Run a health-check pass over the site's LLM-wiki (`src/content/docs/` + `src/content/wiki/`). Use when the human says "lint", "health check", "clean up the wiki", or asks for an audit of dead links, isolated nodes, contradictions, or stale pages. Fixes what it finds, reports in chat, and hands the human a ready-to-run git commit command (the agent never commits). Do NOT use as a substitute for fixing a specific known bug — for a targeted fix, just edit and hand off a `fix:` commit command.
 ---
 
 # Lint the wiki
 
-One pass ⇒ fixes + a chat report ⇒ one commit. The wiki is two Astro content collections rendered as the /web4 graph — see [CLAUDE.md → "The web4 LLM-wiki"](../../../CLAUDE.md).
+One pass ⇒ fixes + a chat report ⇒ one commit command handed to the human. The wiki is two Astro content collections rendered as the /web4 graph — see [CLAUDE.md → "The web4 LLM-wiki"](../../../CLAUDE.md).
 
 ## What to scan for
 
@@ -42,10 +42,9 @@ Read pages fully when judging contradictions/staleness — the greps only find s
 
 1. Verify: `node src/utils/wikiGraph.js` and `npm run build` both pass.
 2. Report findings and fixes in chat (no report file — the git diff is the record).
-3. One commit for the whole pass:
+3. **The human commits, not the agent.** Surface one ready-to-run command for the whole pass:
    ```bash
-   git add src/content/
-   git commit -m "lint: wiki health pass — <one-line summary>"
+   git add src/content/ && git commit -m "lint: wiki health pass — <one-line summary>"
    ```
 
 ## When to stop and ask

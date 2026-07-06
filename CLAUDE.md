@@ -1,6 +1,6 @@
 # AP0110.org
 
-Astro 5 static site (with React islands) deployed to **GitHub Pages** at **ap0110.org**. Focuses on Independent Internet (Web 4.0) technology with charitable applications (CalCompute, LII / Life Impact International, UNA-USA partnerships).
+Astro 5 static site (with React islands) deployed to **GitHub Pages** at **ap0110.org**. The site is AP0110's **public Web 4.0 research LLM-wiki** — the `/web4` knowledge graph over the `docs`/`wiki` collections — with the charity initiatives (CalCompute, LII / Life Impact International, UNA-USA) as first-class sections that keep their own branding.
 
 Migrated from Next.js 15 (App Router) to Astro in June 2026, mirroring the AP0110.com structure. **AP0110.org keeps its own design system** — this was a framework conversion, not a redesign. The site is **light-mode only**, and the CalCompute / Children / UNA-USA sections each keep their own brand CSS.
 
@@ -108,7 +108,7 @@ Detail pages (`/wiki/[slug]`, `/docs/[slug]`) share a docs-site body below the h
 3. That's it — the page auto-appears in the graph, the `/docs` or `/wiki` index, the `.md` mirror, `llms.txt`, and `sitemap.xml`. No endpoint or component edits needed.
 4. The `/web4` vertical **timeline** is a separate hand-maintained array (`TIMELINE` in `src/components/pages/Web4.jsx`); each entry links to its `/docs/<slug>`. Add a timeline entry there only if the doc should also appear on the chronological timeline.
 
-**Content rules (this is the public charity surface):**
+**Content rules (this is a public research surface):**
 - Strip 🔒 **Internal** material (DPI commercial pipeline, COI, coalition positioning, outreach/brand strategy). Keep it public-technical/historical.
 - **Don't mention AP0110.com** in wiki/docs *content*. Don't host full third-party copyrighted text — summary + `sourceUrl` link (that's what `kind: copyrighted|living` signals).
 
@@ -123,6 +123,7 @@ Detail pages (`/wiki/[slug]`, `/docs/[slug]`) share a docs-site body below the h
 
 ## Watch out
 
+- **The human commits, not the agent.** Never run `git commit` yourself — finish by handing the human a ready-to-run git command.
 - Static export: no SSR/API routes at runtime; the `.ts` files in `src/pages/` are build-time static endpoints.
 - Anything touching `window`/Three.js/globe.gl/Leaflet at module/render time must be `client:only="react"`.
 - Tailwind only detects class names that appear as complete literal strings — don't build classes via runtime template strings.

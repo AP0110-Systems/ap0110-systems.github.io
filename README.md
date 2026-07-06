@@ -1,20 +1,22 @@
 # AP0110.org
 
-**We're building an internet that works for all of us — and putting it to work for the people the current one leaves behind.**
+**A public research wiki for the independent internet — and the initiatives that put it to work.**
 
-[ap0110.org](https://ap0110.org) is the charitable home of AP0110. We document and develop the open standards for an independent internet (Web 4.0), then apply that work where it changes lives: connecting underserved communities, protecting children, and pushing public technology to serve the public.
+[ap0110.org](https://ap0110.org) is AP0110's public research home: an LLM-maintained wiki documenting and developing the open standards for an independent internet (Web 4.0). The [`/web4`](https://ap0110.org/web4) knowledge graph traces the lineage of the idea — from the original papers and RFCs to the agent-readable standards this site is built to demonstrate — as a corpus both people and machines can read, cite, and crawl.
 
-This repository is the website itself. Fixing a typo, improving a page, or helping us reach more people all start here.
+This repository is the website itself. Fixing a typo, improving a page, or adding to the research all start here.
 
-## What we do
+## The research
 
-Web 4.0 is the research; these are the reasons for it. Three initiatives, all live on the site:
+The wiki is two collections rendered as one graph: a **source library** (`docs/` — primary papers, specs, RFCs) and **synthesized pages** (`wiki/` — entities, concepts, analyses). Every page is mirrored as markdown (`/<route>.md`, `/llms.txt`), so the whole corpus is agent-readable by design — the site practices the standards it documents.
+
+## The initiatives
+
+The research isn't abstract — it's applied where it changes lives. Three initiatives, all live on the site:
 
 - **CalCompute** — a public AI cloud for California, built with the University of California so compute isn't only for those who can already afford it (SB-53).
 - **Human Rights & Technology** — advising the UNA-USA Human Rights Affinity Group on keeping technology accountable to the people it touches.
 - **Fight Child Trafficking** — a partnership with Life Impact International, bringing independent network infrastructure to the field where children are most at risk.
-
-Every one of these runs on the same open, agent-readable standards this site is built to demonstrate.
 
 ## Help build it
 
