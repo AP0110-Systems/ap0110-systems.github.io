@@ -15,8 +15,9 @@ export default defineConfig({
   // checks `pathname === '/'`; the Footer's pathname styling is dead code.)
   trailingSlash: 'ignore',
   build: { format: 'directory' },
-  // /web4 consolidated into the wiki hub at /wiki/web4 — redirect old/external links.
-  redirects: { '/web4': '/wiki/web4' },
+  // /web4 consolidated into /wiki/web4 — old/external links redirect via the hand-written
+  // public/web4/index.html (Astro's static redirect flashed an interstitial and dropped the
+  // trailing slash, forcing a second GitHub Pages 301 hop).
   // remarkWiki resolves [[wikilinks]] and tags ⚠️/🔍 callout blockquotes (HTML pipeline).
   markdown: { remarkPlugins: [remarkWiki] },
   integrations: [react()],

@@ -1,0 +1,20 @@
+---
+// /web4 consolidated into /wiki/web4. Real page route (not a config redirect / public
+// index.html — both flashed an interstitial or 404'd on the folder URL) so it builds to
+// dist/web4/index.html and is served in dev, preview, and on GitHub Pages.
+// Target keeps the trailing slash (directory format) so GH Pages adds no second 301 hop.
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AP0110 — Web 4.0</title>
+    <link rel="canonical" href="https://ap0110.org/wiki/web4/" />
+    <meta name="robots" content="noindex" />
+    <meta http-equiv="refresh" content="0; url=/wiki/web4/" />
+    <!-- Fires before the meta-refresh, stays out of history, preserves the hash for deep
+         links. Meta tag is the no-JS fallback. -->
+    <script is:inline>location.replace('/wiki/web4/' + location.hash)</script>
+  </head>
+  <body></body>
+</html>

@@ -4,11 +4,11 @@ Reusable React components for ap0110.org. All components use Tailwind CSS utilit
 
 ## Layout
 
-### Header.jsx
-Top navigation bar with logo and route links.
-
 ### Footer.jsx
-Site footer. Uses `/images/moon.webp` and the `useScrollIndicator` hook for scroll-aware positioning.
+Shared site footer — byte-identical to AP0110.com's. Per-site content comes in via props from `Layout.astro` (theme, copyright, brand links, nav sections). Never fork it for one site.
+
+### Header.jsx
+Shared site nav bar — byte-identical to AP0110.com's. Per-site differences (theme, nav items, Cmd-K search, CTA) are props from `Layout.astro`.
 
 ## Visualizations
 
@@ -37,9 +37,6 @@ Button with multiple variants and sizes.
 
 ### ui/Card.jsx
 Card with glass morphism styling.
-
-### icons/AmericanFlagIcon.jsx
-SVG American flag icon.
 
 ## Modals
 

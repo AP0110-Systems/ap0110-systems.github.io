@@ -21,6 +21,36 @@ const ogImage = new URL(image, Astro.site).href;
 const mdMirror =
   (Astro.url.pathname === '/' ? '/index' : Astro.url.pathname.replace(/\/$/, '')) + '.md';
 
+// Shared chrome — see AP0110.com. Header/Footer are byte-identical across repos;
+// all per-site differences are props (theme=light, .org nav/footer content).
+const navItems = [
+  { type: 'link', label: 'Web 4.0', href: '/wiki/web4' },
+  { type: 'link', label: 'About', href: '/about' },
+  { type: 'link', label: 'Wiki', href: '/wiki' },
+  { type: 'link', label: 'Docs', href: '/docs' },
+];
+const footerSections = [
+  {
+    title: 'Projects',
+    items: [
+      { label: 'CalCompute', href: '/calcompute' },
+      { label: 'UNA-USA DPI', href: '/unausa' },
+      { label: 'Children', href: '/children' },
+    ],
+  },
+  {
+    title: 'Navigation',
+    items: [
+      { label: 'About Us', href: '/about' },
+      { label: 'Web 4.0', href: '/wiki/web4' },
+      { label: 'Wiki', href: '/wiki' },
+      { label: 'Glossary', href: '/wiki/glossary' },
+      { label: 'Docs', href: '/docs' },
+      { label: 'Articles', href: '/articles' },
+    ],
+  },
+];
+
 // Site-wide Organization + WebSite graph (ported from the old Next root layout).
 const organizationSchema = {
   '@context': 'https://schema.org',
@@ -66,15 +96,23 @@ const organizationSchema = {
     <link rel="canonical" href={canonicalURL} />
     <link rel="alternate" type="text/markdown" href={mdMirror} />
 
-    <!-- Fonts: Inter (body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts — self-hosted Kunst Grotesk (public/fonts/); @font-face in globals.css -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/Kunst%20Grotesk%20Regular.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/Kunst%20Grotesk%20Medium.woff2"
+      crossorigin
     />
     <style>
-      body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif; }
+      body { font-family: 'Kunst Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
     </style>
 
     <link rel="preload" as="image" href="/images/AP0110_moon_black.webp" />
@@ -112,15 +150,34 @@ const organizationSchema = {
     <slot name="head" />
   </head>
   <body class="overflow-x-clip max-w-full">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[60] focus:px-4 focus:py-2 focus:bg-ap-cyan focus:text-black focus:rounded-sm focus:font-medium">Skip to content</a>
     <AP0110MonoProvider client:load />
-    <Header pathname={Astro.url.pathname} client:load />
+    <Header
+      navItems={navItems}
+      theme="light"
+      logoText="AP0110.ORG"
+      cta={null}
+      showSearch
+      pathname={Astro.url.pathname}
+      client:load
+    />
     {/* overflow-x-clip (not -hidden): clips the same but doesn't create a scroll
         container, so position:sticky inside pages (wiki rails) works. */}
-    <div class="w-full max-w-full overflow-x-clip">
+    <div id="main" class="w-full max-w-full overflow-x-clip">
       <slot />
     </div>
-    <Footer pathname={Astro.url.pathname} client:load />
-    <div id="reading-progress" style="position:fixed;top:50px;left:0;width:0;height:2px;background:#00b0ff;z-index:998;pointer-events:none" aria-hidden="true"></div>
+    <Footer
+      theme="light"
+      showSearch
+      copyright="© 2026 AP0110"
+      ctaButtonText="Get involved"
+      brandName="AP0110.ORG"
+      brandHref="/"
+      otherBrands={[{ name: 'AP0110.COM', href: 'https://ap0110.com' }]}
+      sections={footerSections}
+      client:visible
+    />
+    <div id="reading-progress" style="position:fixed;top:60px;left:0;width:0;height:2px;background:#00b0ff;z-index:998;pointer-events:none" aria-hidden="true"></div>
     <script>
       const bar = document.getElementById('reading-progress');
       let ticking = false;

@@ -117,6 +117,10 @@ Detail pages (`/wiki/[slug]`, `/docs/[slug]`) share a docs-site body below the h
 - `npm run build` — the gate (type-checks the collections).
 - Connectivity / dead-link sweep: build `buildGraph` over the collections and assert **no isolated nodes** and **no `/wiki/<slug>` link without a matching page** (a quick Node script or `comm` of referenced-vs-existing slugs).
 
+## Shared chrome (byte-identical across repos)
+
+`src/components/{Header,Footer,TypingText,VolunteerModal,SearchModal}.jsx` and `src/lib/search.js` are committed **identically** to ap0110-systems.github.io (ap0110.org) and AP0110.com — the two sites are visually aligned through them. All per-site differences are **props from `src/layouts/Layout.astro`** — never fork a component for this site. **AP0110.com's design is canonical**; this site renders it via `theme="light"` (Header + Footer) since ap0110.org is light-mode-only. .org-specific props: `theme="light"`, `logoText="AP0110.ORG"`, `cta={null}` (no header CTA), `showSearch` (Cmd-K wiki search — backed by `/search.json`), copyright `© 2026 AP0110` (no "INC."), and the Projects/Navigation footer sections. The header is **60px** tall — sticky bars on `/wiki`, `/wiki/glossary`, `/docs` pin at `top-[60px]` and the reading-progress bar sits at `top:60px`. The shared surface/`on-surface`/font tokens live in `globals.css` `@theme` and **must match AP0110.com's**. When editing any shared file, apply the same edit in AP0110.com and confirm with `diff` — all six must be empty before committing.
+
 ## Watch out
 
 - Static export: no SSR/API routes at runtime; the `.ts` files in `src/pages/` are build-time static endpoints.
